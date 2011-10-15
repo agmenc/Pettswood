@@ -45,7 +45,7 @@
     <div class="diagram"><em>Your Fixtures</em></div>
     <div class="diagram"><em>Your App</em></div>
 </div>
-<div class="diagram left"><em>Output</em><br/>The same spec, with <span class="right">passes</span> and <span class="wrong">failures</span> highlighted</div>
+<div class="diagram left"><em>Output</em><br/>The same spec, with <span class="pass">passes</span> and <span class="fail">failures</span> highlighted</div>
 <div style="clear: both"></div>
 <h3>Some Terminology</h3>
 <ul>
@@ -155,7 +155,10 @@
         <td>./target/$scalaVersion/pettswood/Overworked Example.html</td>
         <td>
             <table>
-                <tr>
+                <tr class="fixture">
+                    <td>Results</td>
+                </tr>
+                <tr class="names">
                     <td>right</td>
                     <td>wrong</td>
                     <td>setup</td>

@@ -5,5 +5,5 @@ import org.pettswood.Concept
 class Maths extends Concept {
   def probes = {}
 
-  def cell(text: String) {}
+  def cell(text: String) = org.pettswood.Pass(text)
 }

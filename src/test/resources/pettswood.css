@@ -29,14 +29,18 @@ table.mixins {
     background-color: #d3d3d3;
 }
 
-.right {
+.pass {
     background-color: #90ee90;
-}
-
-.wrong {
-    background-color: #ff69b4;
 }
 
 .setup {
     background-color: #6495ed;
+}
+
+.fail {
+    background-color: #ff69b4;
+}
+
+.exception {
+    background-color: #ffcc66;
 }

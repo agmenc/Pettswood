@@ -8,15 +8,16 @@ class DomainBridge {
 
   def table() {currentConcept = NoConcept}
 
-  def cell(text: String) {
+  def cell(text: String): Result = {
+    // All of these cases should resolve to a Result (including the Exception cases)
     try {
       currentConcept match {
-        case NoConcept => currentConcept = conceptFor(text)
+        case NoConcept => currentConcept = conceptFor(text); Setup()
         case concept => concept.cell(text)
       }
     } catch {
-      case runtime: RuntimeException => println("runtime: " + runtime)
-      case throwable: Throwable => println("throwable: " + throwable)
+      case runtime: RuntimeException => println("runtime: " + runtime); Exception(text, runtime getMessage)
+      case throwable: Throwable => println("throwable: " + throwable); Exception(text, throwable getMessage)
     }
   }
 

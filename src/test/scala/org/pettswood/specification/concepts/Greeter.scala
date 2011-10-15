@@ -7,7 +7,7 @@ class Greeter extends Concept {
     case _ => Hello
   }
 
-  def cell(text: String) {}
+  def cell(text: String) = Pass(text)
 
   case class Hello(expectation: String) extends Digger {
     val result = "World"

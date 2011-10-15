@@ -51,7 +51,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
   "cell handler" should {
     "return a response that encapsulates the test behaviour" in {
-      DomainBridge.cell("Monkeys") must be equalTo Wrong("Elephants", "Monkeys")
+      DomainBridge.cell("Monkeys") must be equalTo Fail("Elephants", "Monkeys")
     }
   }
 }

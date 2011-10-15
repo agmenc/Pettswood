@@ -2,9 +2,10 @@ package org.pettswood
 
 class Mixins(domain: DomainBridge) extends Concept {
 
-  def cell(className: String) {
+  def cell(className: String) = {
     val instance = instanceOf(className)
     if (instance.isInstanceOf[Concept]) domain.learn(className, instance.asInstanceOf[Concept])
+    Setup()
   }
 
   def instanceOf(classWithDefaultConstructor: String) = {

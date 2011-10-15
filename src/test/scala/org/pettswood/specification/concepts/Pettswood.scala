@@ -9,7 +9,7 @@ class Pettswood extends Concept {
     // case "Results" => Results(value)
   }
 
-  def cell(text: String) {}
+  def cell(text: String) = Pass(text)
 
   case class FileReader(filePath: String) extends Doer
   case class FileExists(filePath: String) extends Digger {

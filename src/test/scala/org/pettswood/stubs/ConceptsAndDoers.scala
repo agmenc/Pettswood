@@ -1,12 +1,12 @@
 package org.pettswood.stubs
 
-import org.pettswood.{Grouper, DomainBridge, Doer, Concept}
+import org.pettswood._
 
 class ConceptsAndDoers // Stop the IDE from whinging
 
 class StubbedConcept[T] extends Concept {
   define { case _ => SomeDoer }
-  def cell(text: String) {}
+  def cell(text: String) = Pass(text)
   override def equals(p1: Any) = p1.isInstanceOf[T]
 }
 

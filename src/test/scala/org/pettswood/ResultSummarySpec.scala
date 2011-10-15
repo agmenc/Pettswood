@@ -5,19 +5,19 @@ import org.specs2.mock._
 class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
 
   val NONE = List.empty[Result]
-  val RIGHT = Right("Well done")
+  val RIGHT = Pass("Well done")
   val SETUP = Setup()
-  val WRONG = Wrong("Well done", "Oh dear")
+  val WRONG = Fail("Well done", "Oh dear")
   val EXCEPTION = Exception("Well done", "YouHaveFailedException")
 
   "The result summary" should {
-    "be an overall fail if no Right results were received" in {
+    "be an overall fail if no Pass results were received" in {
       new ResultSummary(NONE).pass must be equalTo false
     }
-    "be an overall pass if only Right and Setup results were received" in {
+    "be an overall pass if only Pass and Setup results were received" in {
       new ResultSummary(List(RIGHT, SETUP)).pass must be equalTo true
     }
-    "be an overall fail if any Wrong or Exception results were received" in {
+    "be an overall fail if any Fail or Exception results were received" in {
       new ResultSummary(List(RIGHT, WRONG)).pass must be equalTo false
       new ResultSummary(List(RIGHT, EXCEPTION)).pass must be equalTo false
     }
