@@ -1,0 +1,17 @@
+name := "PettsWood"
+
+version := "0.0001"
+
+scalaVersion := "2.9.1"
+
+retrieveManaged := true
+
+libraryDependencies ++= Seq(
+  "org.specs2" %% "specs2" % "1.6.1" withSources(),
+  "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test" withSources(),
+  "junit" % "junit" % "4.8.1" % "test" withSources(),
+  "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test" withSources()
+)
+
+resolvers ++= Seq("snapshots" at "http://scala-tools.org/repo-snapshots",
+                    "releases"  at "http://scala-tools.org/repo-releases")

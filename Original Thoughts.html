@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Thredz Specification</title>
+    <link rel="stylesheet" href="../../main/webapp/static/reset.css"/>
+    <link rel="stylesheet" href="../../main/webapp/static/thredz.css"/>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            margin: 10px;
+            text-align: left;
+            float: left;
+        }
+
+        th {
+            background-color: #cccccc;
+        }
+
+        td, th {
+            border: thin solid black;
+            padding: 5px;
+        }
+
+        li {
+            list-style: inside;
+        }
+
+        em {
+            font-weight: bold;
+        }
+
+        .comments {
+            float: left;
+            margin-left: 50px;
+            margin-top: 20px;
+            text-align: left;
+            width: 600px;
+        }
+
+        .name {
+            font-style: italic;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Thredz Specification</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Logic Tables</th>
+    </tr>
+    <tr>
+        <th>Scenario</th>
+        <th>Given 1</th>
+        <th>Given 2</th>
+        <th>Given 3</th>
+        <th>Then 1</th>
+        <th>Then 2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>All inputs</td>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>x</td>
+        <td>y</td>
+    </tr>
+    <tr>
+        <td>Not c</td>
+        <td>a</td>
+        <td>b</td>
+        <td>&nbsp;</td>
+        <td>x</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Not b</td>
+        <td>a</td>
+        <td>&nbsp;</td>
+        <td>c</td>
+        <td>&nbsp;</td>
+        <td>y</td>
+    </tr>
+    <tr>
+        <td>Only a</td>
+        <td>a</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Nothing</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Monkeys</td>
+    </tr>
+    </tbody>
+</table>
+<div class="comments">
+    <ul>
+        <li><em>Doers</em> and <em>Diggers</em>: actions and data extractors</li>
+        <li><em>Doers</em> are chosen by column-header, and then provided with the cell value</li>
+        <li><em>Diggers</em> are also chosen by column-header, and they return a String which Sbex compares with the expected value</li>
+        <li>Fixture provides a set of <em>Doer</em> and <em>Digger</em> pattern matcher fragments</li>
+        <li>Each pattern matcher fragment takes a column name and <em>Some Data Type</em></li>
+        <li><em>Some Data Type</em> might be a String, number, collection, or inner table</li>
+        <li><em>Doers</em> and <em>Diggers</em> are matched in column order left-to-right</li>
+        <li>Scenarios are just empty <em>doers</em></li>
+        <li>No immediate need for camel case, as column headings are matched as String</li>
+    </ul>
+</div>
+<div style="clear: both"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Chain-of-events</th>
+    </tr>
+    <tr>
+        <th>Chain</th>
+        <th>Assert</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>browse</th>
+                </tr>
+                <tr>
+                    <td>${baseUrl}/ThredzList.html</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>click</th>
+                </tr>
+                <tr>
+                    <td>monkeys</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th>element</th>
+                    <td class="name">urls</td>
+                </tr>
+                <tr>
+                    <td colspan="2">http://my.monkeys.com:8080/static/html/Feedback.html</td>
+                </tr>
+                <tr>
+                    <td colspan="2">http://my.monkeys.com:8080/MoreMonkeys.html</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="comments">
+    <ul>
+        <li>Each inner table should bind to a case class, one or more of which form the inputs to <em>Doers</em> or <em>Diggers</em></li>
+        <li>These case classes should also be processed in order, from left to right.</li>
+    </ul>
+</div>
+<div style="clear: both"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Service Calls</th>
+    </tr>
+    <tr>
+        <th>Service</th>
+        <th>Parameters</th>
+        <th>Service</th>
+        <th>Assert</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>thredz/all</td>
+        <td>[]</td>
+    </tr>
+    <tr>
+        <td>thredz/add</td>
+        <td>test thred, xyz.com/test/url</td>
+        <td>thredz/all</td>
+        <td>[{"thred": "test thred", "url": ["xyz.com/test/url"]}]</td>
+    </tr>
+    </tbody>
+</table>
+<div class="comments">
+    <ul>
+        <li>Mixes setters with method executions. This is allowed by matching <em>Doers</em> and <em>Diggers</em> with column names.</li>
+        <li>Repeated column names (e.g. assertions) will simply match a single <em>Doer</em> or <em>Digger</em></li>
+    </ul>
+</div>
+<div style="clear: both"></div>
+<div>
+    <em>Problems to solve:</em>
+    <ul>
+        <li>
+            Wildcards
+            <ol>
+                <li>*NONE* ==&gt; empty cells should match on either a null or an empty String, so don't need *NONE*</li>
+                <li>*ANY* ==&gt; </li>
+            </ol>
+        </li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>

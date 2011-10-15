@@ -1,0 +1,42 @@
+/* Tags */
+body {
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    font-size: small;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+td {
+    border: thin solid black;
+    padding: 3px;
+}
+
+table.mixins {
+    float: right;
+}
+
+/* Classes */
+.fixture {
+    font-weight: bold;
+    font-size: large;
+}
+
+.names {
+    font-weight: bold;
+    background-color: #d3d3d3;
+}
+
+.right {
+    background-color: #90ee90;
+}
+
+.wrong {
+    background-color: #ff69b4;
+}
+
+.setup {
+    background-color: #6495ed;
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>What Is Pettswood?</title>
+    <link rel="stylesheet" type="text/css" href="pettswood.css"/>
+    <style>
+        em {
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .aside {
+            color: blue;
+            font-weight: bold;
+            position: relative;
+            top: 15px;
+        }
+
+        .diagram {
+            width: 200px;
+            border: thin solid black;
+            margin: 10px;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .associate {
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>What Is Pettswood?</h1>
+
+<p>Pettswood reads specification documents, executes them as tests, and outputs the results. Pettswood was inspired by Fit, and by Fit derivatives such as Fitnesse and Concordian</p>
+
+<div class="diagram left"><em>Input</em><br/>Readable specification in HTML</div>
+<div class="left">
+    <div class="diagram"><em>Pettswood</em></div>
+    <div class="diagram"><em>Your Fixtures</em></div>
+    <div class="diagram"><em>Your App</em></div>
+</div>
+<div class="diagram left"><em>Output</em><br/>The same spec, with <span class="right">passes</span> and <span class="wrong">failures</span> highlighted</div>
+<div style="clear: both"></div>
+<h3>Some Terminology</h3>
+<ul>
+    <li><em>Pettswood</em> knows about HTML parsing, tracking success and failure, and generating an output file</li>
+    <li><em>Fixtures</em> are classes <em>you</em> write to link Pettswood with your codebase</li>
+    <li><em>Concepts</em> are a type of fixture that knows how to interpret one table</li>
+    <li><em>Groupers</em> collect many Concepts into arbitrary groupings, such as "things that do database stuff" or "things that know about workflow"</li>
+    <li><em>Mixins</em> tell Pettswood about your Concepts and Groupers.</li>
+</ul>
+<h1>Usage Guide</h1>
+
+<h2>Paths</h2>
+
+<p>Pettswood expects <em>sbt-</em> or Maven-style paths, relative to the run-time path (which should be the project root). See the
+    <em>Pettswood</em> test, below.</p>
+
+<h2>Mixins</h2>
+
+<p>Use the built-in <em>mixins</em> Concept to tell Pettswood about your fixture classes, which will interpret the rest of the tables.</p>
+
+<h3>Concept-by-Concept mixins</h3>
+<table class="mixins" style="float: none;">
+    <tr>
+        <td class="names">mixins</td>
+        <td>org.pettswood.specification.concepts.Greeter</td>
+    </tr>
+</table>
+<p> ... which allows us to interpret this table:</p>
+<table class="left">
+    <tr class="fixture">
+        <td>org.pettswood.specification.concepts.Greeter</td>
+    </tr>
+    <tr>
+        <td class="names">Hello</td>
+        <td>World</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- yes, it's ugly. Keep reading ...</div>
+<div style="clear: both"></div>
+<h3>Multiple-Concept mixins</h3>
+<table class="mixins" style="float: left;">
+    <tr>
+        <td class="names">Mixins</td>
+        <td>org.pettswood.specification.concepts.Maths</td>
+        <td>org.pettswood.specification.concepts.Greeter</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- still ugly ...</div>
+<div style="clear: both"></div>
+<h3>Grouped Mixins - the Preferred Option</h3>
+<table class="mixins" style="float: left;">
+    <tr>
+        <td class="names">Mixins</td>
+        <td>Shoestrap</td>
+        <td><span class="associate">Bootstrap</span></td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- that's better</div>
+<div style="clear: both"></div>
+<table class="left">
+    <tr class="fixture">
+        <td colspan="4">Maths</td>
+    </tr>
+    <tr class="names">
+        <td>a</td>
+        <td>f</td>
+        <td>b</td>
+        <td>=</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>+</td>
+        <td>6</td>
+        <td>13</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>+</td>
+        <td>5</td>
+        <td>42</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- also better (<span class="associate">Bootstrap</span> - in the default package - contains the <i>Maths</i> Concept)</div>
+<div style="clear: both"></div>
+<p>So:</p>
+<ul>
+    <li><em>Mixins</em> tell Pettswood about your Concepts and Groupers.</li>
+    <li>
+        <em>Concepts</em> are a type of fixture that knows how to interpret one table. Use the canonical name of a Concept in a mixin declaration. Concepts can be in separate cells, or separated by commas.
+    </li>
+    <li><em>Groupers</em> group together many Concepts</li>
+</ul>
+<p>For reasons of elegance, you may wish to place Grouper classes in the default package. Thus, their canonical class becomes the name, which removes technical concerns from your test.</p>
+
+<h2>Concepts</h2>
+<table>
+    <tr class="fixture">
+        <td>Pettswood</td>
+    </tr>
+    <tr class="names">
+        <td>Test File</td>
+        <td>Output File</td>
+        <td>Result</td>
+    </tr>
+    <tr>
+        <td>./src/test/resources/Overworked Example.html</td>
+        <td>./target/$scalaVersion/pettswood/Overworked Example.html</td>
+        <td>
+            <table>
+                <tr>
+                    <td>right</td>
+                    <td>wrong</td>
+                    <td>setup</td>
+                    <td>exception</td>
+                    <td>time</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>8</td>
+                    <td>0</td>
+                    <td>$any</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<p>A specification that contains any failing tests is considered to have failed.</p>
+</body>
+</html>

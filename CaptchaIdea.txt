@@ -1,0 +1,12 @@
+
+Captcha=images with words in them, used to distinguish real people using a website from bots
+
+Idea=get people to click on the part of the image comtaining an object, e.g. "to continue, click on the plane"
+
+Use mechnical turk to find the images. Also use it for phase two: determine/draw the boundaries of the named item within the images
+
+Another idea=offer Captcha as a service
+
+Another idea=search by name for images in google and then just serve those
+
+See http://en.wikipedia.org/wiki/CAPTCHA for a good write-up under the heading "Image-recognition CAPTCHAs"
