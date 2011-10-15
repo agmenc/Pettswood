@@ -10,25 +10,27 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
     val domain = mock[DomainBridge]
     val parser = mock[Parser]
     val fileSystem = mock[FileSystem]
+    val saver = mock[Saver]
     val runner = new Runner(parser, fileSystem)
     fileSystem.load(any[String]) returns <input></input>
+    fileSystem.save(any[String]) returns saver
     parser.parse(any[Node]) returns <output></output>
   }
 
   "Constructing the runner" should {
-    "load the file into the DomainBridge" in {
+    "load the test file into the DomainBridge" in {
       val fixture = new Fixture
 
-      fixture.runner run ("src/test/resources/Overworked Example.html")
+      fixture.runner run ("path/to/some.file")
 
       there was one(fixture.parser).parse(<input></input>)
     }
-    "Write the result of the DomainBridge into the output file" in {
+    "Write the result of the test into the output file" in {
       val fixture = new Fixture
 
-      fixture.runner run ("src/test/resources/Overworked Example.html")
+      fixture.runner run ("path/to/some.file")
 
-      there was one(fixture.fileSystem).save(<output></output> toString)
+      there was one(fixture.fileSystem).save(<output></output> toString())
     }
   }
 }
