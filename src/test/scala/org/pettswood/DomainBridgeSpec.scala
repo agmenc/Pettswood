@@ -24,16 +24,14 @@ class DomainBridgeSpec extends Specification with Mockito {
       domain.learn("I'm a concept", new ExpectedConcept())
       domain.currentConcept must be equalTo NoConcept
 
-      domain.cell("I'm a concept")
+      domain.table("I'm a concept")
 
       domain.currentConcept must beAnInstanceOf[ExpectedConcept]
     }
     "return a failure result with a useful message when the concept is unrecognised" in {
       val domain = new DomainBridge()
       
-      domain.cell("Donkeys")
-
-      domain.results(0).text must be equalTo "Unknown concept: \"Donkeys\". Do you need to mix in some concepts?"
+      domain.table("Donkeys") must be equalTo Exception("Donkeys", "Unknown concept: \"Donkeys\". Do you need to mix in some concepts?")
     }
     "delegate further cell handling to the current concept" in {
       val domain = new DomainBridge()

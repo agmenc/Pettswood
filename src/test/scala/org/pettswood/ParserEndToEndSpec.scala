@@ -27,7 +27,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <table>
               <tr>
                   <td>Mixins</td>
-                  <td>org.pettswood.specification.groups.PettswoodBootstrap</td>
+                  <td>Bootstrap</td>
               </tr>
           </table>
           <table>
@@ -40,13 +40,13 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
         <html>
           <table>
               <tr>
-                  <td>Mixins</td>
-                  <td>org.pettswood.specification.groups.PettswoodBootstrap</td>
+                  <td class="Setup">Mixins</td>
+                  <td class="Setup">Bootstrap</td>
               </tr>
           </table>
           <table>
-            <tr><td>Hello</td></tr>
-            <tr><td class="fail">Sausage</td></tr>
+            <tr><td class="Pass">Hello</td></tr>
+            <tr><td class="Fail">Sausage</td></tr>
           </table>
         </html>
 

@@ -3,9 +3,13 @@ package org.pettswood
 class Mixins(domain: DomainBridge) extends Concept {
 
   def cell(className: String) = {
+    try { // TODO - collapse with a handleWith(handler) { ... }
     val instance = instanceOf(className)
     if (instance.isInstanceOf[Concept]) domain.learn(className, instance.asInstanceOf[Concept])
     Setup()
+    } catch {
+      case e => Exception(className, e getMessage)
+    }
   }
 
   def instanceOf(classWithDefaultConstructor: String) = {
