@@ -10,7 +10,6 @@ class DomainBridge {
   def table(firstCellText: String): Result = {
     try { // TODO - collapse with a handleWith(handler) { ... }
       currentConcept = conceptFor(firstCellText)
-      println("currentConcept: " + currentConcept)
       tableUntouched = true;
       Setup()
     } catch {

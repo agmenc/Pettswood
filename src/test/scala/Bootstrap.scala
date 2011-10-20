@@ -6,8 +6,5 @@ class Bootstrap {
   // TODO - add many name/value pairs at once
   DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
   DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
-  DomainBridge.learn("Greeter", () => new Greeter( /* dependencies */ ))
-
-  val sausage = {new Greeter( /* dependencies */ )}
-
+  DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
 }
