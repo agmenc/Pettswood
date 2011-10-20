@@ -5,7 +5,7 @@ trait Concept {
   val columnProbes = Map.empty[String, Probe]
 
   // TODO - Make define() cases for Concepts part of case class constructors
-  def define(probes: String => String => Probe) {}
+  def columns(probes: String => String => Probe) {}
 
   def cell(text: String): Result
 }

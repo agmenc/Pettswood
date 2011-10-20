@@ -4,8 +4,10 @@ import org.pettswood.specification.concepts._
 class Bootstrap {
   // TODO - Pass class reference, and instantiate a new one each time we need it
   // TODO - add many name/value pairs at once
-  DomainBridge.learn("Pettswood", new Pettswood( /* dependencies */ ))
-  DomainBridge.learn("Maths", new Maths( /* dependencies */ ))
-  DomainBridge.learn("Greeter", new Greeter( /* dependencies */ ))
+  DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
+  DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
+  DomainBridge.learn("Greeter", () => new Greeter( /* dependencies */ ))
+
+  val sausage = {new Greeter( /* dependencies */ )}
 
 }

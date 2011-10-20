@@ -3,7 +3,7 @@ package org.pettswood.specification.concepts
 import org.pettswood._
 
 class Pettswood extends Concept {
-  define {
+  columns {
     case "Test File" => FileReader
     case "Output File" => FileExists
     // case "Results" => Results(value)

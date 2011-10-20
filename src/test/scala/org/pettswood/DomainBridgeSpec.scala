@@ -16,12 +16,12 @@ class DomainBridgeSpec extends Specification with Mockito {
     "know no concepts until one is learnt" in {
       val domain = new DomainBridge()
 
-      domain.concepts must be equalTo Map.empty[String, Concept]
+      domain.concepts must be equalTo Map.empty[String, () => Concept]
       domain.currentConcept must be equalTo NoConcept
     }
     "associate Concepts with tables, using the concept name in the first cell" in {
       val domain = new DomainBridge()
-      domain.learn("I'm a concept", new ExpectedConcept())
+      domain.learn("I'm a concept", () => new ExpectedConcept())
       domain.currentConcept must be equalTo NoConcept
 
       domain.table("I'm a concept")
@@ -43,6 +43,9 @@ class DomainBridgeSpec extends Specification with Mockito {
       there was one (expectedConcept).cell("I'm a value")
     }
     "catch exceptions and wrap them in an Exception Result" in {
+      failure
+    }
+    "count the results and provide a summary of them" in {
       failure
     }
   }
