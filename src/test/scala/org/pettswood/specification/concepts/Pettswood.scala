@@ -9,7 +9,7 @@ class Pettswood extends Concept {
     // case "Results" => Results(value)
   }
 
-  def cell(text: String) = Pass(text)
+  def cell(text: String) = Exception("No probe defined for this column/cell", "No probe defined for this column/cell")
 
   case class FileReader(filePath: String) extends Doer
   case class FileExists(filePath: String) extends Digger {

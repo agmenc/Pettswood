@@ -25,32 +25,49 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
       val input =
         <html>
           <table>
-              <tr>
-                  <td>Mixins</td>
-                  <td>Bootstrap</td>
-              </tr>
+            <tr>
+              <td>Mixins</td>
+              <td>Bootstrap</td>
+            </tr>
           </table>
           <table>
-            <tr><td>Hello</td></tr>
-            <tr><td>Sausage</td></tr>
+            <tr>
+              <td>Hello</td>
+            </tr>
+            <tr>
+              <td>Sausage</td>
+            </tr>
           </table>
         </html>
 
       val expectedOutput =
         <html>
           <table>
-              <tr>
-                  <td class="Setup">Mixins</td>
-                  <td class="Setup">Bootstrap</td>
-              </tr>
+            <tr>
+              <td class="Setup">Mixins</td>
+              <td class="Setup">Bootstrap</td>
+            </tr>
           </table>
           <table>
-            <tr><td class="Pass">Hello</td></tr>
-            <tr><td class="Fail">Sausage</td></tr>
+            <tr>
+              <td class="Pass">Hello</td>
+            </tr>
+            <tr>
+              <td class="Fail">Sausage</td>
+            </tr>
           </table>
         </html>
 
       new Parser(DomainBridge).parse(input) must be equalTo expectedOutput
+    }
+  }
+
+  "it" should {
+    "display exceptions in roll-ups, so that the page size doesn't change" in {
+      failure
+    }
+    "display expected vs actual in roll-ups or summat" in {
+      failure
     }
   }
 }

@@ -1,9 +1,7 @@
 package org.pettswood.specification.concepts
 
-import org.pettswood.Concept
+import org.pettswood.{Exception, Concept}
 
 class Maths extends Concept {
-  def probes = {}
-
-  def cell(text: String) = org.pettswood.Pass(text)
+  def cell(text: String) = Exception("No probe defined for this column/cell", "No probe defined for this column/cell")
 }
