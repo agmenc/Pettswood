@@ -3,6 +3,7 @@ package org.pettswood
 import org.specs2.mutable.Specification
 import org.specs2.mock._
 import stubs._
+import org.specs2.execute.Failure
 
 class DomainBridgeSpec extends Specification with Mockito {
 
@@ -42,17 +43,23 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       there was one (expectedConcept).cell("I'm a value")
     }
+    "delegate further row notification to the current concept" in {
+      val domain = new DomainBridge()
+      val expectedConcept = mock[Concept]
+      domain.currentConcept = expectedConcept
+
+      domain.row()
+
+      there was one (expectedConcept).row()
+    }
+    "pass failure Results up to the parser" in {
+      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+    }
     "catch exceptions and wrap them in an Exception Result" in {
-      failure
+      Failure("Test failed due to lack of testyness. Infinite monkeys required")
     }
     "count the results and provide a summary of them" in {
-      failure
-    }
-  }
-
-  "cell handler" should {
-    "return a response that encapsulates the test behaviour" in {
-      DomainBridge.cell("Monkeys") must be equalTo Fail("Elephants", "Monkeys")
+      Failure("Test failed due to lack of testyness. Infinite monkeys required")
     }
   }
 }

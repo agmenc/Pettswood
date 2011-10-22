@@ -14,6 +14,7 @@ class Parser(domain: DomainBridge) {
     currentNode match {
       case elem: Elem => elem.label match {
         case "table" => {domain.table(firstCell(elem).text); deepCopy(elem)}
+        case "tr" => {domain.row(); deepCopy(elem)}
         case "td" => var result = domain.cell(elem.text); copyAndColour(elem, result.name)
         case _ => deepCopy(elem)
       }

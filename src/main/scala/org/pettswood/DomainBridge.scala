@@ -17,6 +17,9 @@ class DomainBridge {
     }
   }
 
+  def row() { currentConcept.row() }
+
+  // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
   def cell(text: String): Result = if (tableUntouched) touchTable else currentConcept.cell(text)
 
   def learn(name: String, conceptoriser: () => Concept) {concepts += ((name toLowerCase) -> conceptoriser)}

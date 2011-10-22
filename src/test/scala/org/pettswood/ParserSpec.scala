@@ -19,6 +19,17 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       </list>
     </html>
 
+  "html without tables" should {
+    "not bother the parser" in {
+      val fixture = new Fixture()
+
+      new Parser(fixture.domain).parse(HTML_WITHOUT_TABLES)
+
+      there was no(fixture.domain).table(any[String])
+      there was no(fixture.domain).cell(any[String])
+    }
+  }
+
   val HTML_SIMPLE_TABLE =
     <html>
       <table>
@@ -36,6 +47,34 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
         </tr>
       </table>
     </html>
+
+  "when html contains tables, the parser" should {
+    "delegate table handling to the domain" in {
+      val fixture = new Fixture()
+
+      new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
+
+      there was one(fixture.domain).table("Mixins")
+      there was one(fixture.domain).table("Hello")
+      there were 4.times(fixture.domain).cell(any[String])
+    }
+    "jang pass/fail classes janged into the output" in {
+      val fixture = new Fixture()
+      fixture.domain.cell("Sausage") returns Fail("World", "Sausage")
+
+      val result = new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
+
+      (result \\ "td").head must be equalTo <td class="Pass">Mixins</td>
+      (result \\ "td").reverse.head must be equalTo <td class="Fail">Sausage</td>
+    }
+    "tell the domain when a new row is encountered" in {
+      val fixture = new Fixture()
+
+      new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
+
+      there were three(fixture.domain).row()
+    }
+  }
 
   val HTML_NESTED_TABLE =
     <html>
@@ -63,38 +102,6 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
         </tr>
       </table>
     </html>
-
-  "html without tables" should {
-    "not bother the parser" in {
-      val fixture = new Fixture()
-
-      new Parser(fixture.domain).parse(HTML_WITHOUT_TABLES)
-
-      there was no(fixture.domain).table(any[String])
-      there was no(fixture.domain).cell(any[String])
-    }
-  }
-
-  "html with tables" should {
-    "delegate table handling to the domain" in {
-      val fixture = new Fixture()
-
-      new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
-
-      there was one(fixture.domain).table("Mixins")
-      there was one(fixture.domain).table("Hello")
-      there were 4.times(fixture.domain).cell(any[String])
-    }
-    "have pass/fail classes janged into it" in {
-      val fixture = new Fixture()
-      fixture.domain.cell("Sausage") returns Fail("World", "Sausage")
-
-      val result = new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
-
-      (result \\ "td").head must be equalTo <td class="Pass">Mixins</td>
-      (result \\ "td").reverse.head must be equalTo <td class="Fail">Sausage</td>
-    }
-  }
 
   "html with nested tables" should {
     "also delegate table handling to the domain" in {

@@ -7,6 +7,7 @@ trait Concept {
   // TODO - Make define() cases for Concepts part of case class constructors
   def columns(probes: String => String => Probe) {}
 
+  def row() {}
   def cell(text: String): Result
 }
 
