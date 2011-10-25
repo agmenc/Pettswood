@@ -8,7 +8,8 @@ class DomainBridge {
   var tableUntouched = false;
 
   def table(firstCellText: String): Result = {
-    try { // TODO - collapse with a handleWith(handler) { ... }
+    try {
+      // TODO - collapse with a handleWith(handler) { ... }
       currentConcept = conceptFor(firstCellText)
       tableUntouched = true;
       Setup()
@@ -17,10 +18,20 @@ class DomainBridge {
     }
   }
 
-  def row() { currentConcept.row() }
+  def row() {currentConcept.row()}
 
   // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
-  def cell(text: String): Result = if (tableUntouched) touchTable else currentConcept.cell(text)
+  def cell(text: String): Result = {
+    if (tableUntouched) touchTable
+    else {
+      try {
+        // TODO - collapse with a handleWith(handler) { ... }
+        currentConcept.cell(text)
+      } catch {
+        case e => println("e.getMessage: " + e.getMessage); Exception(text, e getMessage)
+      }
+    }
+  }
 
   def learn(name: String, conceptoriser: () => Concept) {concepts += ((name toLowerCase) -> conceptoriser)}
 
