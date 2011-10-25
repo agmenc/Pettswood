@@ -29,10 +29,10 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.currentConcept must beAnInstanceOf[ExpectedConcept]
     }
-    "return a failure result with a useful message when the concept is unrecognised" in {
+    "return an exception result with a useful message when the concept is unrecognised" in {
       val domain = new DomainBridge()
       
-      domain.table("Donkeys") must be equalTo Exception("Donkeys", "Unknown concept: \"Donkeys\". Do you need to mix in some concepts?")
+      domain.table("Donkeys") must be equalTo Exception("java.lang.RuntimeException: Unknown concept: \"Donkeys\". Do you need to mix in some concepts?")
     }
     "delegate further cell handling to the current concept" in {
       val domain = new DomainBridge()
@@ -52,11 +52,21 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       there was one (expectedConcept).row()
     }
-    "pass failure Results up to the parser" in {
-      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+    "pass failure results up to the parser" in {
+      val domain = new DomainBridge()
+      val expectedConcept = mock[Concept]
+      domain.currentConcept = expectedConcept
+      expectedConcept.cell(any[String]) returns Fail("Elephants")
+
+      domain.cell("Monkeys") must be equalTo Fail("Elephants")
     }
     "catch exceptions and wrap them in an Exception Result" in {
-      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+      val domain = new DomainBridge()
+      val expectedConcept = mock[Concept]
+      domain.currentConcept = expectedConcept
+      expectedConcept.cell(any[String]) throws new RuntimeException("Stuff went wrong")
+
+      domain.cell("monkeys") must be equalTo Exception("java.lang.RuntimeException: Stuff went wrong")
     }
     "count the results and provide a summary of them" in {
       Failure("Test failed due to lack of testyness. Infinite monkeys required")

@@ -14,7 +14,7 @@ class DomainBridge {
       tableUntouched = true;
       Setup()
     } catch {
-      case e => println("e.getMessage: " + e.getMessage); Exception(firstCellText, e getMessage)
+      case e => println("e.getMessage: " + e.getMessage); Exception(e toString)
     }
   }
 
@@ -28,7 +28,7 @@ class DomainBridge {
         // TODO - collapse with a handleWith(handler) { ... }
         currentConcept.cell(text)
       } catch {
-        case e => println("e.getMessage: " + e.getMessage); Exception(text, e getMessage)
+        case e => println("e.getMessage: " + e.getMessage); Exception(e toString)
       }
     }
   }
@@ -41,7 +41,7 @@ class DomainBridge {
 
   def conceptFor(conceptName: String): Concept = concepts.get((conceptName toLowerCase)) match {
     case Some(conceptoriser) => conceptoriser()
-    case None => throw new RuntimeException("Unknown concept: \"" + conceptName + "\". Do you need to mix in some concepts?")
+    case None => throw new RuntimeException("Unknown concept: \"" + conceptName + "\". Known concepts are: " + concepts.keys)
   }
 }
 

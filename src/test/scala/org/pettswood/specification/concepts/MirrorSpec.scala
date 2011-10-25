@@ -19,7 +19,7 @@ class MirrorSpec extends SpecificationWithJUnit with Mockito {
 
       mirror.cell("Hello") must be equalTo Pass("Hello")
       mirror.cell("becomes") must be equalTo Setup()
-      mirror.cell("Monkeys") must be equalTo Fail("Monkeys", "olleH")
+      mirror.cell("Monkeys") must be equalTo Fail("olleH")
     }
   }
 }

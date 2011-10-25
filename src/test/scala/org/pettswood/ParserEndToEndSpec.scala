@@ -20,45 +20,45 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
     }
   }
 
+  val UNPROCESSED_HTML =
+    <html>
+      <table>
+        <tr>
+          <td>Mixins</td>
+          <td>Bootstrap</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>Mirror</td>
+          <td>Hello</td>
+          <td>becomes</td>
+          <td>Sausage</td>
+        </tr>
+      </table>
+    </html>
+
+  val PROCESSED_HTML =
+    <html>
+      <table>
+        <tr>
+          <td class="Setup">Mixins</td>
+          <td class="Setup">Bootstrap</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="Setup">Mirror</td>
+          <td class="Pass">Hello</td>
+          <td class="Setup">becomes</td>
+          <td class="Fail">Sausage</td>
+        </tr>
+      </table>
+    </html>
+
   "html with tables" should {
     "have pass and fail classes janged into it" in {
-      val input =
-        <html>
-          <table>
-            <tr>
-              <td>Mixins</td>
-              <td>Bootstrap</td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td>Hello</td>
-            </tr>
-            <tr>
-              <td>Sausage</td>
-            </tr>
-          </table>
-        </html>
-
-      val expectedOutput =
-        <html>
-          <table>
-            <tr>
-              <td class="Setup">Mixins</td>
-              <td class="Setup">Bootstrap</td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <td class="Pass">Hello</td>
-            </tr>
-            <tr>
-              <td class="Fail">Sausage</td>
-            </tr>
-          </table>
-        </html>
-
-      new Parser(DomainBridge).parse(input) must be equalTo expectedOutput
+      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
   }
 

@@ -7,8 +7,8 @@ class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
   val NONE = List.empty[Result]
   val RIGHT = Pass("Well done")
   val SETUP = Setup()
-  val WRONG = Fail("Well done", "Oh dear")
-  val EXCEPTION = Exception("Well done", "YouHaveFailedException")
+  val WRONG = Fail("Oh dear")
+  val EXCEPTION = Exception("A known unknown just happened to you")
 
   "The result summary" should {
     "be an overall fail if no Pass results were received" in {

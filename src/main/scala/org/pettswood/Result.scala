@@ -1,15 +1,15 @@
 package org.pettswood
 
-abstract class Result(expectedText: String, actualText: String) {
+abstract class Result(actualText: String) {
   def text = actualText
   def name = this.getClass.getSimpleName
 }
 
 object Result {
-  def resultFor(expectedText: String, actualText: String) = if (expectedText == actualText) Pass(expectedText) else Fail(expectedText, actualText)
+  def resultFor(expectedText: String, actualText: String) = if (expectedText == actualText) Pass(actualText) else Fail(actualText)
 }
 
-case class Fail(expectedText: String, actualText: String) extends Result(expectedText, actualText)
-case class Pass(expectedText: String) extends Result(expectedText, expectedText)
-case class Setup() extends Result("", "")
-case class Exception(expectedText: String, exceptionTrace: String) extends Result(expectedText, exceptionTrace)
+case class Fail(actualText: String) extends Result(actualText)
+case class Pass(actualText: String) extends Result(actualText)
+case class Setup() extends Result("")
+case class Exception(exception: String) extends Result(exception)

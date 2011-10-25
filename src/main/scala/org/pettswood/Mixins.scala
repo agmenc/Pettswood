@@ -9,7 +9,7 @@ class Mixins(domain: DomainBridge) extends Concept {
       if (instance.isInstanceOf[Concept]) domain.learn(className, () => instanceOf(className).asInstanceOf[Concept])
       Setup()
     } catch {
-      case e => Exception(className, e getMessage)
+      case e => Exception(e toString)
     }
   }
 

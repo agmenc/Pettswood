@@ -6,7 +6,7 @@ trait Concept {
 }
 
 object NoConcept extends Concept {
-  def cell(text: String) = Exception("The NoConcept Concept supports no events", "No stack trace required")
+  def cell(text: String) = Exception("The NoConcept Concept supports no events")
 }
 
 class Grouper(domain: DomainBridge)

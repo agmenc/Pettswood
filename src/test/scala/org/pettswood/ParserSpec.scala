@@ -60,7 +60,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
     }
     "jang pass/fail classes janged into the output" in {
       val fixture = new Fixture()
-      fixture.domain.cell("Sausage") returns Fail("World", "Sausage")
+      fixture.domain.cell("Sausage") returns Fail("Sausage")
 
       val result = new Parser(fixture.domain).parse(HTML_SIMPLE_TABLE)
 
