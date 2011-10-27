@@ -3,8 +3,7 @@ package org.pettswood
 import org.specs2.mutable.Specification
 import org.specs2.mock._
 import stubs._
-import org.specs2.execute.Failure
-
+import org.pettswood.stubs.Results._
 class DomainBridgeSpec extends Specification with Mockito {
 
   "The DomainBridge instance" should {
@@ -12,7 +11,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       DomainBridge.conceptFor("MiXiNs") must beAnInstanceOf[Mixins]
     }
   }
-  
+
   "A DomainBridge" should {
     "know no concepts until one is learnt" in {
       val domain = new DomainBridge()
@@ -31,8 +30,8 @@ class DomainBridgeSpec extends Specification with Mockito {
     }
     "return an exception result with a useful message when the concept is unrecognised" in {
       val domain = new DomainBridge()
-      
-      domain.table("Donkeys") must be equalTo Exception("java.lang.RuntimeException: Unknown concept: \"Donkeys\". Do you need to mix in some concepts?")
+
+      domain.table("Donkeys") must be equalTo Exception("java.lang.RuntimeException: Unknown concept: \"Donkeys\". Known concepts: []")
     }
     "delegate further cell handling to the current concept" in {
       val domain = new DomainBridge()
@@ -41,7 +40,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.cell("I'm a value")
 
-      there was one (expectedConcept).cell("I'm a value")
+      there was one(expectedConcept).cell("I'm a value")
     }
     "delegate further row notification to the current concept" in {
       val domain = new DomainBridge()
@@ -50,7 +49,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.row()
 
-      there was one (expectedConcept).row()
+      there was one(expectedConcept).row()
     }
     "pass failure results up to the parser" in {
       val domain = new DomainBridge()
@@ -69,7 +68,18 @@ class DomainBridgeSpec extends Specification with Mockito {
       domain.cell("monkeys") must be equalTo Exception("java.lang.RuntimeException: Stuff went wrong")
     }
     "count the results and provide a summary of them" in {
-      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+      val domain = new DomainBridge()
+      val expectedConcept = mock[Concept]
+      domain.currentConcept = expectedConcept
+      expectedConcept.cell(any[String]) returns PASS thenReturns FAIL thenReturns FAIL thenReturns SETUP thenReturns EXCEPTION
+
+      domain.cell("1")
+      domain.cell("2")
+      domain.cell("3")
+      domain.cell("4")
+      domain.cell("5")
+
+      domain.summary must be equalTo new ResultSummary(List(PASS, FAIL, FAIL, SETUP, EXCEPTION) reverse)
     }
   }
 }

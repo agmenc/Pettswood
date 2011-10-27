@@ -28,9 +28,11 @@
             text-align: center;
         }
 
-        .associate {
+        .codeLink {
             font-weight: bold;
-            color: green;
+            color: blue;
+            background-color: #f9ea9d;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -57,42 +59,104 @@
 </ul>
 <h1>Usage Guide</h1>
 
-<h2>Paths</h2>
+<h2>Simple Example</h2>
+<table class="mixins" style="float: left;">
+    <tr>
+        <td class="names">Mixins</td>
+        <td>Bootstrap</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- Mixin in all the Concepts in <span class="codeLink">Bootstrap.scala</span></div>
+<div style="clear: both"></div>
+<table class="left">
+    <tr class="fixture">
+        <td colspan="4">Maths</td>
+    </tr>
+    <tr class="names">
+        <td>a</td>
+        <td>f</td>
+        <td>b</td>
+        <td>=</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>+</td>
+        <td>6</td>
+        <td>13</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>-</td>
+        <td>5</td>
+        <td>3</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- Test that our advanced calculation engine is working</div>
+<div style="clear: both"></div>
+<table class="left">
+    <tr>
+        <td class="names">Mirror</td>
+        <td>Hello</td>
+        <td class="names">becomes</td>
+        <td>olleH</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- Test that our advanced encryption engine is working</div>
+<div style="clear: both"></div>
+<h2>Test Paths</h2>
 
-<p>Pettswood expects <em>sbt-</em> or Maven-style paths, relative to the run-time path (which should be the project root). See the
-    <em>Pettswood</em> test, below.</p>
-
+<p>Pettswood expects an sbt-like input directory structure:</p>
+    <pre>
+[project root]/src/test/resources/<em>Your test here.html</em>
+[project root]/src/test/resources/someFeature/Another test here.html
+    </pre>
+<p>The results are written to the target folder:</p>
+    <pre>
+[project root]/target/pettswood/<em>Your test here.html</em>
+[project root]/target/pettswood/someFeature/Another test here.html
+    </pre>
 <h2>Mixins</h2>
 
-<p>Use the built-in <em>mixins</em> Concept to tell Pettswood about your fixture classes, which will interpret the rest of the tables.</p>
+<p>Use the built-in <em>mixins</em> Concept to tell Pettswood about your Concept classes, which interpret HTML tables.</p>
 
-<h3>Concept-by-Concept mixins</h3>
-<table class="mixins" style="float: none;">
+<p>Mixins expect the
+    <em>canonical class name</em> of either a single Concept, or a "Grouper" - a class that references many Concepts. Putting Groupers in the root package makes for readable tests.
+</p>
+
+<h3>Grouped Mixins - the Preferred Option</h3>
+<table class="mixins" style="float: left;">
+    <tr>
+        <td class="names">Mixins</td>
+        <td>Shoestrap</td>
+        <td>Bootstrap</td>
+    </tr>
+</table>
+<div class="aside left">&lt;-- Shoestrap.scala and <span class="codeLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
+</div>
+<div style="clear: both"></div>
+<div class="callout">
+    <pre>
+import org.pettswood.DomainBridge
+import org.pettswood.specification.concepts._
+
+class Bootstrap {
+  DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
+  DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
+  DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
+}
+    </pre>
+</div>
+<h3>Other Mixin Options</h3>
+
+<p>If you are prototyping a Concept, or just playing around, these options might also be helpful to you:</p>
+<table class="mixins" style="float: left;">
     <tr>
         <td class="names">mixins</td>
         <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
 </table>
-<p> ... which allows us to interpret this table:</p>
-<table class="left">
-    <tr>
-        <td class="names">org.pettswood.specification.concepts.Mirror</td>
-        <td>Hello</td>
-        <td>becomes</td>
-        <td>olleH</td>
-    </tr>
-</table>
-<div class="aside left">&lt;-- yes, it's ugly. Keep reading ...</div>
+<div class="aside left">&lt;-- We can mixin individual Concepts by (canonical) name</div>
 <div style="clear: both"></div>
-<table>
-    <tr>
-        <td class="names">org.pettswood.specification.concepts.Mirror</td>
-        <td>World</td>
-        <td>becomes</td>
-        <td>Monkeys</td>
-    </tr>
-</table>
-<h3>Multiple-Concept mixins</h3>
 <table class="mixins" style="float: left;">
     <tr>
         <td class="names">Mixins</td>
@@ -100,19 +164,94 @@
         <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- still ugly ...</div>
+<div class="aside left">&lt;-- or many, in a row,</div>
 <div style="clear: both"></div>
-<h3>Grouped Mixins - the Preferred Option</h3>
 <table class="mixins" style="float: left;">
     <tr>
         <td class="names">Mixins</td>
+    </tr>
+    <tr>
         <td>Shoestrap</td>
-        <td><span class="associate">Bootstrap</span></td>
+    </tr>
+    <tr>
+        <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- that's better</div>
+<div class="aside left">&lt;-- or mixed with Groupers, (shown here in the popular "column" layout)</div>
 <div style="clear: both"></div>
-<table class="left">
+<p>The name we use in the mixin is the name we must use in our table. So canonical names look a bit ugly, both in the mixin (above) and in the table (below):</p>
+<table>
+    <tr>
+        <td class="names">org.pettswood.specification.concepts.Mirror</td>
+        <td>Hello</td>
+        <td class="names">becomes</td>
+        <td>olleH</td>
+    </tr>
+</table>
+<p>That's why Groupers, such as Shoestrap.scala and <span class="codeLink">Bootstrap.scala</span>, are my preferred option:</p>
+<table>
+    <tr>
+        <td class="names">Mirror</td>
+        <td>Hello</td>
+        <td class="names">becomes</td>
+        <td>olleH</td>
+    </tr>
+</table>
+<h2>Concepts</h2>
+
+<p>Concepts are classes you write to interpret the rows and columns of a table in a way relevant to your domain. The job of a Concept is to return a Result object (Pass, Fail, etc) for each cell in the table.</p>
+
+<h3>Results</h3>
+
+<p>Built-in result types (and their background colours) are:</p>
+<ul>
+    <li><span class="pass">Pass</span> - Use
+        <pre style="display: inline;">Result.resultFor(expected, actual)</pre>
+        to generate a Pass or Fail, depending on whether the actual value matches the expected value.
+    </li>
+    <li><span class="fail">Fail</span> - Before you implement the feature, you expect a number of these. When you are finished, they should all become green.
+    </li>
+    <li><span class="setup">Setup</span> - Setup gets the right data in the right place. These cells go blue.</li>
+    <li>
+        <span class="exception">Exception</span> - At first, most exceptions you see will be because no Concept or Probe is defined to handle the current table or cell. This is very common when you are laying out a test for the first time. Any exceptions thrown by your concept will be caught, and you'll see a helpful Exception result.
+    </li>
+</ul>
+<p>The colours and other CSS values for the result types can be modified by changing the very simple pettswood.css file to suit your preferences. If you decide to create your own Result type, simply add a style entry to pettswood.css.</p>
+
+<h3>Single Row (or Column) Concepts</h3>
+
+<p>The <span class="codeLink">Mirror.scala</span> Concept is an example of the simplest form a Concept can take. The contract is simple:</p>
+<ul>
+    <li>For each cell except the first "title" cell, the cell() method is called, and your concept must determine the <em>actual</em> value expected</li>
+    <li>Depending on the actual value, you should return an instance of the appropriate Result type</li>
+</ul>
+<div>
+<pre>
+package org.pettswood.specification.concepts
+
+import org.pettswood._
+
+class Mirror extends Concept {
+  var state = List.empty[String]
+
+  def cell(text: String) = {
+    state = text :: state
+    state match {
+      case List(input) => Pass(input)
+      case List("becomes", _) => Setup()
+      case List(expected, _, input) => Result.resultFor(expected, input.reverse)
+      case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
+    }
+  }
+}
+</pre>
+</div>
+<h3>Multi-row Concepts</h3>
+
+<p>The
+    <span class="codeLink">Maths.scala</span> Concept - with the trait MultiRow - links to a (trivially) simple Calculator, that knows how to interpret keypresses from the user.
+</p>
+<table>
     <tr class="fixture">
         <td colspan="4">Maths</td>
     </tr>
@@ -135,19 +274,61 @@
         <td>48000</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- also better. <span class="associate">Bootstrap</span> (in the default package) contains the <i>Maths</i> Concept)</div>
-<div style="clear: both"></div>
-<p>So:</p>
-<ul>
-    <li><em>Mixins</em> tell Pettswood about your Concepts and Groupers.</li>
-    <li>
-        <em>Concepts</em> are a type of fixture that knows how to interpret one table. Use the canonical name of a Concept in a mixin declaration. Concepts can be in separate cells, or separated by commas.
-    </li>
-    <li><em>Groupers</em> group together many Concepts</li>
-</ul>
-<p>For reasons of elegance, you may wish to place Grouper classes in the default package. Thus, their canonical class becomes the name, which removes technical concerns from your test.</p>
+<div class="callout">
+    <pre>
+package org.pettswood.specification.concepts
 
-<h2>Concepts</h2>
+import org.pettswood._
+
+class Maths extends Concept with MultiRow {
+
+  val calculator = new Calculator
+  var keyPresses = List.empty[String]
+
+  override def clearRow() {keyPresses = List.empty[String]}
+
+  def probeLibrary = {
+    case "a" | "f" | "b" => CalculationAssembler
+    case "=" => CalculationPerformer
+  }
+
+  case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
+  case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
+}
+    </pre>
+</div>
+<h3>Probes</h3>
+
+<p>In <span class="codeLink">Maths.scala</span>, we see a
+    <em>probeLibrary</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support twp types of Probe:</p>
+<ul>
+    <li>
+        <em>Doers</em> - these "do stuff" with your system to set it up for making assertions. For example, they set fields on your domain objects or poke data into the database. Doers have no return value; they either work or they throw an exception.
+    </li>
+    <li>
+        <em>Diggers</em> - these dig into your system and retrieve data to make assertions against. For example, they retrieve actual output values for comparision with the expected values. Diggers return a String representing the actual output from your system.
+    </li>
+</ul>
+<p>You don't have to exercise all the available Probes in any one table. The probeLibrary is there as a resource, and you draw on it as much or as little as you require.</p>
+
+<h2><span style="text-decoration: line-through;">Elephant</span> Elegant Testing</h2>
+
+<p>Here are some tips that will help you write good tests:</p>
+<ul>
+    <li>
+        <em>Specification tests need an audience</em> - use Pettswood only where it is useful to have readable documentation of how your system works. It takes time to write good specification tests. That time is well spent when the tests form a contract between you and the business, or when they help to clarify system behaviour by laying it out neatly, or when you need a user manual that is always up-to-date.
+    </li>
+    <li>
+        <em>Truth tables are better than flow</em> - it is tempting to write tests in an imperative do-this-then-do-that form. However, it is better to use the graphical layout of tables to represent permutations and combinations that are meaningful to the business. Ultimately, it is easier to add a row to a table than it is to copy-and-paste an entire test and change some of the values slightly.
+    </li>
+    <li>
+        <em>Avoid non-table content</em> - the tables are constantly being tested during your continous build cycle. Text, headings and so forth are not, so they can quickly become out of date without you noticing. You can limit non-table content by making your Concept names expressive and relevant to the business domain.
+    </li>
+    <li>
+        <em>Think in pictures</em> - don't forget that you are writing HTML. You can do all sorts of cool things with your layout, to make the page neat and tidy, and display things in a business-relevant way.
+    </li>
+</ul>
+<h2>A Real Example: Pettswood</h2>
 <table>
     <tr class="fixture">
         <td>Pettswood</td>
@@ -183,6 +364,18 @@
         </td>
     </tr>
 </table>
+<h2>Summary</h2>
+
+<p>So:</p>
+<ul>
+    <li><em>Mixins</em> tell Pettswood about your Concepts and Groupers.</li>
+    <li>
+        <em>Concepts</em> are a type of fixture that knows how to interpret one table. Use the canonical name of a Concept in a mixin declaration. Concepts can be in separate cells, or separated by commas.
+    </li>
+    <li>
+        <em>Groupers</em> group together many Concepts. For reasons of elegance, you may wish to place Grouper classes in the default package. Thus, their canonical class becomes the name, which hides technical concerns from your test users.
+    </li>
+</ul>
 <h1>Ideas</h1>
 <ul>
     <li>Goal: the same document (test and output) changing in real-time (as I make edits)</li>

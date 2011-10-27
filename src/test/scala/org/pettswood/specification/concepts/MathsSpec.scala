@@ -32,7 +32,7 @@ class MathsSpec extends SpecificationWithJUnit with Mockito {
       givenColumns(maths, "a", "f", "b")
       givenData(maths, "7", "-", "3")
 
-      maths.bits must be equalTo List("3", "-", "7")
+      maths.keyPresses must be equalTo List("3", "-", "7")
     }
     "use the operands and operator we accumulate to calculate the result" in {
       val maths = new Maths()
