@@ -17,9 +17,10 @@ case class Saver(data: String) {
   }
 
   def guarantee(path: String): File = {
-    // split the path into dirs
-    // foreach dir, iff it doesn't exist, create it
-    new File(path)
+    val file = new File(path)
+    file.getParentFile.mkdirs()
+    file.createNewFile()
+    file
   }
 }
 
