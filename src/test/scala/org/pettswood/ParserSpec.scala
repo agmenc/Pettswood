@@ -2,6 +2,7 @@ package org.pettswood
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
+import org.specs2.execute.Failure
 
 class ParserSpec extends SpecificationWithJUnit with Mockito {
 
@@ -32,7 +33,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
   val HTML_SIMPLE_TABLE =
     <html>
-      <table>
+      <table class="master">
         <tr>
           <td>Mixins</td>
           <td>org.pettswood.specification.groups.PettswoodBootstrap</td>
@@ -74,6 +75,9 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       there were three(fixture.domain).row()
     }
+    "respect existing classes" in  {
+      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+    }
   }
 
   val HTML_NESTED_TABLE =
@@ -103,7 +107,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       </table>
     </html>
 
-  "html with nested tables" should {
+  "When handling HTML with nested tables" should {
     "also delegate table handling to the domain" in {
       val fixture = new Fixture()
 
@@ -113,6 +117,21 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       there was one(fixture.domain).table("Hello")
       there was one(fixture.domain).table("Bonjour")
       there were 6.times(fixture.domain).cell(any[String])
+    }
+    "detect the nested table when it parses the cell and stack the parent table" in {
+      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+    }
+  }
+
+  "The Parser" should {
+    "add a roll-up for failure results" in {
+      val fixture = new Fixture()
+      fixture.domain.cell("expected") returns Fail("actual")
+
+      new Parser(fixture.domain).parse(<td>expected</td>) must be equalTo
+        <td>
+          <span class="calloutLink">expected</span><div class="callout" title="Sausage">actual</div>
+        </td>
     }
   }
 }

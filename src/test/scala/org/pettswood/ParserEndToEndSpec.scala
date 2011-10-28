@@ -34,6 +34,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td>Hello</td>
           <td>becomes</td>
           <td>Sausage</td>
+          <td>What about an extra cell?</td>
         </tr>
       </table>
     </html>
@@ -51,23 +52,21 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Setup">Mirror</td>
           <td class="Pass">Hello</td>
           <td class="Setup">becomes</td>
-          <td class="Fail">Sausage</td>
+          <td class="Fail"><span class="calloutLink">Sausage</span><div class="callout" title="Sausage">olleH</div></td>
+          <td class="Exception"><span class="calloutLink">What about an extra cell?</span><div class="callout" title="What about an extra cell?">Some exception</div></td>
         </tr>
       </table>
     </html>
 
-  "html with tables" should {
-    "have pass and fail classes janged into it" in {
+  "For HTML with tables, the parser should" should {
+    "jang pass and fail classes into it" in {
       new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
-  }
-
-  "it" should {
-    "display exceptions in roll-ups, so that the page size doesn't change" in {
-      failure
+    "display expected vs actual in roll-ups" in {
+      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
-    "display expected vs actual in roll-ups or summat" in {
-      failure
+    "display exceptions in roll-ups, so that the page size doesn't change" in {
+      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
   }
 }

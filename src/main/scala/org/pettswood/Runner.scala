@@ -11,3 +11,9 @@ class Runner(parser: Parser, fileSystem: FileSystem) {
   def write(result: Node) { fileSystem save result.toString() to "target/pettswood/Overworked Example.html"}
   def absolute(path: String) = userDir + File.separator + path
 }
+
+object Runner {
+  // Find all test files
+  // Create & run runners for 'em (start consecutively first)
+  // Copy CSS and JS from home dir to target dir
+}

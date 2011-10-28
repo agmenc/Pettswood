@@ -1,7 +1,6 @@
-/* Tags */
 body {
     font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
-    font-size: small;
+    font-size: 12px;
 }
 
 table {
@@ -14,11 +13,24 @@ td {
     padding: 3px;
 }
 
-table.mixins {
-    float: right;
+table.mixins { float: right; }
+
+.calloutLink {
+    font-weight: bold;
+    color: blue;
+    background-color: #f9ea9d;
+    text-decoration: underline;
 }
 
-/* Classes */
+.callout {
+    white-space: pre;
+    font-family: 'Courier', monospace;
+    background-color: #f5f5dc;
+    padding: 5px;
+    border: thin solid black;
+    display: table;
+}
+
 .fixture {
     font-weight: bold;
     font-size: large;
@@ -29,18 +41,10 @@ table.mixins {
     background-color: #d3d3d3;
 }
 
-.pass {
-    background-color: #90ee90;
-}
+.pass { background-color: #90ee90; }
 
-.setup {
-    background-color: #6495ed;
-}
+.setup { background-color: #aac4f4; }
 
-.fail {
-    background-color: #ff69b4;
-}
+.fail { background-color: #ff69b4; }
 
-.exception {
-    background-color: #ffcc66;
-}
+.exception { background-color: #ffcc66; }

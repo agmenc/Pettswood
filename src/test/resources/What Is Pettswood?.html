@@ -9,9 +9,9 @@
             font-style: normal;
         }
 
-        .left {
-            float: left;
-        }
+        .left { float: left; }
+        .right { float: right; }
+        .setupWarning { border: thin solid blue; margin: 20px; }
 
         .aside {
             color: blue;
@@ -27,17 +27,13 @@
             padding: 5px;
             text-align: center;
         }
-
-        .codeLink {
-            font-weight: bold;
-            color: blue;
-            background-color: #f9ea9d;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
-<h1>What Is Pettswood?</h1>
+<h1 class="left">What Is Pettswood?</h1>
+<!--<div class="right setupWarning">Dear IE user ...</div>-->
+<!--<div class="right setupWarning">Dear disconnected user ...</div>-->
+<div style="clear: both"></div>
 
 <p>Pettswood reads specification documents, executes them as tests, and outputs the results. Pettswood was inspired by Fit, and by Fit derivatives such as Fitnesse and Concordian</p>
 
@@ -66,7 +62,7 @@
         <td>Bootstrap</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- Mixin in all the Concepts in <span class="codeLink">Bootstrap.scala</span></div>
+<div class="aside left">&lt;-- Mixin in all the Concepts in <span class="calloutLink">Bootstrap.scala</span></div>
 <div style="clear: both"></div>
 <table class="left">
     <tr class="fixture">
@@ -131,11 +127,10 @@
         <td>Bootstrap</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- Shoestrap.scala and <span class="codeLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
+<div class="aside left">&lt;-- Shoestrap.scala and <span class="calloutLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
 </div>
 <div style="clear: both"></div>
-<div class="callout">
-    <pre>
+<div class="callout" title="Bootstrap.scala">
 import org.pettswood.DomainBridge
 import org.pettswood.specification.concepts._
 
@@ -144,7 +139,6 @@ class Bootstrap {
   DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
   DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
 }
-    </pre>
 </div>
 <h3>Other Mixin Options</h3>
 
@@ -188,7 +182,7 @@ class Bootstrap {
         <td>olleH</td>
     </tr>
 </table>
-<p>That's why Groupers, such as Shoestrap.scala and <span class="codeLink">Bootstrap.scala</span>, are my preferred option:</p>
+<p>That's why Groupers, such as Shoestrap.scala and <span class="calloutLink">Bootstrap.scala</span>, are my preferred option:</p>
 <table>
     <tr>
         <td class="names">Mirror</td>
@@ -220,13 +214,12 @@ class Bootstrap {
 
 <h3>Single Row (or Column) Concepts</h3>
 
-<p>The <span class="codeLink">Mirror.scala</span> Concept is an example of the simplest form a Concept can take. The contract is simple:</p>
+<p>The <span class="calloutLink">Mirror.scala</span> Concept is an example of the simplest form a Concept can take. The contract is simple:</p>
 <ul>
     <li>For each cell except the first "title" cell, the cell() method is called, and your concept must determine the <em>actual</em> value expected</li>
     <li>Depending on the actual value, you should return an instance of the appropriate Result type</li>
 </ul>
-<div>
-<pre>
+<div class="callout" title="Mirror.scala">
 package org.pettswood.specification.concepts
 
 import org.pettswood._
@@ -244,12 +237,12 @@ class Mirror extends Concept {
     }
   }
 }
-</pre>
+    
 </div>
 <h3>Multi-row Concepts</h3>
 
 <p>The
-    <span class="codeLink">Maths.scala</span> Concept - with the trait MultiRow - links to a (trivially) simple Calculator, that knows how to interpret keypresses from the user.
+    <span class="calloutLink">Maths.scala</span> Concept - with the trait MultiRow - links to a (trivially) simple Calculator, that knows how to interpret keypresses from the user.
 </p>
 <table>
     <tr class="fixture">
@@ -274,8 +267,7 @@ class Mirror extends Concept {
         <td>48000</td>
     </tr>
 </table>
-<div class="callout">
-    <pre>
+<div class="callout" title="Maths.scala">
 package org.pettswood.specification.concepts
 
 import org.pettswood._
@@ -295,11 +287,11 @@ class Maths extends Concept with MultiRow {
   case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
   case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
 }
-    </pre>
+
 </div>
 <h3>Probes</h3>
 
-<p>In <span class="codeLink">Maths.scala</span>, we see a
+<p>In <span class="calloutLink">Maths.scala</span>, we see a
     <em>probeLibrary</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support twp types of Probe:</p>
 <ul>
     <li>
