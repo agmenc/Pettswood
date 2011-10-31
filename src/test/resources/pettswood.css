@@ -36,6 +36,12 @@ table.mixins { float: right; }
     font-size: large;
 }
 
+.result {
+    display: block;
+    margin-top: 5px;
+    line-height: 60%;
+}
+
 .names {
     font-weight: bold;
     background-color: #d3d3d3;

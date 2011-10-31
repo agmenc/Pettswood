@@ -11,22 +11,22 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
     domain.cell(any[String]) returns Pass("Monkeys")
   }
 
-  val HTML_WITHOUT_TABLES =
-    <html>
-      <tag>value</tag>
-      <list>
-        <monkey>1</monkey>
-        <monkey>2</monkey>
-      </list>
-    </html>
-
-  "html without tables" should {
-    "not bother the parser" in {
+  "when html does not contains tables, the parser" should {
+    "not bother the domain" in {
       val fixture = new Fixture()
 
-      new Parser(fixture.domain).parse(HTML_WITHOUT_TABLES)
+      new Parser(fixture.domain).parse(
+        <html>
+          <tag>value</tag>
+          <list>
+            <monkey>1</monkey>
+            <monkey>2</monkey>
+          </list>
+        </html>
+      )
 
       there was no(fixture.domain).table(any[String])
+      there was no(fixture.domain).row()
       there was no(fixture.domain).cell(any[String])
     }
   }
@@ -55,12 +55,19 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       fixture.domain.cell("setup") returns Setup()
       fixture.domain.cell("exception") returns Exception("the computer has gone to lunch")
 
-      new Parser(fixture.domain).parse(<td>pass</td>) must be equalTo <td class="Pass">pass</td>
-      new Parser(fixture.domain).parse(<td>fail</td>) must be equalTo <td class="Fail">fail</td>
-      new Parser(fixture.domain).parse(<td>setup</td>) must be equalTo <td class="Setup">setup</td>
-      new Parser(fixture.domain).parse(<td>exception</td>) must be equalTo <td class="Exception">exception</td>
+      (new Parser(fixture.domain).parse(<td>pass</td>) \ "@class" text) must be equalTo "Pass"
+      (new Parser(fixture.domain).parse(<td>fail</td>) \ "@class" text) must be equalTo "Fail"
+      (new Parser(fixture.domain).parse(<td>setup</td>) \ "@class" text) must be equalTo "Setup"
+      (new Parser(fixture.domain).parse(<td>exception</td>) \ "@class" text) must be equalTo "Exception"
     }
-    "add a roll-up for failure results" in {
+    "display expected vs actual for failure results" in {
+      val fixture = new Fixture()
+      fixture.domain.cell("sausage") returns Fail("potato")
+
+      new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
+        <td class="Fail"><span class="result">potato<br></br>but expected:<br></br></span>sausage</td>
+    }
+    "add a roll-up for exception results" in {
       val fixture = new Fixture()
       fixture.domain.cell("expected") returns Fail("actual")
 

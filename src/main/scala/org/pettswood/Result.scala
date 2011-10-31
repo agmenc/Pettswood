@@ -6,7 +6,7 @@ abstract class Result(actualText: String) {
 }
 
 object Result {
-  def resultFor(expectedText: String, actualText: String) = if (expectedText == actualText) Pass(actualText) else Fail(actualText)
+  def given(expectedText: String, actualText: String) = if (expectedText == actualText) Pass(actualText) else Fail(actualText)
 }
 
 case class Fail(actualText: String) extends Result(actualText)

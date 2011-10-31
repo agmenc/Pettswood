@@ -6,11 +6,13 @@ class Parser(domain: DomainBridge) {
 
   def parse(test: Node): Node = traverseNodes(test)
 
-  def deepCopy(elem: Elem, attributes: (Elem) => MetaData = _.attributes, text: String = ""): Elem = elem.copy(elem.prefix, elem.label, attributes(elem), TopScope, children(elem, text))
+  def deepCopy(elem: Elem, attributes: (Elem) => MetaData = _.attributes, extraContent: NodeSeq = NodeSeq.Empty): Elem =
+    // TODO - use extraContent.headOption
+    elem.copy(elem.prefix, elem.label, attributes(elem), TopScope, if (extraContent.iterator.hasNext) extraContent.head +: children(elem) else children(elem))
 
   def cssAdder(className: String): (Elem) => MetaData = {
     (elem: Elem) => {
-      val classes = (elem \ "@class").mkString match {
+      val classes = (elem \ "@class").text match {
         case "" => className
         case x => x + " " + className
       }
@@ -18,7 +20,14 @@ class Parser(domain: DomainBridge) {
     }
   }
 
-  def children(node: Node, textToAdd: String): NodeSeq = NodeSeq.fromSeq(node.child).map(child => traverseNodes(child))
+  def htmlFor(expectedText: String, result: Result) = {
+    result match {
+      case x: Fail => <span class="result">{result.text}<br></br>but expected:<br></br></span>
+      case _ => NodeSeq.Empty
+    }
+  }
+
+  def children(node: Node): NodeSeq = NodeSeq.fromSeq(node.child).map(child => traverseNodes(child))
   def firstCell(nodeSeq: NodeSeq): Elem = (nodeSeq \\ "td").head match { case elem: Elem => elem }
 
   def traverseNodes(currentNode: Node): Node = {
@@ -26,7 +35,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => domain.table(firstCell(elem).text); deepCopy(elem)
         case "tr" => domain.row(); deepCopy(elem)
-        case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name))
+        case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name), htmlFor(elem.text, result))
         case _ => deepCopy(elem)
       }
       case any => any

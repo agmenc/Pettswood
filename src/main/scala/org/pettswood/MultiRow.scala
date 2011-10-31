@@ -22,12 +22,12 @@ trait MultiRow extends Concept {
     case x => probe(text)
   }
 
-  def probe(text: String): Result = {
-    val probe = currentProbes.head(text)
+  def probe(expected: String): Result = {
+    val probe = currentProbes.head(expected)
     currentProbes = currentProbes.tail
     probe match {
       case doer: Doer => Setup()
-      case digger: Digger => resultFor(digger.result, text)
+      case digger: Digger => given(expected, digger.result)
     }
   }
 }

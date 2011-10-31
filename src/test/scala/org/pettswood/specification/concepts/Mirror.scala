@@ -10,7 +10,7 @@ class Mirror extends Concept {
     state match {
       case List(input) => Pass(input)
       case List("becomes", _) => Setup()
-      case List(expected, _, input) => Result.resultFor(expected, input.reverse)
+      case List(expected, _, input) => Result.given(expected, input.reverse)
       case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
     }
   }
