@@ -67,14 +67,16 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
         <td class="Fail"><span class="result">potato<br></br>but expected:<br></br></span>sausage</td>
     }
-    "add a roll-up for exception results" in {
+    "display exception results" in {
       val fixture = new Fixture()
-      fixture.domain.cell("expected") returns Fail("actual")
+      fixture.domain.cell("sausage") returns Exception("java.lang.NullPointerException: Your pointy things are all null")
 
-      new Parser(fixture.domain).parse(<td>expected</td>) must be equalTo
-        <td>
-          <span class="calloutLink">expected</span> <div class="callout" title="Sausage">actual</div>
-        </td>
+      new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
+        <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>
+
+//        <td>
+//          <span class="calloutLink">expected</span> <div class="callout" title="Sausage">actual</div>
+//        </td>
     }
     "respect existing classes" in {
       val fixture = new Fixture()

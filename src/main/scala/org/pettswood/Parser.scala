@@ -20,9 +20,10 @@ class Parser(domain: DomainBridge) {
     }
   }
 
-  def htmlFor(expectedText: String, result: Result) = {
+  def contentFor(expectedText: String, result: Result) = {
     result match {
-      case x: Fail => <span class="result">{result.text}<br></br>but expected:<br></br></span>
+      case Fail(actual) => <span class="result">{actual}<br></br>but expected:<br></br></span>
+      case Exception(exceptionText) => <span class="result">{exceptionText}<br></br>Expected:<br></br></span>
       case _ => NodeSeq.Empty
     }
   }
@@ -35,7 +36,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => domain.table(firstCell(elem).text); deepCopy(elem)
         case "tr" => domain.row(); deepCopy(elem)
-        case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name), htmlFor(elem.text, result))
+        case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name), contentFor(elem.text, result))
         case _ => deepCopy(elem)
       }
       case any => any

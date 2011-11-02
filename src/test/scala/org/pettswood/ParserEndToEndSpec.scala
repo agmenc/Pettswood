@@ -52,20 +52,14 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Setup">Mirror</td>
           <td class="Pass">Hello</td>
           <td class="Setup">becomes</td>
-          <td class="Fail"><span class="calloutLink">Sausage</span><div class="callout" title="Sausage">olleH</div></td>
-          <td class="Exception"><span class="calloutLink">What about an extra cell?</span><div class="callout" title="What about an extra cell?">Some exception</div></td>
+          <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>Sausage</td>
+          <td class="Exception"><span class="result">Unhandled state: List(What about an extra cell?, Sausage, becomes, Hello)<br></br>Expected:<br></br></span>What about an extra cell?</td>
         </tr>
       </table>
     </html>
 
   "For HTML with tables, the parser should" should {
-    "jang pass and fail classes into it" in {
-      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
-    }
-    "display expected vs actual in roll-ups" in {
-      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
-    }
-    "display exceptions in roll-ups, so that the page size doesn't change" in {
+    "pump out suitably modified results" in {
       new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
   }

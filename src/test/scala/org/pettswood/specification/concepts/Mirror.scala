@@ -11,7 +11,7 @@ class Mirror extends Concept {
       case List(input) => Pass(input)
       case List("becomes", _) => Setup()
       case List(expected, _, input) => Result.given(expected, input.reverse)
-      case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
+      case _ => Exception("Unhandled state: " + state)
     }
   }
 }
