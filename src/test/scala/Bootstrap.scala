@@ -1,10 +1,9 @@
-import org.pettswood.DomainBridge
 import org.pettswood.specification.concepts._
+import org.pettswood.{Grouper, DomainBridge}
 
-class Bootstrap {
-  // TODO - Pass class reference, and instantiate a new one each time we need it
+class Bootstrap(domain: DomainBridge) extends Grouper(domain) {
   // TODO - add many name/value pairs at once
-  DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
-  DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
-  DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
+  domain.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
+  domain.learn("Maths", () => new Maths( /* dependencies */ ))
+  domain.learn("Mirror", () => new Mirror( /* dependencies */ ))
 }

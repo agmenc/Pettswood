@@ -16,7 +16,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           </list>
         </html>
 
-      new Parser(DomainBridge).parse(inputXml) must be equalTo expectedXml
+      new Parser(new DomainBridge).parse(inputXml) must be equalTo expectedXml
     }
   }
 
@@ -60,7 +60,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
 
   "For HTML with tables, the parser should" should {
     "pump out suitably modified results" in {
-      new Parser(DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
+      new Parser(new DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
     }
   }
 }

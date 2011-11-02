@@ -7,6 +7,8 @@ class DomainBridge {
   var results = List.empty[Result]
   var tableUntouched = false;
 
+  learn("mixins", () => new Mixins(this))
+
   def table(firstCellText: String): Result = {
     // TODO - collapse with a handleWith(handler) { ... }
     try {
@@ -48,9 +50,4 @@ class DomainBridge {
     case Some(conceptoriser) => conceptoriser()
     case None => throw new RuntimeException("Unknown concept: \"" + conceptName + "\". Known concepts: [" + concepts.keys.mkString(", ") + "]")
   }
-}
-
-// TODO - split out a ConceptLibrary object to learn all the concepts, since we want the state of each test to be independent.
-object DomainBridge extends DomainBridge {
-  learn("mixins", () => new Mixins(this))
 }
