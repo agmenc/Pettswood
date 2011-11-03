@@ -23,5 +23,3 @@ case class Saver(data: String) {
     file
   }
 }
-
-object FileSystem extends FileSystem

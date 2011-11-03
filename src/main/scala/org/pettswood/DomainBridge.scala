@@ -16,7 +16,7 @@ class DomainBridge {
       tableUntouched = true;
       Setup()
     } catch {
-      case e => println("e.getMessage: " + e.getMessage); registerResult(Exception(e toString))
+      case e => println("Failure reading table heading: " + e.getMessage); registerResult(Exception(e toString))
     }
   }
 
@@ -35,7 +35,7 @@ class DomainBridge {
       try {
         registerResult(currentConcept.cell(text))
       } catch {
-        case e => println("e.getMessage: " + e.getMessage); registerResult(Exception(e toString))
+        case e => println("Failure parsing cell: " + e.getMessage); registerResult(Exception(e toString))
       }
     }
   }
