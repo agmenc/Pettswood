@@ -8,6 +8,8 @@ import org.specs2.specification.AfterExample
 
 class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExample {
 
+  args(sequential = true)
+
   def after = {
     new File("./target/some.file").delete()
     new File("./target/a/very/nested/directory/structure/some.file").delete()
