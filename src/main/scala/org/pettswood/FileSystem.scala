@@ -7,6 +7,14 @@ class FileSystem {
   def load(filePath: String) = XML.loadFile(filePath)
 
   def save(data: String): Saver = Saver(data)
+
+  def in(path: String): Finder = Finder(path)
+}
+
+case class Finder(path: String) {
+  def find(fileNamePattern: String): List[String] = {
+    List.empty[String]
+  }
 }
 
 case class Saver(data: String) {
