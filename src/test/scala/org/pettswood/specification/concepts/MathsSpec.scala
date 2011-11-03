@@ -12,7 +12,7 @@ class MathsSpec extends SpecificationWithJUnit with Mockito {
     givenData(concept, headings: _*)
   }
 
-  // TODO - push into a MultiRowTesting trait
+  // TODO - push into a ConceptTesting trait
   def givenData(concept: Concept, data: String*) {
     concept.row()
     data foreach {element => concept.cell(element)}
