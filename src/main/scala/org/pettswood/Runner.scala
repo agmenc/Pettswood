@@ -15,6 +15,7 @@ class Runner(parser: Parser, fileSystem: FileSystem) {
 
 object Runner extends App {
   // Find all test files
+//  fileSystem in "src/test" find ".*.html"
   // Create & run runners for 'em
   // Copy CSS and JS from home dir to target dir
 }

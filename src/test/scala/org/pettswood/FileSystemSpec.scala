@@ -32,8 +32,17 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "know how to find files of certain types" in {
       val fileSystem = new FileSystem
 
-      fileSystem in "src/test" find "*.html" must be equalTo List("sausage.html", "monkey.html")
-      fileSystem in "src/main/scala/org/" find "R*.scala" must be equalTo List("sausage.html", "monkey.html")
+      fileSystem in "src/test" find ".*.html" must be equalTo List(
+        "src/test/resources/Overworked Example.html",
+        "src/test/resources/What Is Pettswood?.html"
+      )
+      
+      fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
+        "src/main/scala/org/pettswood/MultiRow.scala",
+        "src/main/scala/org/pettswood/Result.scala",
+        "src/main/scala/org/pettswood/ResultSummary.scala",
+        "src/main/scala/org/pettswood/Runner.scala"
+      )
     }
   }
 }

@@ -1,7 +1,7 @@
 package org.pettswood
 
 import xml.XML
-import java.io.{File, PrintWriter}
+import java.io.{FileFilter, File, PrintWriter}
 
 class FileSystem {
   def load(filePath: String) = XML.loadFile(filePath)
@@ -12,8 +12,21 @@ class FileSystem {
 }
 
 case class Finder(path: String) {
+  def filterFor(fileNamePattern: String): FileFilter = {
+    new FileFilter {
+      def accept(file: File) = file.isDirectory || fileNamePattern.r.findAllIn(file.getName).hasNext
+    }
+  }
+
   def find(fileNamePattern: String): List[String] = {
-    List.empty[String]
+    find(new File(path), filterFor(fileNamePattern)).map(_.getPath)
+  }
+
+  def find(dir: File, filter: FileFilter): List[File] = {
+    dir.listFiles(filter).flatMap({
+      case file: File if (file.isDirectory) => find(file, filter)
+      case file: File => List(file)
+    }).toList
   }
 }
 
