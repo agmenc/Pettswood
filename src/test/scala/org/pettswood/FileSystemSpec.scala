@@ -29,7 +29,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fromFile("./target/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
-    "know how to find files of certain types" in {
+    "know how to find files by name regex" in {
       val fileSystem = new FileSystem
 
       fileSystem in "src/test" find ".*.html" must be equalTo List(
