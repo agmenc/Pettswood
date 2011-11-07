@@ -30,7 +30,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Sausage" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>
 
