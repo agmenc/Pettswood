@@ -1,5 +1,0 @@
-package org.pettswood
-
-import runners.ReplaceThisWithSbtRunner
-
-class Whatever extends ReplaceThisWithSbtRunner

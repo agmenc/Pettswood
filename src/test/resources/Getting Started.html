@@ -1,0 +1,11 @@
+<html>
+<head>
+    <title>Getting Started</title>
+</head>
+<body>
+Add Pettswood as a dependency: "org.pettswood" %% "pettswood" % "0.0.1" withSources(),
+Add the test framework to your build.sbt: testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")
+To run your Pettswood tests (alongside your other tests): sbt test
+To run only your Pettswood tests: sbt test-only org.pettswood.SbtRunner
+</body>
+</html>
