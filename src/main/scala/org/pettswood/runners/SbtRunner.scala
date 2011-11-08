@@ -4,7 +4,7 @@ import _root_.org.scalatools.testing._
 import Fingerprints._
 import org.pettswood.{ResultSummary, DomainBridge, Parser, FileSystem}
 
-class PettswoodFramework extends Framework {
+class PettswoodFramework extends Framework with SbtIntegrationHook {
   def name() = "Pettswood"
   def tests = Array[Fingerprint](fp1, fp2)
   def testRunner(classLoader: ClassLoader, loggers: Array[Logger]) = new SbtRunner(classLoader, loggers)
