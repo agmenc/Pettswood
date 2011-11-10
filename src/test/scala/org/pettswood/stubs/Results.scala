@@ -7,5 +7,5 @@ object Results {
   val PASS = Pass("Well done")
   val SETUP = Setup()
   val FAIL = Fail("Oh dear")
-  val EXCEPTION = Exception("A known unknown just happened to you")
+  val EXCEPTION = Exception(new RuntimeException("A known unknown just happened to you"))
 }

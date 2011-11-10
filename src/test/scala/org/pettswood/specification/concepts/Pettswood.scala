@@ -1,19 +1,26 @@
 package org.pettswood.specification.concepts
 
 import org.pettswood._
+import java.io.File
 
 class Pettswood extends Concept with MultiRow {
+
+  val domain = new DomainBridge
+
   def probeLibrary = {
-    case "Test File" => FileReader
+    case "Test File" => PettswoodRunner
     case "Output File" => FileExists
-    case "Results" => Results
+    case "Results" => Nestlings
   }
 
-  case class FileReader(filePath: String) extends Doer
+  override def row() { super.row(); println("currentProbes: " + currentProbes) }
+
+  case class PettswoodRunner(filePath: String) extends Doer {
+    new org.pettswood.Runner(new Parser(domain), new FileSystem).run(filePath)
+  }
   case class FileExists(filePath: String) extends Digger {
-    val result = "Bananas"
+    val result = if (!new File(filePath).exists()) "File not found" else filePath
   }
-  case class Results(nestedTable: String) extends Digger {
-    val result = "Sausages"
-  }
+
+  case class Nestlings(nestedTable: String) extends Doer
 }

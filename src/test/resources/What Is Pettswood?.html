@@ -34,7 +34,6 @@
 <!--<div class="right setupWarning">Dear IE user ...</div>-->
 <!--<div class="right setupWarning">Dear disconnected user ...</div>-->
 <div style="clear: both"></div>
-
 <p>Pettswood reads specification documents, executes them as tests, and outputs the results. Pettswood was inspired by Fit, and by Fit derivatives such as Fitnesse and Concordian</p>
 
 <div class="diagram left"><em>Input</em><br/>Readable specification in HTML</div>
@@ -127,18 +126,19 @@
         <td>Bootstrap</td>
     </tr>
 </table>
-<div class="aside left">&lt;-- Shoestrap.scala and <span class="calloutLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
+<div class="aside left">&lt;-- Shoestrap.scala and
+    <span class="calloutLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
 </div>
 <div style="clear: both"></div>
 <div class="callout" title="Bootstrap.scala">
-import org.pettswood.DomainBridge
-import org.pettswood.specification.concepts._
+    import org.pettswood.DomainBridge
+    import org.pettswood.specification.concepts._
 
-class Bootstrap {
-  DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
-  DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
-  DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
-}
+    class Bootstrap {
+    DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
+    DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
+    DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
+    }
 </div>
 <h3>Other Mixin Options</h3>
 
@@ -220,24 +220,24 @@ class Bootstrap {
     <li>Depending on the actual value, you should return an instance of the appropriate Result type</li>
 </ul>
 <div class="callout" title="Mirror.scala">
-package org.pettswood.specification.concepts
+    package org.pettswood.specification.concepts
 
-import org.pettswood._
+    import org.pettswood._
 
-class Mirror extends Concept {
-  var state = List.empty[String]
+    class Mirror extends Concept {
+    var state = List.empty[String]
 
-  def cell(text: String) = {
+    def cell(text: String) = {
     state = text :: state
     state match {
-      case List(input) => Pass(input)
-      case List("becomes", _) => Setup()
-      case List(expected, _, input) => Result.resultFor(expected, input.reverse)
-      case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
+    case List(input) => Pass(input)
+    case List("becomes", _) => Setup()
+    case List(expected, _, input) => Result.resultFor(expected, input.reverse)
+    case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
     }
-  }
-}
-    
+    }
+    }
+
 </div>
 <h3>Multi-row Concepts</h3>
 
@@ -268,25 +268,25 @@ class Mirror extends Concept {
     </tr>
 </table>
 <div class="callout" title="Maths.scala">
-package org.pettswood.specification.concepts
+    package org.pettswood.specification.concepts
 
-import org.pettswood._
+    import org.pettswood._
 
-class Maths extends Concept with MultiRow {
+    class Maths extends Concept with MultiRow {
 
-  val calculator = new Calculator
-  var keyPresses = List.empty[String]
+    val calculator = new Calculator
+    var keyPresses = List.empty[String]
 
-  override def clearRow() {keyPresses = List.empty[String]}
+    override def clearRow() {keyPresses = List.empty[String]}
 
-  def probeLibrary = {
+    def probeLibrary = {
     case "a" | "f" | "b" => CalculationAssembler
     case "=" => CalculationPerformer
-  }
+    }
 
-  case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
-  case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
-}
+    case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
+    case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
+    }
 
 </div>
 <h3>Probes</h3>
@@ -320,7 +320,9 @@ class Maths extends Concept with MultiRow {
         <em>Think in pictures</em> - don't forget that you are writing HTML. You can do all sorts of cool things with your layout, to make the page neat and tidy, and display things in a business-relevant way.
     </li>
 </ul>
-<h2>A Real Example: Pettswood</h2>
+<h2>A Real Example with
+    <span style="font-weight: bold; color: yellow; background-color: green;">NEW</span> NestedTables<span style="font-size: xx-small; vertical-align: super;">TM</span> : Pettswood
+</h2>
 <table>
     <tr class="fixture">
         <td>Pettswood</td>
@@ -332,15 +334,15 @@ class Maths extends Concept with MultiRow {
     </tr>
     <tr>
         <td>./src/test/resources/Overworked Example.html</td>
-        <td>./target/$scalaVersion/pettswood/Overworked Example.html</td>
+        <td>./target/pettswood/Overworked Example.html</td>
         <td>
             <table>
                 <tr class="fixture">
                     <td>Results</td>
                 </tr>
                 <tr class="names">
-                    <td>right</td>
-                    <td>wrong</td>
+                    <td>pass</td>
+                    <td>fail</td>
                     <td>setup</td>
                     <td>exception</td>
                     <td>time</td>
@@ -372,5 +374,24 @@ class Maths extends Concept with MultiRow {
 <ul>
     <li>Goal: the same document (test and output) changing in real-time (as I make edits)</li>
 </ul>
+<table>
+    <tr class="fixture">
+        <td>Results</td>
+    </tr>
+    <tr class="names">
+        <td>pass</td>
+        <td>fail</td>
+        <td>setup</td>
+        <td>exception</td>
+        <td>time</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>0</td>
+        <td>8</td>
+        <td>0</td>
+        <td>$any</td>
+    </tr>
+</table>
 </body>
 </html>

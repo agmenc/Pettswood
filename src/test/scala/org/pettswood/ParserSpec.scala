@@ -53,7 +53,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       fixture.domain.cell("pass") returns Pass("pass")
       fixture.domain.cell("fail") returns Fail("monkeys")
       fixture.domain.cell("setup") returns Setup()
-      fixture.domain.cell("exception") returns Exception("the computer has gone to lunch")
+      fixture.domain.cell("exception") returns Exception(new RuntimeException("the computer has gone to lunch"))
 
       (new Parser(fixture.domain).parse(<td>pass</td>) \ "@class" text) must be equalTo "Pass"
       (new Parser(fixture.domain).parse(<td>fail</td>) \ "@class" text) must be equalTo "Fail"
@@ -69,7 +69,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
     }
     "display exception results" in {
       val fixture = new Fixture()
-      fixture.domain.cell("sausage") returns Exception("java.lang.NullPointerException: Your pointy things are all null")
+      fixture.domain.cell("sausage") returns Exception(new NullPointerException("Your pointy things are all null"))
 
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
         <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>

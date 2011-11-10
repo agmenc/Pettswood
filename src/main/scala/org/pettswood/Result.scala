@@ -12,4 +12,4 @@ object Result {
 case class Fail(actualText: String) extends Result(actualText)
 case class Pass(actualText: String) extends Result(actualText)
 case class Setup() extends Result("")
-case class Exception(exception: String) extends Result(exception)
+case class Exception(exception: Throwable) extends Result(exception.getMessage)
