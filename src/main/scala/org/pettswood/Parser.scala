@@ -9,7 +9,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => domain.table(firstCell(elem).text); deepCopy(elem)
         case "tr" => domain.row(); deepCopy(elem)
-        case "td" if((elem \\ "table").iterator.hasNext) => new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)
+        case "td" if((elem \\ "table").iterator.hasNext) => <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
         case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name), contentFor(elem.text, result))
         case _ => deepCopy(elem)
       }
