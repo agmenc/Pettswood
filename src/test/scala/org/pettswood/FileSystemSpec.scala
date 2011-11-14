@@ -33,6 +33,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       val fileSystem = new FileSystem
 
       fileSystem in "src/test" find ".*.html" must be equalTo List(
+        "src/test/resources/Getting Started.html",
         "src/test/resources/Overworked Example.html",
         "src/test/resources/What Is Pettswood?.html"
       )
@@ -41,7 +42,8 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
         "src/main/scala/org/pettswood/MultiRow.scala",
         "src/main/scala/org/pettswood/Result.scala",
         "src/main/scala/org/pettswood/ResultSummary.scala",
-        "src/main/scala/org/pettswood/Runner.scala"
+        "src/main/scala/org/pettswood/Runner.scala",
+        "src/main/scala/org/pettswood/runners/SbtRunner.scala"
       )
     }
   }

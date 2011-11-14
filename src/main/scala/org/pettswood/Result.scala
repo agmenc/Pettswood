@@ -12,4 +12,9 @@ object Result {
 case class Fail(actualText: String) extends Result(actualText)
 case class Pass(actualText: String) extends Result(actualText)
 case class Setup() extends Result("")
-case class Exception(exception: Throwable) extends Result(exception.getMessage)
+case class Exception(exception: Throwable) extends Result(exception.getMessage) {
+  override def equals(that: Any) = that match {
+    case Exception(e) => e.toString == exception.toString
+    case anyOther => false
+  }
+}

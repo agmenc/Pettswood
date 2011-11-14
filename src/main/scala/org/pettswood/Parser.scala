@@ -9,8 +9,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => domain.table(firstCell(elem).text); deepCopy(elem)
         case "tr" => domain.row(); deepCopy(elem)
-        // TODO - if cell contains tables: new Parser(domain.nestlings()).parse(wrapperFor(children(elem))))
-        case "td" if((elem \\ "table").iterator.hasNext) => println("elem with nested table: " + elem.text); deepCopy(elem)
+        case "td" if((elem \\ "table").iterator.hasNext) => new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)
         case "td" => val result = domain.cell(elem.text); deepCopy(elem, cssAdder(result.name), contentFor(elem.text, result))
         case _ => deepCopy(elem)
       }
@@ -20,7 +19,7 @@ class Parser(domain: DomainBridge) {
 
   def deepCopy(elem: Elem, attributes: (Elem) => MetaData = _.attributes, extraContent: NodeSeq = NodeSeq.Empty): Elem =
     // TODO - use extraContent.headOption
-    elem.copy(elem.prefix, elem.label, attributes(elem), TopScope, if (extraContent.iterator.hasNext) extraContent.head +: children(elem) else children(elem))
+    elem.copy(elem.prefix, elem.label, attributes(elem), TopScope, if (extraContent.iterator.hasNext) extraContent.head +: parsedChildren(elem) else parsedChildren(elem))
 
   def cssAdder(className: String): (Elem) => MetaData = {
     (elem: Elem) => {
@@ -40,6 +39,6 @@ class Parser(domain: DomainBridge) {
     }
   }
 
-  def children(node: Node): NodeSeq = NodeSeq.fromSeq(node.child).map(child => parse(child))
+  def parsedChildren(node: Node): NodeSeq = NodeSeq.fromSeq(node.child).map(child => parse(child))
   def firstCell(nodeSeq: NodeSeq): Elem = (nodeSeq \\ "td").head match { case elem: Elem => elem }
 }

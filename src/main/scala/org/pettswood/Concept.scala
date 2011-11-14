@@ -3,6 +3,7 @@ package org.pettswood
 trait Concept {
   def row() {}
   def cell(text: String): Result
+  def nestedConcepts() = Map.empty[String, () => Concept]
 }
 
 object NoConcept extends Concept {

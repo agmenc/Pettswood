@@ -2,8 +2,6 @@ package org.pettswood
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
-import org.specs2.execute.Failure
-
 class ParserSpec extends SpecificationWithJUnit with Mockito {
 
   class Fixture {
@@ -71,12 +69,10 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       val fixture = new Fixture()
       fixture.domain.cell("sausage") returns Exception(new NullPointerException("Your pointy things are all null"))
 
-      new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
-        <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>
-
-//        <td>
-//          <span class="calloutLink">expected</span> <div class="callout" title="Sausage">actual</div>
-//        </td>
+      // TODO - children of result are NodeSeq and children of expect are ArrayBuffer. WTF?!?
+      val result = new Parser(fixture.domain).parse(<td>sausage</td>)
+      val expect = <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>
+      result.toString() must be equalTo expect.toString()
     }
     "respect existing classes" in {
       val fixture = new Fixture()
@@ -84,48 +80,15 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       new Parser(fixture.domain).parse(<td class="displayElegantly">expected</td>) must be equalTo <td class="displayElegantly Pass">expected</td>
     }
-  }
-
-  val HTML_NESTED_TABLE =
-    <html>
-      <table>
-        <tr>
-          <td>Mixins</td>
-          <td>org.pettswood.specification.groups.PettswoodBootstrap</td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td>Hello</td>
-        </tr>
-        <tr>
-          <td>
-            <table>
-              <tr>
-                <td>Bonjour</td>
-              </tr>
-              <tr>
-                <td>Sausage</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </html>
-
-  "When handling HTML with nested tables" should {
-    "also delegate table handling to the domain" in {
+    "recurse into nested tables, wrapping them in a div" in {
       val fixture = new Fixture()
+      val nestlingDomain = mock[DomainBridge]
+      nestlingDomain.cell(any[String]) returns Pass("Monkeys")
+      fixture.domain.nestedDomain() returns nestlingDomain
 
-      new Parser(fixture.domain).parse(HTML_NESTED_TABLE)
-
-      there was one(fixture.domain).table("Mixins")
-      there was one(fixture.domain).table("Hello")
-      there was one(fixture.domain).table("Bonjour")
-      there were 6.times(fixture.domain).cell(any[String])
-    }
-    "detect the nested table when it parses the cell and stack the parent table" in {
-      Failure("Test failed due to lack of testyness. Infinite monkeys required")
+      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <div><table><td class="Pass">Nested Table</td></table></div>
+      
+      there was one(nestlingDomain).table("Nested Table")
     }
   }
 }

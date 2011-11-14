@@ -22,11 +22,6 @@ class DomainBridge {
 
   def row() {currentConcept.row()}
 
-  def registerResult(result: Result): Result = {
-    results = result :: results
-    result
-  }
-
   // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
   def cell(text: String): Result = {
     if (tableUntouched) touchTable
@@ -40,10 +35,20 @@ class DomainBridge {
     }
   }
 
-  def learn(name: String, conceptoriser: () => Concept) {concepts += ((name toLowerCase) -> conceptoriser)}
+  def registerResult(result: Result): Result = {
+    results = result :: results
+    result
+  }
 
+  // TODO - make learn() accept a varargs of (name, conceptoriser): _*
+  def nestedDomain() = {
+    val nestling = new DomainBridge
+    currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, x._2) }
+    nestling
+  }
+
+  def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
   def summary: ResultSummary = new ResultSummary(results)
-
   def touchTable: Setup = {tableUntouched = false; Setup()}
 
   def conceptFor(conceptName: String): Concept = concepts.get((conceptName toLowerCase)) match {
