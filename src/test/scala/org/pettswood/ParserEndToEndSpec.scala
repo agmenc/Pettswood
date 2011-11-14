@@ -53,14 +53,15 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Pass">Hello</td>
           <td class="Setup">becomes</td>
           <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>Sausage</td>
-          <td class="Exception"><span class="result">Unhandled state: List(What about an extra cell?, Sausage, becomes, Hello)<br></br>Expected:<br></br></span>What about an extra cell?</td>
+          <td class="Exception"><span class="result">java.lang.IllegalStateException: Unhandled state: List(What about an extra cell?, Sausage, becomes, Hello)<br></br>Expected:<br></br></span>What about an extra cell?</td>
         </tr>
       </table>
     </html>
 
   "For HTML with tables, the parser should" should {
     "pump out suitably modified results" in {
-      new Parser(new DomainBridge).parse(UNPROCESSED_HTML) must be equalTo PROCESSED_HTML
+      // TODO - again, children of the result are in a NodeSeq, while children of the expected are in an ArrayBuffer. Create a better equals? A better XML library?
+      new Parser(new DomainBridge).parse(UNPROCESSED_HTML).toString() must be equalTo (PROCESSED_HTML.toString())
     }
   }
 }
