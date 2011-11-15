@@ -78,7 +78,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td>Pettswood</td>
         </tr>
         <tr class="names">
-          <td>Result</td>
+          <td>Results</td>
         </tr>
         <tr>
           <td>
@@ -93,9 +93,9 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
                 <td>exception</td>
               </tr>
               <tr>
-                <td>4</td>
                 <td>0</td>
-                <td>8</td>
+                <td>0</td>
+                <td>0</td>
                 <td>0</td>
               </tr>
             </table>
@@ -117,7 +117,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Setup">Pettswood</td>
         </tr>
         <tr class="names">
-          <td class="Setup">Result</td>
+          <td class="Setup">Results</td>
         </tr>
         <tr>
           <td><div>
@@ -132,9 +132,9 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
                 <td class="Setup">exception</td>
               </tr>
               <tr>
-                <td class="Pass">4</td>
                 <td class="Pass">0</td>
-                <td class="Pass">8</td>
+                <td class="Pass">0</td>
+                <td class="Pass">0</td>
                 <td class="Pass">0</td>
               </tr>
             </table>

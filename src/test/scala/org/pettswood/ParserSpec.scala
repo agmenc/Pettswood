@@ -86,7 +86,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       nestlingDomain.cell(any[String]) returns Pass("Monkeys")
       fixture.domain.nestedDomain() returns nestlingDomain
 
-      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <div><table><td class="Pass">Nested Table</td></table></div>
+      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
       
       there was one(nestlingDomain).table("Nested Table")
     }

@@ -16,9 +16,17 @@ trait MultiRow extends Concept {
     clearRow()
   }
 
+  def probeFor(text: String): (String) => Probe = {
+    try{
+      probeLibrary(text)
+    } catch {
+      case e: MatchError => throw new RuntimeException("Unrecognised column probe: " + text)
+    }
+  }
+
   def cell(text: String) = rowPointer match {
     case 1 => Pass(text)
-    case 2 => probeTemplate = probeLibrary(text) :: probeTemplate; Setup()
+    case 2 => probeTemplate = probeFor(text) :: probeTemplate; Setup()
     case x => probe(text)
   }
 
