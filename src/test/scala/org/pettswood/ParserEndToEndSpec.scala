@@ -2,7 +2,7 @@ package org.pettswood
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
-
+import specification.concepts.Pettswood
 class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
 
   "html without tables" should {
@@ -68,12 +68,6 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
   val NESTED_TABLE =
     <html>
       <table>
-        <tr>
-          <td>Mixins</td>
-          <td>Bootstrap</td>
-        </tr>
-      </table>
-      <table>
         <tr class="fixture">
           <td>Pettswood</td>
         </tr>
@@ -107,12 +101,6 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
   val PROCESSED_NESTED_HTML =
     <html>
       <table>
-        <tr>
-          <td class="Setup">Mixins</td>
-          <td class="Setup">Bootstrap</td>
-        </tr>
-      </table>
-      <table>
         <tr class="fixture">
           <td class="Setup">Pettswood</td>
         </tr>
@@ -145,7 +133,11 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
 
   "Nested tables" should {
     "work" in {
-      new Parser(new DomainBridge).parse(NESTED_TABLE).toString() must be equalTo (PROCESSED_NESTED_HTML.toString())
+      val domainBridge = new DomainBridge
+      var pettswood: Pettswood = null
+      domainBridge.learn("Pettswood", () => { pettswood = new Pettswood; pettswood })
+
+      new Parser(domainBridge).parse(NESTED_TABLE).toString() must be equalTo (PROCESSED_NESTED_HTML.toString())
     }
   }
 }
