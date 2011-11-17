@@ -220,24 +220,23 @@
     <li>Depending on the actual value, you should return an instance of the appropriate Result type</li>
 </ul>
 <div class="callout" title="Mirror.scala">
-    package org.pettswood.specification.concepts
+package org.pettswood.specification.concepts
 
-    import org.pettswood._
+import org.pettswood._
 
-    class Mirror extends Concept {
-    var state = List.empty[String]
+class Mirror extends Concept {
+  var state = List.empty[String]
 
-    def cell(text: String) = {
+  def cell(text: String) = {
     state = text :: state
     state match {
-    case List(input) => Pass(input)
-    case List("becomes", _) => Setup()
-    case List(expected, _, input) => Result.resultFor(expected, input.reverse)
-    case _ => throw new RuntimeException("A impossible thing has just occurred: " + state)
+      case List(input) => Pass(input)
+      case List("becomes", _) => Setup()
+      case List(expected, _, input) => Result.given(expected, input.reverse)
+      case _ => Exception(new IllegalStateException("Unhandled state: " + state))
     }
-    }
-    }
-
+  }
+}
 </div>
 <h3>Multi-row Concepts</h3>
 
@@ -268,31 +267,30 @@
     </tr>
 </table>
 <div class="callout" title="Maths.scala">
-    package org.pettswood.specification.concepts
+package org.pettswood.specification.concepts
 
-    import org.pettswood._
+import org.pettswood._
 
-    class Maths extends Concept with MultiRow {
+class Maths extends Concept with MultiRow {
 
-    val calculator = new Calculator
-    var keyPresses = List.empty[String]
+  val calculator = new Calculator
+  var keyPresses = List.empty[String]
 
-    override def clearRow() {keyPresses = List.empty[String]}
+  override def clearRow() {keyPresses = List.empty[String]}
 
-    def probeLibrary = {
+  def probeLibrary = {
     case "a" | "f" | "b" => CalculationAssembler
     case "=" => CalculationPerformer
-    }
+  }
 
-    case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
-    case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
-    }
-
+  case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
+  case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
+}
 </div>
 <h3>Probes</h3>
 
 <p>In <span class="calloutLink">Maths.scala</span>, we see a
-    <em>probeLibrary</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support twp types of Probe:</p>
+    <em>probeLibrary</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support two types of Probe:</p>
 <ul>
     <li>
         <em>Doers</em> - these "do stuff" with your system to set it up for making assertions. For example, they set fields on your domain objects or poke data into the database. Doers have no return value; they either work or they throw an exception.
@@ -302,6 +300,91 @@
     </li>
 </ul>
 <p>You don't have to exercise all the available Probes in any one table. The probeLibrary is there as a resource, and you draw on it as much or as little as you require.</p>
+
+<h3>Nested Tables</h3>
+<p>To support nested tables, a concept should override nestedConcepts(). This tells Pettswood how to interpret the nested tables. In a MultiRow Concept, such as <span class="calloutLink">NestedTablesDemo.scala</span>, the column headings should resolve to DoNothingProbes.</p>
+<table>
+    <tr class="fixture">
+        <td>Nested Tables Demo</td>
+    </tr>
+    <tr class="names">
+        <td>Addition</td>
+        <td>Mirroring</td>
+        <td>More Nesting</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="left">
+                <tr class="fixture">
+                    <td colspan="4">Maths</td>
+                </tr>
+                <tr class="names">
+                    <td>a</td>
+                    <td>f</td>
+                    <td>b</td>
+                    <td>=</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>+</td>
+                    <td>6</td>
+                    <td>13</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+        <table class="left">
+            <tr>
+                <td class="names">Mirror</td>
+                <td>Hello</td>
+                <td class="names">becomes</td>
+                <td>olleH</td>
+            </tr>
+        </table>
+        </td>
+        <td>
+            <table>
+                <tr class="fixture">
+                    <td>Nested Tables Demo</td>
+                </tr>
+                <tr class="names">
+                    <td>Mirroring</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="left">
+                            <tr>
+                                <td class="names">Mirror</td>
+                                <td>detsen ylpeeD</td>
+                                <td class="names">becomes</td>
+                                <td>Deeply nested</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<div class="callout" title="Maths.scala">
+package org.pettswood.specification.concepts
+
+import org.pettswood._
+
+class NestedTablesDemo extends Concept with MultiRow {
+
+  def probeLibrary = {
+    case "Addition" | "Mirroring" | "More Nesting" => DoNothingProbe
+  }
+
+  override def nestedConcepts() = Map(
+    "Nested Tables Demo" -> (() => new NestedTablesDemo()),
+    "Mirror" -> (() => new Mirror()),
+    "Maths" -> (() => new Maths())
+  )
+}
+</div>
 
 <h2><span style="text-decoration: line-through;">Elephant</span> Elegant Testing</h2>
 
@@ -320,9 +403,7 @@
         <em>Think in pictures</em> - don't forget that you are writing HTML. You can do all sorts of cool things with your layout, to make the page neat and tidy, and display things in a business-relevant way.
     </li>
 </ul>
-<h2>A Real Example with
-    <span style="font-weight: bold; color: yellow; background-color: green;">NEW</span> NestedTables<span style="font-size: xx-small; vertical-align: super;">TM</span> : Pettswood
-</h2>
+<h2>A Real Example with NestedTables<span style="font-size: xx-small; vertical-align: super;">TM</span></h2>
 <table>
     <tr class="fixture">
         <td>Pettswood</td>
@@ -383,9 +464,9 @@
         <td>exception</td>
     </tr>
     <tr>
-        <td>10</td>
+        <td>19</td>
         <td>1</td>
-        <td>35</td>
+        <td>51</td>
         <td>0</td>
     </tr>
 </table>

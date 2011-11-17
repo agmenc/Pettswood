@@ -24,5 +24,13 @@ class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
       summary.setup must be equalTo 1
       summary.exception must be equalTo 2
     }
+    "swallow other ResultSummary objects and accumulate their results" in {
+      val child1 = new ResultSummary(List(PASS, FAIL))
+      val child2 = new ResultSummary(List(SETUP, EXCEPTION))
+
+      val actual = new ResultSummary(List.empty[Result]).accumulate(List(child1, child2))
+
+      actual must be equalTo new ResultSummary(List(PASS, FAIL, SETUP, EXCEPTION))
+    }
   }
 }

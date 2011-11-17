@@ -6,8 +6,8 @@ trait Concept {
   def nestedConcepts() = Map.empty[String, () => Concept]
 }
 
-object NoConcept extends Concept {
-  def cell(text: String) = Exception(new RuntimeException("The NoConcept Concept supports no events"))
+object NoConceptDefined extends Concept {
+  def cell(text: String) = Exception(new RuntimeException("No Concept has been defined for " + text))
 }
 
 class Grouper(domain: DomainBridge)

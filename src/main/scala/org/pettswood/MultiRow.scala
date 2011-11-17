@@ -21,6 +21,7 @@ trait MultiRow extends Concept {
       probeLibrary(text)
     } catch {
       case e: MatchError => throw new RuntimeException("Unrecognised column probe: " + text)
+      case e: NullPointerException => throw new RuntimeException("No column probes defined")
     }
   }
 

@@ -3,8 +3,9 @@ package org.pettswood
 class DomainBridge {
 
   var concepts = Map.empty[String, () => Concept]
-  var currentConcept: Concept = NoConcept
+  var currentConcept: Concept = NoConceptDefined
   var results = List.empty[Result]
+  var nestlings = List.empty[DomainBridge]
   var tableUntouched = false;
 
   learn("mixins", () => new Mixins(this))
@@ -43,12 +44,13 @@ class DomainBridge {
   // TODO - make learn() accept a varargs of (name, conceptoriser): _*
   def nestedDomain() = {
     val nestling = new DomainBridge
+    nestlings = nestling :: nestlings
     currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, x._2) }
     nestling
   }
 
   def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
-  def summary: ResultSummary = new ResultSummary(results)
+  def summary: ResultSummary = ResultSummary(results).accumulate(nestlings.map(_.summary))
   def touchTable: Setup = {tableUntouched = false; Setup()}
 
   def conceptFor(conceptName: String): Concept = concepts.get((conceptName toLowerCase)) match {

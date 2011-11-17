@@ -7,4 +7,5 @@ class Bootstrap(domain: DomainBridge) extends Grouper(domain) {
   domain.learn("Results", () => new Results(domain.summary))
   domain.learn("Maths", () => new Maths( /* dependencies */ ))
   domain.learn("Mirror", () => new Mirror( /* dependencies */ ))
+  domain.learn("Nested Tables Demo", () => new NestedTablesDemo( /* dependencies */ ))
 }

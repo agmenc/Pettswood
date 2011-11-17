@@ -5,6 +5,7 @@ import org.specs2.mock._
 import specification.concepts.{Mirror, Maths}
 import stubs._
 import org.pettswood.stubs.Results._
+
 class DomainBridgeSpec extends Specification with Mockito {
 
   "A DomainBridge" should {
@@ -15,12 +16,12 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge()
 
       domain.conceptFor("mixins") must haveClass[Mixins]
-      domain.currentConcept must be equalTo NoConcept
+      domain.currentConcept must be equalTo NoConceptDefined
     }
     "associate Concepts with tables, using the concept name in the first cell" in {
       val domain = new DomainBridge()
       domain.learn("I'm a concept", () => new ExpectedConcept())
-      domain.currentConcept must be equalTo NoConcept
+      domain.currentConcept must be equalTo NoConceptDefined
 
       domain.table("I'm a concept")
 
@@ -89,6 +90,17 @@ class DomainBridgeSpec extends Specification with Mockito {
       nestling.conceptFor("maths") must beAnInstanceOf[Maths]
       nestling.conceptFor("mirror") must beAnInstanceOf[Mirror]
       nestling.conceptFor("sausage") must throwA[RuntimeException]
+    }
+    "gather results from its nestlings" in {
+      val domain = new DomainBridge()
+      val son = domain.nestedDomain()
+      val daughter = domain.nestedDomain()
+
+      domain.results = List(PASS)
+      son.results = List(PASS, FAIL)
+      daughter.results = List(SETUP, EXCEPTION)
+
+      domain.summary must be equalTo new ResultSummary(List(PASS, PASS, FAIL, SETUP, EXCEPTION))
     }
   }
 }
