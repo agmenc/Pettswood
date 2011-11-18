@@ -10,15 +10,10 @@ class DomainBridge {
 
   learn("mixins", () => new Mixins(this))
 
-  def table(firstCellText: String): Result = {
-    // TODO - collapse with a handleWith(handler) { ... }
-    try {
-      currentConcept = conceptFor(firstCellText)
-      tableUntouched = true;
-      Setup()
-    } catch {
-      case e => println("Failure reading table heading: " + e.getMessage); registerResult(Exception(e))
-    }
+  def table(firstCellText: String): Result = tryWith("Failure reading table heading") { () =>
+    currentConcept = conceptFor(firstCellText)
+    tableUntouched = true;
+    Setup()
   }
 
   def row() {currentConcept.row()}
@@ -26,15 +21,10 @@ class DomainBridge {
   // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
   def cell(text: String): Result = {
     if (tableUntouched) touchTable
-    else {
-      // TODO - collapse with a handleWith(handler) { ... }
-      try {
-        registerResult(currentConcept.cell(text))
-      } catch {
-        case e => println("Failure parsing cell: " + e.getMessage); registerResult(Exception(e))
-      }
-    }
+    else tryWith("Failure parsing cell") { () => registerResult(currentConcept.cell(text)) }
   }
+
+  def tryWith(message: String)(f: () => Result): Result = try {f()} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
 
   def registerResult(result: Result): Result = {
     results = result :: results
