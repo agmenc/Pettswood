@@ -36,7 +36,7 @@ class SbtRunner(loader: ClassLoader, val loggers: Array[Logger]) extends Runner2
   def event(filePath: String, summary: ResultSummary) = if (summary.overallPass) Pass(filePath) else Fail(filePath)
 
   // TODO - make summary accessible via Parser
-  // TODO - make summary match an overall result type, e.g, Pass, Fail, Skip
+  // TODO - make summary match an overall result type, i.e. Pass, Fail, Skip
   def run(testClassName: String, fingerprint: Fingerprint, eventHandler: EventHandler, args: Array[String]) {
     for (filePath <- (new FileSystem) in "src/test/resources" find ".*.html") {
       val domain = new DomainBridge

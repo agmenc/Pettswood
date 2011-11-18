@@ -10,7 +10,7 @@ class DomainBridge {
 
   learn("mixins", () => new Mixins(this))
 
-  def table(firstCellText: String): Result = tryWith("Failure reading table heading") { () =>
+  def table(firstCellText: String): Result = tryElse("Failure reading table heading") { () =>
     currentConcept = conceptFor(firstCellText)
     tableUntouched = true;
     Setup()
@@ -21,17 +21,16 @@ class DomainBridge {
   // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
   def cell(text: String): Result = {
     if (tableUntouched) touchTable
-    else tryWith("Failure parsing cell") { () => registerResult(currentConcept.cell(text)) }
+    else tryElse("Failure parsing cell") { () => registerResult(currentConcept.cell(text)) }
   }
 
-  def tryWith(message: String)(f: () => Result): Result = try {f()} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
+  def tryElse(message: String)(f: () => Result): Result = try {f()} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
 
   def registerResult(result: Result): Result = {
     results = result :: results
     result
   }
 
-  // TODO - make learn() accept a varargs of (name, conceptoriser): _*
   def nestedDomain() = {
     val nestling = new DomainBridge
     nestlings = nestling :: nestlings
@@ -39,6 +38,7 @@ class DomainBridge {
     nestling
   }
 
+  // TODO - make learn() accept a varargs of (name, conceptoriser): _*
   def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
   def summary: ResultSummary = ResultSummary(results, nestlings.map(_.summary))
   def touchTable: Setup = {tableUntouched = false; Setup()}
