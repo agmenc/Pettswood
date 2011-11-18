@@ -78,7 +78,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       domain.cell("4")
       domain.cell("5")
 
-      domain.summary must be equalTo new ResultSummary(List(PASS, FAIL, FAIL, SETUP, EXCEPTION) reverse)
+      domain.summary must be equalTo ResultSummary(List(PASS, FAIL, FAIL, SETUP, EXCEPTION) reverse)
     }
     "spawn nested tables that know Concepts provided by the current Concept" in {
       val domain = new DomainBridge()
@@ -100,7 +100,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       son.results = List(PASS, FAIL)
       daughter.results = List(SETUP, EXCEPTION)
 
-      domain.summary must be equalTo new ResultSummary(List(PASS, PASS, FAIL, SETUP, EXCEPTION))
+      domain.summary must be equalTo ResultSummary(List(PASS, PASS, FAIL, SETUP, EXCEPTION))
     }
   }
 }

@@ -50,7 +50,7 @@ class DomainBridge {
   }
 
   def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
-  def summary: ResultSummary = ResultSummary(results).accumulate(nestlings.map(_.summary))
+  def summary: ResultSummary = ResultSummary(results, nestlings.map(_.summary))
   def touchTable: Setup = {tableUntouched = false; Setup()}
 
   def conceptFor(conceptName: String): Concept = concepts.get((conceptName toLowerCase)) match {

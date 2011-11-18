@@ -3,6 +3,7 @@
 <head>
     <title>What Is Pettswood?</title>
     <link rel="stylesheet" type="text/css" href="pettswood.css"/>
+    <script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>
     <style>
         em {
             font-weight: bold;
@@ -193,24 +194,23 @@
 </table>
 <h2>Concepts</h2>
 
-<p>Concepts are classes you write to interpret the rows and columns of a table in a way relevant to your domain. The job of a Concept is to return a Result object (Pass, Fail, etc) for each cell in the table.</p>
+<p>Concepts are classes you write to interpret the rows and columns of a table. Concepts return a Result object for every cell in the table.</p>
 
 <h3>Results</h3>
 
-<p>Built-in result types (and their background colours) are:</p>
+<p>Built-in result types are:</p>
 <ul>
     <li><span class="pass">Pass</span> - Use
-        <pre style="display: inline;">Result.resultFor(expected, actual)</pre>
+        <pre style="display: inline;">Result.given(expected, actual)</pre>
         to generate a Pass or Fail, depending on whether the actual value matches the expected value.
     </li>
-    <li><span class="fail">Fail</span> - Before you implement the feature, you expect a number of these. When you are finished, they should all become green.
-    </li>
-    <li><span class="setup">Setup</span> - Setup gets the right data in the right place. These cells go blue.</li>
+    <li><span class="fail">Fail</span> - Before you implement the feature, you expect a number of these. When you are finished: none.</li>
+    <li><span class="setup">Setup</span> - Setup cells put data into the concept, so that you can make assertions on it.</li>
     <li>
-        <span class="exception">Exception</span> - At first, most exceptions you see will be because no Concept or Probe is defined to handle the current table or cell. This is very common when you are laying out a test for the first time. Any exceptions thrown by your concept will be caught, and you'll see a helpful Exception result.
+        <span class="exception">Exception</span> - Exceptions are common when you are designing new fixture or laying out a test for the first time.
     </li>
 </ul>
-<p>The colours and other CSS values for the result types can be modified by changing the very simple pettswood.css file to suit your preferences. If you decide to create your own Result type, simply add a style entry to pettswood.css.</p>
+<p>A test has passed if there are no <span class="fail">Fail</span>s or <span class="exception">Exception</span>s.</p>
 
 <h3>Single Row (or Column) Concepts</h3>
 
@@ -403,7 +403,20 @@ class NestedTablesDemo extends Concept with MultiRow {
         <em>Think in pictures</em> - don't forget that you are writing HTML. You can do all sorts of cool things with your layout, to make the page neat and tidy, and display things in a business-relevant way.
     </li>
 </ul>
-<h2>A Real Example with NestedTables<span style="font-size: xx-small; vertical-align: super;">TM</span></h2>
+<h2>The Pettswood ecosystem</h2>
+
+<h3>Skins</h3>
+
+<p>The colours and other CSS values for the result types can be modified by changing the very simple pettswood.css file to suit your preferences. If you decide to create your own Result type, simply add a style entry to pettswood.css.</p>
+
+<h3>WizzyWig</h3>
+
+<p>To edit HTML files in place, include WizzyWig in the header:</p>
+<div class="callout" title="Maths.scala">
+    &lt;script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"&gt;&lt;/script&gt;
+</div>
+
+<h2>A Real Example</h2>
 <table>
     <tr class="fixture">
         <td>Pettswood</td>
@@ -466,7 +479,7 @@ class NestedTablesDemo extends Concept with MultiRow {
     <tr>
         <td>19</td>
         <td>1</td>
-        <td>51</td>
+        <td>52</td>
         <td>0</td>
     </tr>
 </table>
