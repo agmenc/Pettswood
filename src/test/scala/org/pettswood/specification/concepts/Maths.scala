@@ -7,9 +7,9 @@ class Maths extends Concept with MultiRow {
   val calculator = new Calculator
   var keyPresses = List.empty[String]
 
-  override def clearRow() {keyPresses = List.empty[String]}
+  override def initialiseRow() {keyPresses = List.empty[String]}
 
-  def probeLibrary = {
+  def columns = {
     case "a" | "f" | "b" => CalculationAssembler
     case "=" => CalculationPerformer
   }

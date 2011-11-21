@@ -4,7 +4,7 @@ import org.pettswood._
 
 class NestedTablesDemo extends Concept with MultiRow {
 
-  def probeLibrary = {
+  def columns = {
     case "Addition" | "Mirroring" | "More Nesting" => DoNothingProbe
   }
 

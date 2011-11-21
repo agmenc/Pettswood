@@ -4,8 +4,8 @@ import org.pettswood.Result._
 
 trait MultiRow extends Concept {
   
-  def probeLibrary: String => String => Probe
-  def clearRow() {}
+  def columns: String => String => Probe
+  def initialiseRow() {}
 
   var rowPointer = 0;
   var currentProbes, probeTemplate = List.empty[(String) => Probe]
@@ -13,12 +13,12 @@ trait MultiRow extends Concept {
   override def row() {
     rowPointer += 1
     currentProbes = probeTemplate.map(x => x).reverse
-    clearRow()
+    initialiseRow()
   }
 
   def probeFor(text: String): (String) => Probe = {
     try{
-      probeLibrary(text)
+      columns(text)
     } catch {
       case e: MatchError => throw new RuntimeException("Unrecognised column probe: " + text)
       case e: NullPointerException => throw new RuntimeException("No column probes defined")

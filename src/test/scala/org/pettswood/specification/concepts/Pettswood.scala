@@ -7,7 +7,7 @@ class Pettswood extends Concept with MultiRow {
 
   var nestedDomain: DomainBridge = null
 
-  def probeLibrary = {
+  def columns = {
     case "Test File" => PettswoodRunner
     case "Output File" => FileExists
     case "Results" => DoNothingProbe

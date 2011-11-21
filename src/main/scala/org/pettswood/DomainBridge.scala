@@ -4,7 +4,7 @@ class DomainBridge {
 
   var concepts = Map.empty[String, () => Concept]
   var currentConcept: Concept = NoConceptDefined
-  var results = List.empty[Result]
+  var results: List[Result] = Nil
   var nestlings = List.empty[DomainBridge]
   var tableUntouched = false;
 
@@ -24,6 +24,7 @@ class DomainBridge {
     else tryElse("Failure parsing cell") { () => registerResult(currentConcept.cell(text)) }
   }
 
+  // TODO - could we use an Either, or the built-in exception stuff?
   def tryElse(message: String)(f: () => Result): Result = try {f()} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
 
   def registerResult(result: Result): Result = {
