@@ -10,22 +10,21 @@ class DomainBridge {
 
   learn("mixins", () => new Mixins(this))
 
-  def table(firstCellText: String): Result = tryElse("Failure reading table heading") { () =>
+  def table(firstCellText: String): Result = tryElse("Failure reading table heading") {
     currentConcept = conceptFor(firstCellText)
     tableUntouched = true;
     Setup()
   }
 
-  def row() {currentConcept.row()}
+  def row() { currentConcept.row() }
 
   // TODO - first-cellness should be a Concept concern, e.g. a SingleRow concept, vs a MultiRow
   def cell(text: String): Result = {
     if (tableUntouched) touchTable
-    else tryElse("Failure parsing cell") { () => registerResult(currentConcept.cell(text)) }
+    else tryElse("Failure parsing cell") { registerResult(currentConcept.cell(text)) }
   }
 
-  // TODO - could we use an Either, or the built-in exception stuff?
-  def tryElse(message: String)(f: () => Result): Result = try {f()} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
+  def tryElse(message: String)(f: => Result): Result = try {f} catch {case e => println(message + ": " + e.getMessage); registerResult(Exception(e))}
 
   def registerResult(result: Result): Result = {
     results = result :: results
