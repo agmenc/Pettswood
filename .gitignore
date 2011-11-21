@@ -16,6 +16,7 @@ syntax: glob
 .manager
 
 # building
+out
 target
 null
 tmp*
