@@ -39,7 +39,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.cell("I'm a value")
 
-      there was one(expectedConcept).cell("I'm a value")
+      there was one(expectedConcept).anyCell("I'm a value")
     }
     "delegate further row notification to the current concept" in {
       val domain = new DomainBridge()
@@ -54,7 +54,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge()
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.cell(any[String]) returns Fail("Elephants")
+      expectedConcept.anyCell(any[String]) returns Fail("Elephants")
 
       domain.cell("Monkeys") must be equalTo Fail("Elephants")
     }
@@ -62,7 +62,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge()
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.cell(any[String]) throws new RuntimeException("Stuff went wrong")
+      expectedConcept.anyCell(any[String]) throws new RuntimeException("Stuff went wrong")
 
       domain.cell("monkeys") must be equalTo Exception(new RuntimeException("Stuff went wrong"))
     }
@@ -70,7 +70,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge()
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.cell(any[String]) returns PASS thenReturns FAIL thenReturns FAIL thenReturns SETUP thenReturns EXCEPTION
+      expectedConcept.anyCell(any[String]) returns PASS thenReturns FAIL thenReturns FAIL thenReturns SETUP thenReturns EXCEPTION
 
       domain.cell("1")
       domain.cell("2")

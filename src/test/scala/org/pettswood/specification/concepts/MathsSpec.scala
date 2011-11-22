@@ -9,13 +9,14 @@ class MathsSpec extends SpecificationWithJUnit with Mockito {
   // TODO - push into a MultiRowTesting trait
   def givenColumns(concept: Concept, headings: String*) {
     concept.row()
+    concept.anyCell("whatever")
     givenData(concept, headings: _*)
   }
 
   // TODO - push into a ConceptTesting trait
   def givenData(concept: Concept, data: String*) {
     concept.row()
-    data foreach {element => concept.cell(element)}
+    data foreach {element => concept.anyCell(element)}
   }
 
   "When we do maths, we" should {
