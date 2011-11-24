@@ -1,10 +1,13 @@
 name := "PettsWood"
 
-version := "0.0001"
+version := "0.0.1"
 
 scalaVersion := "2.9.1"
 
 retrieveManaged := true
+
+// disable publishing the main API jar
+publishArtifact in (Compile, packageDoc) := false
 
 testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")
 

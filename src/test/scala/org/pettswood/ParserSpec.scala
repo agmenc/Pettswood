@@ -6,6 +6,8 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
   class Fixture {
     val domain = mock[DomainBridge]
+    val summary = mock[ResultSummary]
+    domain.summary returns summary
     domain.cell(any[String]) returns Pass("Monkeys")
   }
 
@@ -89,6 +91,22 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
       
       there was one(nestlingDomain).table("Nested Table")
+    }
+    "decorate output files with a results summary at the end of the body" in {
+      val fixture = new Fixture()
+      fixture.summary.toString returns "High Score: 472"
+      fixture.summary.overallPass returns false
+
+      val actual = new Parser(fixture.domain).decorate( <body><p/></body> )
+
+      actual must be equalTo ( <body><p/><table><tr><td class="Setup">Results:</td><td class="Fail">High Score: 472</td></tr></table></body> )
+    }
+    "not decorate output files that have no body" in {
+      val fixture = new Fixture()
+
+      val actual = new Parser(fixture.domain).decorate( <div><p/></div> )
+
+      actual must be equalTo <div><p/></div>
     }
   }
 }
