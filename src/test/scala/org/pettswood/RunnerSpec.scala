@@ -2,7 +2,7 @@ package org.pettswood
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
-import xml.Node
+import scala.xml.Node
 import util.Properties._
 import java.io.File
 

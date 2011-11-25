@@ -1,7 +1,7 @@
 package org.pettswood
 
 import util.Properties._
-import xml.Node
+import scala.xml.Node
 import java.io.File
 
 class Runner(parser: Parser, fileSystem: FileSystem) {
