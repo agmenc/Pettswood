@@ -1,4 +1,4 @@
-name := "PettsWood"
+name := "pettswood"
 
 organization := "org.pettswood"
 
@@ -9,6 +9,8 @@ scalaVersion := "2.9.1"
 retrieveManaged := true
 
 testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")
+
+// initialCommands in console := "println"
 
 libraryDependencies ++= Seq(
   "org.specs2" %% "specs2" % "1.6.1" % "test" withSources(),
