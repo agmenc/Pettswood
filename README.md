@@ -1,6 +1,4 @@
 
-http://agmenc.github.com/Pettswood/
-
 *Current features*
 
 * Mixins allow explicit inclusion of the desired fixture
@@ -10,18 +8,7 @@ http://agmenc.github.com/Pettswood/
 
 *Usage*
 
-* Add these to your build.sbt:
-resolvers += "Pettswood on Github" at "https://github.com/agmenc/Pettswood/raw/master/releases/"
-
-...
-"org.pettswood" %% "pettswood" % "0.0.1" withSources(),
-...
-
-"testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")"
-
-* Create a test. Use "What is Pettswood?.html" as a starting point.
-* Copy the pettswood.css to the target directory (yes, I know I need to automate that)
-* Write the Concepts to interpret the test. Use the code snippets in "What is Pettswood.html" as a starting point.
+* See https://github.com/agmenc/Pettswood/wiki/Getting-Started
 
 *Planned features* (and volunteers wanted)
 
