@@ -3,19 +3,19 @@ package org.pettswood
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
 import scala.xml.Node
-import util.Properties._
-import java.io.File
 
 class RunnerSpec extends SpecificationWithJUnit with Mockito {
-
+  
   class Fixture {
     val domain = mock[DomainBridge]
     val parser = mock[Parser]
     val fileSystem = mock[FileSystem]
     val saver = mock[Saver]
+    val finder = mock[Finder]
     val runner = new Runner(parser, fileSystem)
-    fileSystem.load(any[String]) returns <input></input>
+    fileSystem.loadXml(any[String]) returns <input></input>
     fileSystem.save(any[String]) returns saver
+    fileSystem.in(any[String]) returns finder
     parser.parse(any[Node]) returns <output></output>
     parser.decorate(any[Node]) returns <decorated></decorated>
   }
@@ -40,7 +40,7 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was one(fixture.saver).to(userDir + File.separator + "target/pettswood/category/some.file")
+      there was one(fixture.saver).to("target/pettswood/category/some.file")
     }
     "Tell the parser to decorate the output results" in {
       val fixture = new Fixture
@@ -48,6 +48,42 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
       fixture.runner run ("src/test/resources/category/some.file")
 
       there was one(fixture.parser).decorate(<output></output>)
+    }
+    "Write the CSS file from the pettswood jar into the test src directory" in {
+      val fixture = new Fixture
+      fixture.fileSystem.loadFromClasspath(any[String]) returns "body {color: blue}"
+      fixture.finder.find(any[String]) returns Nil
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was one(fixture.fileSystem).loadFromClasspath("pettswood.css")
+      there was one(fixture.saver).to("src/test/resources/pettswood.css")
+    }
+    "Not write the CSS file if it is already there" in {
+      val fixture = new Fixture
+      fixture.finder.find(any[String]) returns List("pettswood.css")
+      fixture.fileSystem.loadFromClasspath(any[String]) returns "body {color: blue}"
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was no(fixture.fileSystem).loadFromClasspath("pettswood.css")
+      there was no(fixture.saver).to("src/test/resources/pettswood.css")
+    }
+    "Copy the CSS file from the src directory to the target directory" in {
+      val fixture = new Fixture
+      fixture.finder.find(any[String]) returns Nil
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was one(fixture.fileSystem).copy("src/test/resources/pettswood.css", "target/pettswood/pettswood.css")
+    }
+    "Not copy the CSS file if it is already there" in {
+      val fixture = new Fixture
+      fixture.finder.find(any[String]) returns List("pettswood.css")
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was no(fixture.fileSystem).copy("src/test/resources/pettswood.css", "target/pettswood/pettswood.css")
     }
   }
 }

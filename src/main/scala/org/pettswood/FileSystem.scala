@@ -1,14 +1,23 @@
 package org.pettswood
 
-import xml.XML
+import scala.xml.XML
 import java.io.{FileFilter, File, PrintWriter}
+import scala.util.Properties._
+import FileSystem._
+import scala.io.Source._
+import java.net.URL
 
 class FileSystem {
-  def load(filePath: String) = XML.loadFile(filePath)
+  def loadFromClasspath(resourcePath: String) = fromInputStream(url(resourcePath).openStream()).mkString
+  def loadXml(filePath: String) = XML.loadFile(filePath)
+  def save(data: String) = Saver(data)
+  def in(path: String) = Finder(absolute(path))
+  def copy(source: String, destination: String) { save(fromFile(source).mkString) to destination }
+  def url(resourcePath: String): URL = getClass.getClassLoader.getResource(resourcePath)
+}
 
-  def save(data: String): Saver = Saver(data)
-
-  def in(path: String): Finder = Finder(path)
+object FileSystem {
+  def absolute(path: String) = userDir + File.separator + path
 }
 
 case class Finder(path: String) {
@@ -32,7 +41,7 @@ case class Finder(path: String) {
 
 case class Saver(data: String) {
   def to(path: String) {
-    val writer = new PrintWriter(guarantee(path))
+    val writer = new PrintWriter(guarantee(absolute(path)))
     writer.write(data)
     writer.close();
   }
