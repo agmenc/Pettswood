@@ -28,8 +28,8 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
 
   def logResults(summary: ResultSummary, filePath: String) {
     summary.overallPass match {
-      case true => log {logger => logger.info(summary.toString + " ==> " + filePath)}
-      case false => log {logger => logger.warn(summary.toString + " ==> " + filePath)}
+      case true => log {logger => logger.info(" " + summary.toString + " ==> " + filePath)}
+      case false => log {logger => logger.error(summary.toString + " ==> " + filePath)}
     }
   }
 

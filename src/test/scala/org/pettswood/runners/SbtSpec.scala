@@ -35,7 +35,7 @@ class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {
 
     fixture.sbt.runSingle("some file path", fixture.eventHandler)
 
-    there was one(fixture.logger).warn("Pass: 0 Fail: 0 Setup: 0 Exception: 0 ==> some file path")
+    there was one(fixture.logger).error("Pass: 0 Fail: 0 Setup: 0 Exception: 0 ==> some file path")
     there was one(fixture.eventHandler).handle(any[Fail])
     // TODO - mockito is not playing nicely here. The actual and expected are equal, but it thinks the method arguments are different
 //    there was one(fixture.eventHandler).handle(Fail("some file path"))
