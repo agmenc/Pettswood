@@ -10,4 +10,3 @@ class PettswoodFramework extends Framework {
   def testRunner(classLoader: ClassLoader, loggers: Array[Logger]) = new Sbt(classLoader, loggers, DefaultRunner)
 }
 
-trait SbtIntegrationHook
