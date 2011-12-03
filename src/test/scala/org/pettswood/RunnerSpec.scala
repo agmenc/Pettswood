@@ -12,7 +12,7 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
     val fileSystem = mock[FileSystem]
     val saver = mock[Saver]
     val finder = mock[Finder]
-    val runner = new Runner(parser, fileSystem)
+    val runner = new DisposableRunner(parser, fileSystem)
     fileSystem.loadXml(any[String]) returns <input></input>
     fileSystem.save(any[String]) returns saver
     fileSystem.in(any[String]) returns finder
@@ -51,22 +51,22 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
     }
     "Write the CSS file from the pettswood jar into the test src directory" in {
       val fixture = new Fixture
-      fixture.fileSystem.loadFromClasspath(any[String]) returns "body {color: blue}"
+      fixture.fileSystem.loadResource(any[String]) returns "body {color: blue}"
       fixture.finder.find(any[String]) returns Nil
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was one(fixture.fileSystem).loadFromClasspath("pettswood.css")
+      there was one(fixture.fileSystem).loadResource("pettswood.css")
       there was one(fixture.saver).to("src/test/resources/pettswood.css")
     }
     "Not write the CSS file if it is already there" in {
       val fixture = new Fixture
       fixture.finder.find(any[String]) returns List("pettswood.css")
-      fixture.fileSystem.loadFromClasspath(any[String]) returns "body {color: blue}"
+      fixture.fileSystem.loadResource(any[String]) returns "body {color: blue}"
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was no(fixture.fileSystem).loadFromClasspath("pettswood.css")
+      there was no(fixture.fileSystem).loadResource("pettswood.css")
       there was no(fixture.saver).to("src/test/resources/pettswood.css")
     }
     "Copy the CSS file from the src directory to the target directory" in {

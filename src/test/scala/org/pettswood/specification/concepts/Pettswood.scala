@@ -17,7 +17,7 @@ class Pettswood extends Concept with MultiRow {
 
   case class PettswoodRunner(filePath: String) extends Doer {
     nestedDomain = new DomainBridge
-    new org.pettswood.Runner(new Parser(nestedDomain), new FileSystem).run(filePath)
+    new org.pettswood.DisposableRunner(new Parser(nestedDomain), new FileSystem).run(filePath)
   }
 
   case class FileExists(filePath: String) extends Digger {

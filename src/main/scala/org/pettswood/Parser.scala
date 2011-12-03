@@ -39,7 +39,10 @@ class Parser(domain: DomainBridge) {
   }
 
   def firstCell(nodeSeq: NodeSeq): Elem = (nodeSeq \\ "td").head match { case elem: Elem => elem }
+
+  // TODO - replace overall with calls to summary
   def overall(summary: ResultSummary) = if(summary.overallPass) "Pass" else "Fail"
+  def summary = domain.summary
 
   def decorate(node: Node): Node = new TestDecorator().traverse(node)
 

@@ -26,32 +26,32 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "write output files" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to ("./target/some.file")
+      fileSystem save ("some data") to ("./target/pettswood/some.file")
 
-      fromFile("./target/some.file").mkString must be equalTo "some data"
+      fromFile("./target/pettswood/some.file").mkString must be equalTo "some data"
     }
     "make sure that the target folder exists when writing a file" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to ("./target/a/very/nested/directory/structure/some.file")
+      fileSystem save ("some data") to ("./target/pettswood/a/very/nested/directory/structure/some.file")
 
-      fromFile("./target/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
+      fromFile("./target/pettswood/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
     "know how to find files by name regex" in {
       val fileSystem = new FileSystem
 
       fileSystem in "src/test" find ".*.html" must be equalTo List(
+        BASE_PATH + "src/test/resources/error-contains-doctype.html",
         BASE_PATH + "src/test/resources/Getting Started.html",
         BASE_PATH + "src/test/resources/Overworked Example.html",
         BASE_PATH + "src/test/resources/What Is Pettswood?.html"
       )
       
       fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
+        BASE_PATH + "src/main/scala/org/pettswood/DisposableRunner.scala",
         BASE_PATH + "src/main/scala/org/pettswood/MultiRow.scala",
         BASE_PATH + "src/main/scala/org/pettswood/Result.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/ResultSummary.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/Runner.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/runners/SbtRunner.scala"
+        BASE_PATH + "src/main/scala/org/pettswood/ResultSummary.scala"
       )
     }
     "Convert relative paths to absolute" in {
@@ -59,8 +59,8 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fileSystem in "src/test" must be equalTo Finder(BASE_PATH + "src/test")
 
-      fileSystem save ("some data") to "src/a.file"
-      fromFile(BASE_PATH + "src/a.file").mkString must be equalTo "some data"
+      fileSystem save ("some data") to "target/pettswood/a.file"
+      fromFile(BASE_PATH + "target/pettswood/a.file").mkString must be equalTo "some data"
     }
     "Copy files" in {
       val fileSystem = new FileSystem
@@ -69,6 +69,18 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       fileSystem.copy("target/pettswood/tmp1/monkeys.file", "target/pettswood/tmp2/moreMonkeys.file")
       
       fromFile(BASE_PATH + "target/pettswood/tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
+    }
+    "Fail fast if the test we are loading contains a doctype" in  {
+      val fileSystem = new FileSystem
+      fileSystem.save("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n        \"http://www.w3.org/TR/html4/loose.dtd\"><xml/>").to("target/pettswood/bad-doctype.xml")
+
+      fileSystem.loadXml("target/pettswood/bad-doctype.xml") must throwA[UnsupportedOperationException] (message = "Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser.")
+    }
+    "allow HTML5 doctypes" in {
+      val fileSystem = new FileSystem
+      fileSystem.save("<!DOCTYPE HTML><xml/>").to("target/pettswood/good-doctype.xml")
+
+      fileSystem.loadXml("target/pettswood/good-doctype.xml") must be equalTo <xml/>
     }
   }
 }

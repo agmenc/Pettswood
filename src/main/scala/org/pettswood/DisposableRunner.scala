@@ -2,13 +2,14 @@ package org.pettswood
 
 import scala.xml.Node
 
-class Runner(parser: Parser, fileSystem: FileSystem) {
+class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
-  def run(inputPath: String) {
+  def run(inputPath: String): ResultSummary =  {
     prepareDirectories()
     val rawResult = execute(load(inputPath))
-    val result = parser.decorate(rawResult)
-    write(result, outputPath(inputPath))
+    val decoratedResult = parser.decorate(rawResult)
+    write(decoratedResult, outputPath(inputPath))
+    parser.summary
   }
 
   def load(inputPath: String): Node = fileSystem loadXml inputPath
@@ -17,7 +18,7 @@ class Runner(parser: Parser, fileSystem: FileSystem) {
   def outputPath(path: String) = path replace("src/test/resources", "target/pettswood")
 
   def prepareDirectories() {
-    ifNoCssIn("src/test/resources") { fileSystem.save(fileSystem.loadFromClasspath("pettswood.css")) to ("src/test/resources/pettswood.css") }
+    ifNoCssIn("src/test/resources") { fileSystem.save(fileSystem.loadResource("pettswood.css")) to ("src/test/resources/pettswood.css") }
     ifNoCssIn("target/pettswood") { fileSystem.copy("src/test/resources/pettswood.css", "target/pettswood/pettswood.css") }
   }
 
@@ -26,5 +27,16 @@ class Runner(parser: Parser, fileSystem: FileSystem) {
       case Nil => f
       case alreadyCopied =>
     }
+  }
+}
+
+trait RecycleableRunner {
+  def run(filePath: String): ResultSummary
+}
+
+object DefaultRunner extends RecycleableRunner {
+  def run(filePath: String) = {
+    val domainBridge = new DomainBridge
+    new DisposableRunner(new Parser(domainBridge), new FileSystem).run(filePath)
   }
 }
