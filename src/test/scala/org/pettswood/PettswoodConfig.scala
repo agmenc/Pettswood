@@ -1,5 +1,5 @@
 package org.pettswood
 
-import org.pettswood.runners.SbtIntegrationHook
+import runners.SbtIntegrationHook
 
 class PettswoodConfig extends SbtIntegrationHook

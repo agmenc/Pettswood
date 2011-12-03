@@ -8,6 +8,8 @@ scalaVersion := "2.9.1"
 
 retrieveManaged := true
 
+scalacOptions ++= Seq("-unchecked")
+
 testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")
 
 // initialCommands in console := "println"

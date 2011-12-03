@@ -1,9 +1,10 @@
-package org.pettswood.runners
+package org.pettswood.runners.sbt
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock.Mockito
 import org.pettswood.ResultSummary
 import org.scalatools.testing.{EventHandler, Logger}
+import org.pettswood.runners.RecycleableRunner
 
 class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {
   class Fixture {
