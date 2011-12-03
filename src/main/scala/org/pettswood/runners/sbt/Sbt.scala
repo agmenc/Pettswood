@@ -5,9 +5,7 @@ import org.pettswood.{ResultSummary, FileSystem}
 import org.pettswood.runners.RecycleableRunner
 
 class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRunner) extends Runner2 with EventHandling {
-  def log(f: Logger => Unit) {
-    loggers.foreach {f}
-  }
+  def log(f: Logger => Unit) { loggers.foreach {f} }
 
   def logResults(summary: ResultSummary, filePath: String) {
     summary.overallPass match {
@@ -17,9 +15,11 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
   }
 
   def run(testClassName: String, fingerprint: Fingerprint, eventHandler: EventHandler, args: Array[String]) {
+    log {logger => logger.info("\n\n")}
     for (filePath <- (new FileSystem) in "src/test/resources" find ".*.html") {
       runSingle(filePath, eventHandler)
     }
+    log {logger => logger.info("\n\n")}
   }
 
   // TODO - make summary match an overall result type, i.e. Pass, Fail, Skip
@@ -35,5 +35,3 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
     }
   }
 }
-
-
