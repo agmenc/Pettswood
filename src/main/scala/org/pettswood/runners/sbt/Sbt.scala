@@ -15,11 +15,11 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
   }
 
   def run(testClassName: String, fingerprint: Fingerprint, eventHandler: EventHandler, args: Array[String]) {
-    log {logger => logger.info("\n\n")}
+    log {logger => logger.info(" ")}
     for (filePath <- (new FileSystem) in "src/test/resources" find ".*.html") {
       runSingle(filePath, eventHandler)
     }
-    log {logger => logger.info("\n\n")}
+    log {logger => logger.info(" ")}
   }
 
   // TODO - make summary match an overall result type, i.e. Pass, Fail, Skip
