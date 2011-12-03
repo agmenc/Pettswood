@@ -10,7 +10,7 @@ retrieveManaged := true
 
 scalacOptions ++= Seq("-unchecked")
 
-testFrameworks += new TestFramework("org.pettswood.runners.PettswoodFramework")
+testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
 
 // initialCommands in console := "println"
 
