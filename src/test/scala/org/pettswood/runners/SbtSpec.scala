@@ -2,7 +2,7 @@ package org.pettswood.runners
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock.Mockito
-import org.pettswood.{ResultSummary, RecycleableRunner}
+import org.pettswood.ResultSummary
 import org.scalatools.testing.{EventHandler, Logger}
 
 class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {

@@ -2,6 +2,7 @@ package org.pettswood.specification.concepts
 
 import org.pettswood._
 import java.io.File
+import runners.DisposableRunner
 
 class Pettswood extends Concept with MultiRow {
 
@@ -17,7 +18,7 @@ class Pettswood extends Concept with MultiRow {
 
   case class PettswoodRunner(filePath: String) extends Doer {
     nestedDomain = new DomainBridge
-    new org.pettswood.DisposableRunner(new Parser(nestedDomain), new FileSystem).run(filePath)
+    new DisposableRunner(new Parser(nestedDomain), new FileSystem).run(filePath)
   }
 
   case class FileExists(filePath: String) extends Digger {

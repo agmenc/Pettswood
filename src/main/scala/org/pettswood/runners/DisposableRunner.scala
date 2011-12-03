@@ -1,6 +1,7 @@
-package org.pettswood
+package org.pettswood.runners
 
 import scala.xml.Node
+import org.pettswood.{ResultSummary, FileSystem, Parser, DomainBridge}
 
 class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
@@ -40,3 +41,6 @@ object DefaultRunner extends RecycleableRunner {
     new DisposableRunner(new Parser(domainBridge), new FileSystem).run(filePath)
   }
 }
+
+
+

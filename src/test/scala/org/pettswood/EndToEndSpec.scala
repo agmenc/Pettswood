@@ -2,6 +2,7 @@ package org.pettswood
 
 import org.specs2.mutable.Specification
 import org.specs2.mock._
+import runners.DisposableRunner
 
 class EndToEndSpec extends Specification with Mockito {
   "we can run a single test" in {

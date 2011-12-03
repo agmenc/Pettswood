@@ -2,7 +2,7 @@ package org.pettswood.runners
 
 import _root_.org.scalatools.testing._
 import Fingerprints._
-import org.pettswood.{RecycleableRunner, DefaultRunner, ResultSummary, FileSystem}
+import org.pettswood.{ResultSummary, FileSystem}
 
 class PettswoodFramework extends Framework with SbtIntegrationHook {
   def name() = "Pettswood"

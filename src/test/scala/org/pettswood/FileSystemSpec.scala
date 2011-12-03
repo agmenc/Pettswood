@@ -48,10 +48,10 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       )
       
       fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
-        BASE_PATH + "src/main/scala/org/pettswood/DisposableRunner.scala",
         BASE_PATH + "src/main/scala/org/pettswood/MultiRow.scala",
         BASE_PATH + "src/main/scala/org/pettswood/Result.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/ResultSummary.scala"
+        BASE_PATH + "src/main/scala/org/pettswood/ResultSummary.scala",
+        BASE_PATH + "src/main/scala/org/pettswood/runners/DisposableRunner.scala"
       )
     }
     "Convert relative paths to absolute" in {
