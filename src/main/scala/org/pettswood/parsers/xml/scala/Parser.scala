@@ -1,7 +1,7 @@
-package org.pettswood
+package org.pettswood.parsers.xml.scala
 
 import scala.xml._
-import xml.TraverseCopy
+import org.pettswood._
 
 class Parser(domain: DomainBridge) {
 

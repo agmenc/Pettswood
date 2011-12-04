@@ -1,4 +1,4 @@
-package org.pettswood.xml
+package org.pettswood.parsers.xml.scala
 
 import xml._
 

@@ -2,6 +2,7 @@ package org.pettswood.specification.concepts
 
 import org.pettswood._
 import java.io.File
+import parsers.xml.scala.Parser
 import runners.DisposableRunner
 
 class Pettswood extends Concept with MultiRow {

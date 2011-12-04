@@ -1,7 +1,8 @@
 package org.pettswood.runners
 
 import scala.xml.Node
-import org.pettswood.{ResultSummary, FileSystem, Parser, DomainBridge}
+import org.pettswood.parsers.xml.scala.Parser
+import org.pettswood.{ResultSummary, FileSystem, DomainBridge}
 
 class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 

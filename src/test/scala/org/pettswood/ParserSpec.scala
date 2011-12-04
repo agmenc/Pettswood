@@ -2,6 +2,8 @@ package org.pettswood
 
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
+import parsers.xml.scala.Parser
+
 class ParserSpec extends SpecificationWithJUnit with Mockito {
 
   class Fixture {
