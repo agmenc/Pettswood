@@ -1,12 +1,13 @@
 
 Executable documentation - the remix
-Many of us like to work on Agile projects. Our customers sometimes don't. Often, they resist being held accountable for the details, so getting good specifications is hard. They wriggle out of it, saying "just copy something similar", or "I've written a spec: read that".
 
-Luckily, I think that getting good specifications is a solved problem (and has been for years). Executable documents are both a spec and an automated test. Customers and developers work on them, using a shared domain language to describe system behaviour, and without scope for ambiguity. They increase customer engagement and foster better understanding of the business by the developers.
+I think that getting good software specifications is a solved problem, and has been for years. Executable documents let you pin down requirements with no wriggle-room, yet give users the power to write and understand their own specs, which become your tests.
 
-I think it is time to make it easier than ever before to write executable specifications, for the business and for us. We also have a decade of experience behind us, so we can learn from the anti-patterns, and make our favourite automations and support tools built-in.
+It's a shame executable documents are so hard for laypeople to author, for developers to support with fixture classes, and for anyone to refactor. It is time to make it easy, for the business and for us. We developers have been using Fit and its progeny for a decade now, so we know anti-patterns to avoid, there are new authoring tools available, and our favourite automations should be built-in to our new toolset.
 
-Scala can help us to write tools to parse executable documents more easily. The first related tool to inspire me was Fit, written for Java developers in 2002. Fit achieved something great, but it is hard to learn to use, partly because the language forces us to express things in convoluted ways. The kernel of a new Scala-based system, Pettswood, is less than 500 lines long. Typical test fixture (classes to help parse your document) is twenty to thirty lines.
+Pettswood consists of an HTML-parsing kernel and a library of optional support tools. Its goal is to make executable documents a true drop-in solution for any project.
+
+I want to show you what it can do, and I want to encourage you to use it, and perhaps even contribute to it.
 
 You might like Pettswood because:
  - A cornerstone of executable documentation is customer involvement, so peripherals for Pettswood enable WYSIWYG editing of specs.
@@ -23,17 +24,6 @@ Why Scala?
  - Mixins
 
 Come along to hear more about executable documentation, and why it is easier to support it with Scala. More importantly, come along and tell me what you want to see next.
-
-Reconciling your way out of trouble
-Pre-release reconciliation is an easy get-out-of-jail free card, to make sure you aren't about to release unexpected features into the wild. Politically, it is a great way to cover your most vulnerable of assets, that upon which you sit.
-
-The premise is simple: any system converts inputs to outputs. For the same set of inputs (e.g. a day's production events) your pre-release system and the production system should generate exactly the same results *except* for the new features you are about to release.
-
-In practice, you need to think a little bit harder. You probably know how to pump lots of data into your system, but collecting and correlating the outputs from two deployed versions of your code can prove harder. What you really want is something that tells you which fields changed, by counting how many times they were different. You can then ignore the fields you expected to change (new fields, changed meanings, new static data, etc) and focus on the aberrations.
-
-Your outputs may be in the form of XML, JSON, Excel, CSV, or some other format. How do you diff an Excel document in a meaningful way?
-
-Enter the RecTool/Planet7.
 
 
 
