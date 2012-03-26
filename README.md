@@ -15,6 +15,7 @@
 * Includes, so that snippets of setup/tear-down can be commonalised
 * New Concepts (test fixtures), to help with common tasks (web, DB, etc)
 * Runners for other build environments (Ant, Maven)
+* Examples of flow-style tests
 * IDE integration (IntelliJ, Eclipse)
 * WizzyWig (WYSIWYG) integration, so that tests can be edited in-browser
 * New test creator, using WizzyWig.

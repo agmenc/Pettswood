@@ -24,6 +24,7 @@ class FileSystem {
     firstLine(filePath) match {
       case string if (string.startsWith("<!DOCTYPE HTML>")) =>
       case string if (string.startsWith("<!DOCTYPE")) => throw new UnsupportedOperationException("Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser.")
+      case _ =>
     }
   }
 

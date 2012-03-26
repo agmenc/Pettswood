@@ -11,6 +11,6 @@ class EndToEndSpec extends Specification with Mockito {
 
     new DisposableRunner(new Parser(domain), new FileSystem).run("src/test/resources/What Is Pettswood?.html")
 
-    domain.summary.overallPass must be equalTo false
+    domain.summary.overallPass must be equalTo true
   }
 }

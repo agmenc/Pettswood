@@ -6,6 +6,7 @@ import io.Source._
 import java.io.File
 import org.specs2.specification.AfterExample
 import util.Properties._
+import scala.xml.NodeSeq
 
 class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExample {
 
@@ -70,17 +71,24 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       
       fromFile(BASE_PATH + "target/pettswood/tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
     }
-    "Fail fast if the test we are loading contains a doctype" in  {
-      val fileSystem = new FileSystem
-      fileSystem.save("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n        \"http://www.w3.org/TR/html4/loose.dtd\"><xml/>").to("target/pettswood/bad-doctype.xml")
+    "Fail fast if the test we are loading contains a non-HTML5 doctype" in  {
+      val nonHtml5Doc = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n        \"http://www.w3.org/TR/html4/loose.dtd\"><xml/>"
+      val friendlyErrorMessage = "Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser."
 
-      fileSystem.loadXml("target/pettswood/bad-doctype.xml") must throwA[UnsupportedOperationException] (message = "Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser.")
+      load(nonHtml5Doc) must throwA[UnsupportedOperationException] (message = friendlyErrorMessage)
     }
     "allow HTML5 doctypes" in {
-      val fileSystem = new FileSystem
-      fileSystem.save("<!DOCTYPE HTML><xml/>").to("target/pettswood/good-doctype.xml")
-
-      fileSystem.loadXml("target/pettswood/good-doctype.xml") must be equalTo <xml/>
+      load("<!DOCTYPE HTML><xml/>") must be equalTo <xml/>
     }
+    "allow HTML docs with no doctype" in {
+      load("<html><body>monkeys</body></html>") must be equalTo <html><body>monkeys</body></html>
+    }
+  }
+
+  def load(structure: String): NodeSeq = {
+    val someFile = "target/pettswood/whatever.xml"
+    val fileSystem = new FileSystem
+    fileSystem.save(structure) to someFile
+    fileSystem.loadXml(someFile)
   }
 }

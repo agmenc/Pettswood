@@ -1,0 +1,35 @@
+
+Executable documentation - the remix
+
+I think that getting good software specifications is a solved problem, and has been for years. Executable documents let you pin down requirements with no wriggle-room, yet give users the power to write and understand their own specs, which become your tests.
+
+It's a shame executable documents are so hard for laypeople to author, for developers to support with fixture classes, and for anyone to refactor. It is time to make it easy, for the business and for us. We developers have been using Fit and its progeny for a decade now, so we know anti-patterns to avoid, there are new authoring tools available, and our favourite automations should be built-in to our new toolset.
+
+Pettswood consists of an HTML-parsing kernel and a library of optional support tools. Its goal is to make executable documents a true drop-in solution for any project.
+
+I want to show you what it can do, and I want to encourage you to use it, and perhaps even contribute to it.
+
+
+------
+
+A steady interface
+sbt installer
+The install is ready to go with an example test
+Library of support tools - the togglers, etc. WYSIWYG. Fixture libraries.
+Support Java
+Support refactoring (how ?!?)
+Have a mechanism for allowing fixture contributions and helper tools - a new github repo?
+Idioms and anti-patterns
+
+------
+
+Demo - interactive, a domain everyone knows. Probably start with a partial solution. Controlled situation, so that answers can be quickly added. Also an introduction to EDs.
+Describe the Kernel
+ - what it does
+ - why Scala was a good choice
+Describe the ecosystem (with examples for each)
+ - Simple JS/CSS inclusions
+ - WYSIWYG
+ - Fixture library
+Conclude - testers please
+

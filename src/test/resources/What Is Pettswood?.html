@@ -55,17 +55,17 @@
 </ul>
 <h1>Usage Guide</h1>
 
-<h2>Simple Example</h2>
+<h2 >Simple Example</h2>
 <table class="mixins" style="float: left;">
-    <tr>
+    <tbody><tr>
         <td class="names">Mixins</td>
         <td>Bootstrap</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- Mixin in all the Concepts in <span class="calloutLink">Bootstrap.scala</span></div>
 <div style="clear: both"></div>
 <table class="left">
-    <tr class="fixture">
+    <tbody><tr class="fixture">
         <td colspan="4">Maths</td>
     </tr>
     <tr class="names">
@@ -86,29 +86,27 @@
         <td>5</td>
         <td>3</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- Test that our advanced calculation engine is working</div>
 <div style="clear: both"></div>
 <table class="left">
-    <tr>
+    <tbody><tr>
         <td class="names">Mirror</td>
         <td>Hello</td>
         <td class="names">becomes</td>
         <td>olleH</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- Test that our advanced encryption engine is working</div>
 <div style="clear: both"></div>
 <h2>Test Paths</h2>
 
 <p>Pettswood expects an sbt-like input directory structure:</p>
-    <pre>
-[project root]/src/test/resources/<em>Your test here.html</em>
+    <pre>[project root]/src/test/resources/<em>Your test here.html</em>
 [project root]/src/test/resources/someFeature/Another test here.html
     </pre>
 <p>The results are written to the target folder:</p>
-    <pre>
-[project root]/target/pettswood/<em>Your test here.html</em>
+    <pre>[project root]/target/pettswood/<em>Your test here.html</em>
 [project root]/target/pettswood/someFeature/Another test here.html
     </pre>
 <h2>Mixins</h2>
@@ -121,12 +119,12 @@
 
 <h3>Grouped Mixins - the Preferred Option</h3>
 <table class="mixins" style="float: left;">
-    <tr>
+    <tbody><tr>
         <td class="names">Mixins</td>
         <td>Shoestrap</td>
         <td>Bootstrap</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- Shoestrap.scala and
     <span class="calloutLink">Bootstrap.scala</span> are classes in the root package that know about many Concepts
 </div>
@@ -136,33 +134,33 @@
     import org.pettswood.specification.concepts._
 
     class Bootstrap {
-    DomainBridge.learn("Pettswood", () => new Pettswood( /* dependencies */ ))
-    DomainBridge.learn("Maths", () => new Maths( /* dependencies */ ))
-    DomainBridge.learn("Mirror", () => new Mirror( /* dependencies */ ))
+    DomainBridge.learn("Pettswood", () =&gt; new Pettswood( /* dependencies */ ))
+    DomainBridge.learn("Maths", () =&gt; new Maths( /* dependencies */ ))
+    DomainBridge.learn("Mirror", () =&gt; new Mirror( /* dependencies */ ))
     }
 </div>
 <h3>Other Mixin Options</h3>
 
 <p>If you are prototyping a Concept, or just playing around, these options might also be helpful to you:</p>
 <table class="mixins" style="float: left;">
-    <tr>
+    <tbody><tr>
         <td class="names">mixins</td>
         <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- We can mixin individual Concepts by (canonical) name</div>
 <div style="clear: both"></div>
 <table class="mixins" style="float: left;">
-    <tr>
+    <tbody><tr>
         <td class="names">Mixins</td>
         <td>org.pettswood.specification.concepts.Maths</td>
         <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- or many, in a row,</div>
 <div style="clear: both"></div>
 <table class="mixins" style="float: left;">
-    <tr>
+    <tbody><tr>
         <td class="names">Mixins</td>
     </tr>
     <tr>
@@ -171,27 +169,27 @@
     <tr>
         <td>org.pettswood.specification.concepts.Mirror</td>
     </tr>
-</table>
+</tbody></table>
 <div class="aside left">&lt;-- or mixed with Groupers, (shown here in the popular "column" layout)</div>
 <div style="clear: both"></div>
 <p>The name we use in the mixin is the name we must use in our table. So canonical names look a bit ugly, both in the mixin (above) and in the table (below):</p>
 <table>
-    <tr>
+    <tbody><tr>
         <td class="names">org.pettswood.specification.concepts.Mirror</td>
         <td>Hello</td>
         <td class="names">becomes</td>
         <td>olleH</td>
     </tr>
-</table>
+</tbody></table>
 <p>That's why Groupers, such as Shoestrap.scala and <span class="calloutLink">Bootstrap.scala</span>, are my preferred option:</p>
 <table>
-    <tr>
+    <tbody><tr>
         <td class="names">Mirror</td>
         <td>Hello</td>
         <td class="names">becomes</td>
         <td>olleH</td>
     </tr>
-</table>
+</tbody></table>
 <h2>Concepts</h2>
 
 <p>Concepts are classes you write to interpret the rows and columns of a table. Concepts return a Result object for every cell in the table.</p>
@@ -230,10 +228,10 @@ class Mirror extends Concept {
   def cell(text: String) = {
     state = text :: state
     state match {
-      case List(input) => Pass(input)
-      case List("becomes", _) => Setup()
-      case List(expected, _, input) => Result.given(expected, input.reverse)
-      case _ => Exception(new IllegalStateException("Unhandled state: " + state))
+      case List(input) =&gt; Pass(input)
+      case List("becomes", _) =&gt; Setup()
+      case List(expected, _, input) =&gt; Result.given(expected, input.reverse)
+      case _ =&gt; Exception(new IllegalStateException("Unhandled state: " + state))
     }
   }
 }
@@ -244,7 +242,7 @@ class Mirror extends Concept {
     <span class="calloutLink">Maths.scala</span> Concept - with the trait MultiRow - links to a (trivially) simple Calculator, that knows how to interpret keypresses from the user.
 </p>
 <table>
-    <tr class="fixture">
+    <tbody><tr class="fixture">
         <td colspan="4">Maths</td>
     </tr>
     <tr class="names">
@@ -263,9 +261,9 @@ class Mirror extends Concept {
         <td>8</td>
         <td>-</td>
         <td>5</td>
-        <td>48000</td>
+        <td>3</td>
     </tr>
-</table>
+</tbody></table>
 <div class="callout" title="Maths.scala">
 package org.pettswood.specification.concepts
 
@@ -279,8 +277,8 @@ class Maths extends Concept with MultiRow {
   override def clearRow() {keyPresses = List.empty[String]}
 
   def probeLibrary = {
-    case "a" | "f" | "b" => CalculationAssembler
-    case "=" => CalculationPerformer
+    case "a" | "f" | "b" =&gt; CalculationAssembler
+    case "=" =&gt; CalculationPerformer
   }
 
   case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
@@ -304,7 +302,7 @@ class Maths extends Concept with MultiRow {
 <h3>Nested Tables</h3>
 <p>To support nested tables, a concept should override nestedConcepts(). This tells Pettswood how to interpret the nested tables. In a MultiRow Concept, such as <span class="calloutLink">NestedTablesDemo.scala</span>, the column headings should resolve to DoNothingProbes.</p>
 <table>
-    <tr class="fixture">
+    <tbody><tr class="fixture">
         <td>Nested Tables Demo</td>
     </tr>
     <tr class="names">
@@ -315,7 +313,7 @@ class Maths extends Concept with MultiRow {
     <tr>
         <td>
             <table class="left">
-                <tr class="fixture">
+                <tbody><tr class="fixture">
                     <td colspan="4">Maths</td>
                 </tr>
                 <tr class="names">
@@ -330,21 +328,21 @@ class Maths extends Concept with MultiRow {
                     <td>6</td>
                     <td>13</td>
                 </tr>
-            </table>
+            </tbody></table>
         </td>
         <td>
         <table class="left">
-            <tr>
+            <tbody><tr>
                 <td class="names">Mirror</td>
                 <td>Hello</td>
                 <td class="names">becomes</td>
                 <td>olleH</td>
             </tr>
-        </table>
+        </tbody></table>
         </td>
         <td>
             <table>
-                <tr class="fixture">
+                <tbody><tr class="fixture">
                     <td>Nested Tables Demo</td>
                 </tr>
                 <tr class="names">
@@ -353,19 +351,19 @@ class Maths extends Concept with MultiRow {
                 <tr>
                     <td>
                         <table class="left">
-                            <tr>
+                            <tbody><tr>
                                 <td class="names">Mirror</td>
                                 <td>detsen ylpeeD</td>
                                 <td class="names">becomes</td>
                                 <td>Deeply nested</td>
                             </tr>
-                        </table>
+                        </tbody></table>
                     </td>
                 </tr>
-            </table>
+            </tbody></table>
         </td>
     </tr>
-</table>
+</tbody></table>
 
 <div class="callout" title="Maths.scala">
 package org.pettswood.specification.concepts
@@ -375,13 +373,13 @@ import org.pettswood._
 class NestedTablesDemo extends Concept with MultiRow {
 
   def probeLibrary = {
-    case "Addition" | "Mirroring" | "More Nesting" => DoNothingProbe
+    case "Addition" | "Mirroring" | "More Nesting" =&gt; DoNothingProbe
   }
 
   override def nestedConcepts() = Map(
-    "Nested Tables Demo" -> (() => new NestedTablesDemo()),
-    "Mirror" -> (() => new Mirror()),
-    "Maths" -> (() => new Maths())
+    "Nested Tables Demo" -&gt; (() =&gt; new NestedTablesDemo()),
+    "Mirror" -&gt; (() =&gt; new Mirror()),
+    "Maths" -&gt; (() =&gt; new Maths())
   )
 }
 </div>
@@ -418,7 +416,7 @@ class NestedTablesDemo extends Concept with MultiRow {
 
 <h2>A Real Example</h2>
 <table>
-    <tr class="fixture">
+    <tbody><tr class="fixture">
         <td>Pettswood</td>
     </tr>
     <tr class="names">
@@ -431,7 +429,7 @@ class NestedTablesDemo extends Concept with MultiRow {
         <td>./target/pettswood/Overworked Example.html</td>
         <td>
             <table>
-                <tr class="fixture">
+                <tbody><tr class="fixture">
                     <td>Results</td>
                 </tr>
                 <tr class="names">
@@ -446,10 +444,10 @@ class NestedTablesDemo extends Concept with MultiRow {
                     <td>13</td>
                     <td>0</td>
                 </tr>
-            </table>
+            </tbody></table>
         </td>
     </tr>
-</table>
+</tbody></table>
 <h2>Summary</h2>
 
 <p>So:</p>

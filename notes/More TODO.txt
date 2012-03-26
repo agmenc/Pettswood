@@ -1,0 +1,86 @@
+Pettswood More TODO
+
+DO THE DEMO A HUNDRED TIMES, IMPROVING EACH TIME
+ - Use PW to test-drive some problem domain
+	- Twitter
+	- UPT
+
+What was good at Functional Exchange:
+Dynamic data lookups - real-time code demo with very fast feedback
+Visi - a great new idea, for a new type of computing (tablets)
+Audience participation - everyone has opinions to put forward.
+	- A vote for the next feature?
+
+Things to avoid:
+Just boxes and lines - boring
+Monotonous plugging of a website - there needs to be a sequence of interesting points to engage the audience
+
+
+Make the Demo the same as the docs, and the What Is? Doc, and the getting started
+
+5	Intro
+5	Go through what is
+10	Demos
+10 	Questions, requests for demos
+
+
+
+Fix WYSIWYG editor so that it don't completely fuck up the xml-ness of the HTML
+ - Removes end tag of <link>
+ - adds unclosed <br> tags everywhere
+ - -removes the doctype and starting <html> tags
+
+Add a helpful xml-structure-error-displayer, so that it is easy to find and fix XML well-formedness errors
+
+Things I wanted to fix:
+Business users don't edit HTML -> informed WYSIWYG
+Fixture is hard ->
+Too much boilerplate fixture ->
+
+
+Talks Structure:
+
+  Things to fix:	1		2		3
+
+	Solution:	a		b		c
+
+	Examples:	x		y		z
+
+Use this graphical key as in-slide breadcrumbs.
+
+
+Concept:
+A toolbox of highly-compatible libraries to enable real-time construction of executable specifications:
+ - The core - an HTML-to-test parser and executer
+ - Integrations with build tools (sbt, ant, Maven, ...)
+ - A WYSIWYG spec editor for the business to use
+ - Incorporates the automations and lessons learned from previous production systems (toggle between test and result, nested tables, mixing, none/null/empty concepts, …)
+ - In-browser creation of tests from templates, and addition of tables supported by existing fixture, as well as new types of table.
+ -
+
+Rules of engagement:
+ - The document must be well-formed XML. HTML5 is fine.
+ -
+ -
+ -
+ -
+
+
+Bugs:
+*Still needs an SbtIntegrationHook in the test sources for it to run ==> Have a settings class that doesn't suck (unlike sbt's) that is also the hook.
+* Good old NPE when first looking for copy of css in target. Works second time around.
+
+New features to add:
+ONLINE - Move Pettswood tests to their own folder: src/pettswood/resources/
+Improve Concepts, so that learning new ones requires less code. C.f. tryElse in DomainBridge
+Host in sonatype
+Jang in toggler at start of test
+Improve the default CSS - make it look neater, more up-to-date. Explore fonts, colours, etc. The usual.
+Find a way to get HTML displayed out of github - extract the project to agmen-smith.co.uk and host it from there?
+Simplify the "What is" doc.
+Fill in Getting Started.doc
+----- Begin Marketing -----
+(Automatically) update the documentation snippets - an sbt plugin?
+Sbt task to create template tests & Jang in wizzywig at start of test
+Test different failure modes (e.g. no file, badly formed table, etc) and check there are appropriate error messages
+
