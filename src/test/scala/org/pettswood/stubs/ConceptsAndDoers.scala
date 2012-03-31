@@ -9,7 +9,7 @@ class StubbedConcept[T] extends Concept {
   override def equals(p1: Any) = p1.isInstanceOf[T]
 }
 
-class SomeGrouper(domain: DomainBridge) extends Grouper(domain) {
+class SomeMixin(domain: DomainBridge) extends Mixin(domain) {
   domain.learn("ExpectedConcept", () => new ExpectedConcept( /* dependencies */ ))
   domain.learn("AnotherExpectedConcept", () => new AnotherExpectedConcept( /* dependencies */ ))
 }

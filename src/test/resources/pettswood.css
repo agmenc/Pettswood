@@ -18,22 +18,21 @@ table.mixins { float: right; }
 .calloutLink {
     font-weight: bold;
     color: blue;
-    background-color: #f9ea9d;
-    text-decoration: underline;
+    border-bottom: thin dashed blue;
 }
 
 .callout {
-    white-space: pre;
-    font-family: 'Courier', monospace;
     background-color: #f5f5dc;
-    padding: 5px;
+    padding: 10px;
     border: thin solid black;
-    display: table;
+    display: block;
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .fixture {
     font-weight: bold;
-    font-size: large;
+    font-size: medium;
 }
 
 .result {

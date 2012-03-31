@@ -16,7 +16,7 @@ class Mixins(domain: DomainBridge) extends Concept {
   def instanceOf(classWithDefaultConstructor: String) = {
     val clazz = Class.forName(classWithDefaultConstructor)
     val firstConstructor = clazz.getDeclaredConstructors.head
-    if (new Grouper(domain).getClass.isAssignableFrom(clazz))
+    if (new Mixin(domain).getClass.isAssignableFrom(clazz))
       firstConstructor.newInstance(domain)
     else
       firstConstructor.newInstance()

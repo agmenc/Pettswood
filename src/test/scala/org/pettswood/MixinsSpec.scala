@@ -32,7 +32,7 @@ class MixinsSpec extends Specification with Mockito {
     "allow addition of multiple concepts using Concept groups" in {
       val fixture = new Fixture()
 
-      fixture.mixin.cell("org.pettswood.stubs.SomeGrouper")
+      fixture.mixin.cell("org.pettswood.stubs.SomeMixin")
 
       there was one(fixture.domain).learn(same("ExpectedConcept"), any[() => ExpectedConcept])
       there was one(fixture.domain).learn(same("AnotherExpectedConcept"), any[() => AnotherExpectedConcept])
@@ -40,7 +40,7 @@ class MixinsSpec extends Specification with Mockito {
     "allow use of multiple Mixins anywhere in the test" in {
       val domain = mock[DomainBridge]
 
-      new Mixins(domain).cell("org.pettswood.stubs.SomeGrouper")
+      new Mixins(domain).cell("org.pettswood.stubs.SomeMixin")
       new Mixins(domain).cell("org.pettswood.stubs.YetAnotherExpectedConcept")
 
       there was one(domain).learn(same("ExpectedConcept"), any[() => ExpectedConcept])

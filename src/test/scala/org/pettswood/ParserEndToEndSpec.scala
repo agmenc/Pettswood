@@ -26,7 +26,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
       <table>
         <tr>
           <td>Mixins</td>
-          <td>Bootstrap</td>
+          <td>Cryptography</td>
         </tr>
       </table>
       <table>
@@ -45,7 +45,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
       <table>
         <tr>
           <td class="Setup">Mixins</td>
-          <td class="Setup">Bootstrap</td>
+          <td class="Setup">Cryptography</td>
         </tr>
       </table>
       <table>

@@ -13,4 +13,4 @@ object NoConceptDefined extends Concept {
   def cell(text: String) = Exception(new RuntimeException("No Concept has been defined for " + text))
 }
 
-class Grouper(domain: DomainBridge)
+class Mixin(domain: DomainBridge)

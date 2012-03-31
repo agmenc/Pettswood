@@ -1,3 +1,3 @@
-import org.pettswood.{DomainBridge, Grouper}
+import org.pettswood.{DomainBridge, Mixin}
 
-class Shoestrap(domain: DomainBridge) extends Grouper(domain)
+class Shoestrap(domain: DomainBridge) extends Mixin(domain)
