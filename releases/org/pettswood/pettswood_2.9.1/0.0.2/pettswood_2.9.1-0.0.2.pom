@@ -4,7 +4,12 @@
     <groupId>org.pettswood</groupId>
     <artifactId>pettswood_2.9.1</artifactId>
     <packaging>jar</packaging>
+    <description>pettswood</description>
     <version>0.0.2</version>
+    <name>pettswood</name>
+    <organization>
+        <name>org.pettswood</name>
+    </organization>
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -48,16 +53,19 @@
             <id>snapshots</id>
             <name>snapshots</name>
             <url>http://scala-tools.org/repo-snapshots/</url>
+            <layout>default</layout>
         </repository>
         <repository>
             <id>releases</id>
             <name>releases</name>
             <url>http://scala-tools.org/repo-releases/</url>
+            <layout>default</layout>
         </repository>
         <repository>
             <id>ScalaToolsMaven2Repository</id>
             <name>Scala-Tools Maven2 Repository</name>
             <url>http://scala-tools.org/repo-releases/</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 </project>
