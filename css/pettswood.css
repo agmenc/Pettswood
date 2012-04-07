@@ -1,0 +1,53 @@
+body {
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    font-size: 12px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+td {
+    border: thin solid black;
+    padding: 3px;
+}
+
+table.mixins { float: right; }
+
+.calloutLink {
+    font-weight: bold;
+    color: blue;
+    border-bottom: thin dashed blue;
+    text-decoration: none;
+}
+
+.callout {
+    background-color: #f5f5dc;
+    padding: 10px;
+    border: thin solid black;
+    display: block;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.fixture {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.result {
+    display: block;
+    margin-top: 5px;
+    line-height: 60%;
+}
+
+.names {
+    font-weight: bold;
+    background-color: #d3d3d3;
+}
+
+.pass { background-color: #90ee90; }
+.setup { background-color: #aac4f4; }
+.fail { background-color: #ff69b4; }
+.exception { background-color: #ffcc66; }
