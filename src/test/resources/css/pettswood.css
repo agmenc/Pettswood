@@ -19,6 +19,7 @@ table.mixins { float: right; }
     font-weight: bold;
     color: blue;
     border-bottom: thin dashed blue;
+    text-decoration: none;
 }
 
 .callout {

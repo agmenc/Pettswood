@@ -1,4 +1,5 @@
 
+------- Blurb --------
 Executable documentation - the remix
 
 I think that getting good software specifications is a solved problem, and has been for years. Executable documents let you pin down requirements with no wriggle-room, yet give users the power to write and understand their own specs, which become your tests.
@@ -25,7 +26,62 @@ Why Scala?
 
 Come along to hear more about executable documentation, and why it is easier to support it with Scala. More importantly, come along and tell me what you want to see next.
 
+------- Talk --------
 
+I am ... [Me, PWITC and PW]
+
+Talk covers []
+ - ED -> what and why
+ - PW -> brief intro
+ - Demo
+
+Spec in the bin [How to lose friends and alienate people book cover]
+Created an enemy, not an ally
+Didn't stop the flow of verbose, out-of-date and wrong specifications
+
+A better way [Show the quote from a Timeless Way of Building]
+Encourage the business to become engaged with the project
+Give them a way to describe what they want that helps you to understand and question it
+
+Former Frameworks
+ - Fit, Fitnesse, Concordion
+ - Lessons from heavy use of Fit
+ - Fit was hard - this stuff should be easier
+
+How it works [Box diagram from UsingPettswood.html]
+- A readable test
+- Fixture
+
+Example: SpyMail []
+A crypto package for emails
+Let's imagine that SSH and 64-bit RSA encryption is just not good enough for us
+
+Our Test
+
+Our code
+ - Mirror
+ - Calculator
+
+Mixins
+
+Concepts
+
+MultiRow Concepts
+
+And here's the result
+- Run in sbt
+- toggle through to result
+
+Why is this easier in Scala?
+ - Built-in XML processing
+ - Inline functions
+ - Pattern matching
+ - Case classes
+ - Mixins
+
+How do I get started?
+
+Questions/What would you like to see next?
 
 
 

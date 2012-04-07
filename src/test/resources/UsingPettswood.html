@@ -2,75 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Using Pettswood</title>
-    <link rel="stylesheet" type="text/css" href="pettswood.css"/>
-    <script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>
-    <style>
-        em {
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        .left {
-            float: left;
-        }
-
-        .right {
-            float: right;
-        }
-
-        .setupWarning {
-            border: thin solid blue;
-            margin: 20px;
-        }
-
-        .aside {
-            color: blue;
-            font-weight: bold;
-            position: relative;
-            top: 15px;
-        }
-
-        .diagram {
-            width: 200px;
-            border: thin solid black;
-            margin: 10px;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .arrow {
-            font-size: xx-large;
-            position: relative;
-            margin: 0;
-            padding: 0;
-            height: 10px;
-            text-align: center;
-        }
-
-        .vertical {
-            top: -20px;
-        }
-
-        .page {
-            border: thin solid black;
-            box-shadow: 3px 3px 4px #000;
-            width: 270px;
-        }
-
-        .page h2 {
-            margin: 10px;
-        }
-
-        .writeup {
-            width: 600px;
-        }
-
-        .little {
-            font-size: x-small;
-            margin: 10px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/documentation.css"/>
+    <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="javascript/pettswood.js"></script>
+    <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
 </head>
 <body style="width: 960px;">
 <h1>Using Pettswood</h1>
@@ -88,9 +24,9 @@
 <div class="arrow left">&#8594;</div>
 <div class="left">
     <div class="diagram"><em>Pettswood</em></div>
-    <div class="arrow vertical">&#8593; &#8595;</div>
+    <div class="arrow vertical">&#8595; &#8593;</div>
     <div class="diagram"><em>Fixture</em><br/>Classes <em>you</em> write to link Pettswood with your codebase</div>
-    <div class="arrow vertical">&#8593; &#8595;</div>
+    <div class="arrow vertical">&#8595; &#8593;</div>
     <div class="diagram"><em>Your App</em></div>
 </div>
 <div class="arrow left">&#8594;</div>
@@ -163,21 +99,21 @@
 <div class="left writeup">
     <ol>
         <li>
-            <em>Mixins</em> tell Pettswood about your fixture. <span class="calloutLink">Cryptology.scala</span> registers a couple of
+            <em>Mixins</em> tell Pettswood about your fixture. <a class="calloutLink" href="">Cryptography.scala</a> registers a couple of
             classes that support cryptographic functions.
-            <pre class="callout">
+            <pre class="callout" id="Cryptography">
 import org.pettswood.specification.concepts._
 import org.pettswood.{Mixin, DomainBridge}
 
-class Cryptology(domain: DomainBridge) extends Mixin(domain) {
+class Cryptography(domain: DomainBridge) extends Mixin(domain) {
   domain.learn("Maths", () => new Maths())
   domain.learn("Mirror", () => new Mirror())
 }</pre>
         </li>
         <li>
             <em>Concept</em>s adapt a business concept to your underlying codebase. You can see the supporting fixture code in
-            <span class="calloutLink">Mirror.scala</span>.
-            <pre class="callout">
+            <a class="calloutLink" href="">Mirror.scala</a>.
+            <pre class="callout" id="Mirror">
 package org.pettswood.specification.concepts
 
 import org.pettswood._
@@ -198,8 +134,8 @@ class Mirror extends Concept {
         </li>
         <li>
             <em>MultiRow Concept</em>s are the real powerhouse of executable documentation: many scenarios can be described in a tight,
-            readable format. See <span class="calloutLink">Maths.scala</span> to see how easily they can be written.
-            <pre class="callout">
+            readable format. See <a class="calloutLink" href="">Maths.scala</a> to see how easily they can be written.
+            <pre class="callout" id="Maths">
 package org.pettswood.specification.concepts
 
 import org.pettswood._
@@ -226,7 +162,7 @@ class Maths extends Concept with MultiRow {
 
 <h2>More on MultiRow</h2>
 
-<p>In <span class="calloutLink">Maths.scala</span>, we see <em>columns</em> being associated with CalculationAssembler and
+<p>In <a class="calloutLink" href="">Maths.scala</a>, we see <em>columns</em> being associated with CalculationAssembler and
     CalculationPerformer instances. These are examples of the two types of <em>Probe</em>:</p>
 <ul>
     <li>
@@ -326,8 +262,8 @@ class Maths extends Concept with MultiRow {
     <li>Override nestedConcepts()</li>
     <li>Associate column headings for nested tables with the DoNothingProbe</li>
 </ul>
-<p><span class="calloutLink">NestedTablesDemo.scala</span></p>
-<pre class="callout" style="width: 550px;">
+<p><a class="calloutLink" href="">NestedTablesDemo.scala</a></p>
+<pre class="callout" id="NestedTablesDemo" style="width: 550px;">
 package org.pettswood.specification.concepts
 
 import org.pettswood._

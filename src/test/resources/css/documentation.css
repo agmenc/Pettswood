@@ -1,0 +1,65 @@
+em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.setupWarning {
+    border: thin solid blue;
+    margin: 20px;
+}
+
+.aside {
+    color: blue;
+    font-weight: bold;
+    position: relative;
+    top: 15px;
+}
+
+.diagram {
+    width: 200px;
+    border: thin solid black;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.arrow {
+    font-size: xx-large;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 10px;
+    text-align: center;
+}
+
+.vertical {
+    top: -20px;
+}
+
+.page {
+    border: thin solid black;
+    box-shadow: 3px 3px 4px #000;
+    width: 270px;
+}
+
+.page h2 {
+    margin: 10px;
+}
+
+.writeup {
+    width: 600px;
+}
+
+.little {
+    font-size: x-small;
+    margin: 10px;
+    text-align: center;
+}
