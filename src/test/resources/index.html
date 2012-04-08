@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Pettswood: Executable Documentation</title>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/documentation.css"/>
+    <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="javascript/pettswood.js"></script>
+    <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
+</head>
+<body>
+<div style="width: 960px; margin: 0 auto;">
+    <div class="mainPanel">
+        <h2>Pettswood: Executable Documentation</h2>
+
+        <div style="clear: both"></div>
+        <p>Pettswood reads specifications, executes them as tests, and outputs the results. Pettswood was inspired by Fit, and
+            derivatives
+            such
+            as
+            Fitnesse and Concordian</p>
+
+        <div class="left">
+            <div class="diagram page"><em>Input</em><br/>Readable specification in HTML</div>
+            <div style="clear: both"><p class="little">./src/test/resources/SomeTest.html</p></div>
+        </div>
+        <div class="arrow left">&#8594;</div>
+        <div class="left">
+            <div class="diagram"><em>Pettswood</em></div>
+            <div class="arrow vertical">&#8595; &#8593;</div>
+            <div class="diagram"><em>Fixture</em><br/>Classes <em>you</em> write to link Pettswood with your codebase</div>
+            <div class="arrow vertical">&#8595; &#8593;</div>
+            <div class="diagram"><em>Your App</em></div>
+        </div>
+        <div class="arrow left">&#8594;</div>
+        <div class="left">
+            <div class="diagram left page"><em>Output</em><br/>The same spec, with <span class="pass">passes</span> and
+                <span class="fail">failures</span> highlighted
+            </div>
+            <div style="clear: both"><p class="little">./target/pettswood/SomeTest.html</p></div>
+        </div>
+        <div style="clear: both"></div>
+        <table>
+            <tr class="fixture">
+                <td>Results</td>
+            </tr>
+            <tr class="names">
+                <td>fail</td>
+                <td>exception</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </table>
+        <div style="clear: both"></div>
+    </div>
+    <div class="sidebar">
+        <ul class="buttons">
+            <li><a href="index.html">Executable Documentation</a></li>
+            <li><a href="GettingStarted.html">Getting started</a></li>
+            <li><a href="WritingTestsAndFixture.html">Writing tests and fixture</a></li>
+            <li><a href="AdvancedTopics.html">Advanced topics</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -9,8 +9,8 @@ table {
 }
 
 td {
-    border: thin solid black;
-    padding: 3px;
+    border: thin solid #979797;
+    padding: 1px 3px;
 }
 
 table.mixins { float: right; }
@@ -32,6 +32,7 @@ table.mixins { float: right; }
 }
 
 .fixture {
+    /*text-shadow: 2px 2px 4px #666666;*/
     font-weight: bold;
     font-size: medium;
 }
@@ -44,7 +45,7 @@ table.mixins { float: right; }
 
 .names {
     font-weight: bold;
-    background-color: #d3d3d3;
+    background-color: #dddddd;
 }
 
 .pass { background-color: #90ee90; }
