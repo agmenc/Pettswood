@@ -3,6 +3,7 @@
 em { font-weight: bold; font-style: normal; }
 h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
 
+ul.buttons { margin-left: -40px; }
 .buttons .current { border: 2px solid black; background-color: #d0d0d0; }
 .buttons li { list-style: none; }
 .buttons a {
@@ -10,8 +11,7 @@ h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
     display: block;
     text-decoration: none;
     text-align: center;
-    width: 100%;
-    padding: 5px;
+    padding: 3px;
     margin: 7px;
     background-color: #aaaaaa;
     border-radius: 5px;
@@ -29,6 +29,15 @@ h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
     font-weight: bold;
     position: relative;
     top: 15px;
+}
+
+.definition {
+    background-color: #aed7f5;
+    padding: 10px;
+    border: thin solid black;
+    display: block;
+    border-radius: 5px;
+    margin: 10px auto;
 }
 
 .diagram {
@@ -49,12 +58,14 @@ h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
     text-align: center;
 }
 
-.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; }
+.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; margin-bottom: 10px;}
 .page h2 { margin: 10px; }
-.little { font-size: x-small; margin: 10px; text-align: center; }
+.little { font-size: x-small; margin-left: 10px; text-align: center; text-wrap: none;}
 
 .show { width: 240px; }
 .tell { width: 440px; }
 
+body { background-color: #cccccc; }
+div.centralColumn { width: 960px; margin: 0 auto; }
 .sidebar { float: left; margin-top: 50px; }
-.mainPanel { float: left; width: 710px; }
+.mainPanel { float: left; width: 730px; padding: 10px; background-color: white; box-shadow: 2px 2px 3px #000; border: thin solid black; }
