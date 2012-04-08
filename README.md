@@ -1,22 +1,11 @@
+[Documentation and Guides]: http://agmenc.github.com/Pettswood/index.html
+[Project Wiki]: https://github.com/agmenc/Pettswood/wiki
 
-*Current features*
+## Pettswood
 
-* Mixins allow explicit inclusion of the desired fixture
-* Single and multi-row tables
-* Nested tables (and nested nested tables, etc)
-* Integrates with sbt, using the test-interface. Runs Pettswood tests when you run the "test" task.
+Pettswood runs executable documentation: human-readable specs written by users, that run against your code as tests.
 
-*Usage*
+#### To understand why and how you might use Pettswood, check out the [Documentation and Guides]
 
-* See https://github.com/agmenc/Pettswood/wiki/Getting-Started
+#### To ask difficult questions or request new features, visit the [Project Wiki]
 
-*Planned features* (and volunteers wanted)
-
-* Includes, so that snippets of setup/tear-down can be commonalised
-* New Concepts (test fixtures), to help with common tasks (web, DB, etc)
-* Runners for other build environments (Ant, Maven)
-* Examples of flow-style tests
-* IDE integration (IntelliJ, Eclipse)
-* WizzyWig (WYSIWYG) integration, so that tests can be edited in-browser
-* New test creator, using WizzyWig.
-* Other stuff I haven't thought of yet
