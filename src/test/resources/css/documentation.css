@@ -1,40 +1,28 @@
-em {
-    font-weight: bold;
-    font-style: normal;
-}
+/**/
 
-h1, h2 {
-    border-bottom: thin dashed grey;
-    margin-top: 30px;
-}
+em { font-weight: bold; font-style: normal; }
+h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
 
-.buttons li {
-    list-style: none;
-}
-
+.buttons .current { border: 2px solid black; background-color: #d0d0d0; }
+.buttons li { list-style: none; }
 .buttons a {
-    color: black;
+    color: white;
     display: block;
     text-decoration: none;
+    text-align: center;
     width: 100%;
     padding: 5px;
-    margin: 5px;
-    background-color: #dddddd;
-    border-radius: 3px;
+    margin: 7px;
+    background-color: #aaaaaa;
+    border-radius: 5px;
+    border: 2px solid #bbbbbb;
+    box-shadow: 2px 2px 3px #000;
+    text-shadow: 0 1px 3px #000;
+    font-weight: bold;
 }
 
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
-}
-
-.setupWarning {
-    border: thin solid blue;
-    margin: 20px;
-}
+.left { float: left; }
+.right { float: right; }
 
 .aside {
     color: blue;
@@ -51,6 +39,7 @@ h1, h2 {
     text-align: center;
 }
 
+.vertical { top: -20px; }
 .arrow {
     font-size: xx-large;
     position: relative;
@@ -60,38 +49,12 @@ h1, h2 {
     text-align: center;
 }
 
-.vertical {
-    top: -20px;
-}
+.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; }
+.page h2 { margin: 10px; }
+.little { font-size: x-small; margin: 10px; text-align: center; }
 
-.page {
-    border: thin solid black;
-    box-shadow: 3px 3px 4px #000;
-    width: 200px;
-}
+.show { width: 240px; }
+.tell { width: 440px; }
 
-.page h2 {
-    margin: 10px;
-}
-
-.writeup {
-    width: 440px;
-}
-
-.little {
-    font-size: x-small;
-    margin: 10px;
-    text-align: center;
-}
-
-.sidebar {
-    float: left;
-    width: 210px;
-    margin-top: 50px;
-    margin-right: 30px;
-}
-
-.mainPanel {
-    float: left;
-    width: 710px;
-}
+.sidebar { float: left; margin-top: 50px; }
+.mainPanel { float: left; width: 710px; }

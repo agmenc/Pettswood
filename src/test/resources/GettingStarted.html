@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Pettswood: Executable Documentation</title>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/documentation.css"/>
+    <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="javascript/documentation.js"></script>
+    <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
+</head>
+<body>
+<div style="width: 960px; margin: 0 auto;">
+    <div class="mainPanel">
+        <h2>Adding Pettswood to your sbt project</h2>
+        <p>(1) Modify your build.sbt</p>
+                <pre class="callout">
+// Add repo
+resolvers += "Pettswood on Github" at "https://github.com/agmenc/Pettswood/tree/master/releases/"
+
+// Add Pettswood library dependency
+libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.2" % "test" withSources()
+
+// Tell sbt that the "test" action should run your Pettswood tests
+testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
+</pre>
+        <p>(2) Create an empty class to hook into sbt's test integration</p>
+                <pre class="callout">
+import org.pettswood.runners.SbtIntegrationHook
+
+class PettswoodConfig extends SbtIntegrationHook
+</pre>
+    </div>
+    <div class="sidebar">
+        <ul class="buttons">
+            <li><a href="https://github.com/agmenc/Pettswood">Main <span style="font-weight: bold; color: #4aacf6">github</span> page</a>
+            </li>
+            <li><a href="index.html">Executable Docs</a></li>
+            <li><a href="GettingStarted.html" class="current">Getting started</a></li>
+            <li><a href="WritingTestsAndFixture.html">Writing tests and fixture</a></li>
+            <li><a href="AdvancedTopics.html">Advanced topics</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
