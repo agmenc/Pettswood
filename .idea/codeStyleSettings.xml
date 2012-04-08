@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <option name="RIGHT_MARGIN" value="300" />
+        <option name="HTML_ATTRIBUTE_WRAP" value="0" />
+        <option name="HTML_TEXT_WRAP" value="0" />
+        <option name="HTML_KEEP_BLANK_LINES" value="1" />
+        <option name="HTML_DO_NOT_ALIGN_CHILDREN_OF_MIN_LINES" value="2000" />
+        <CssCodeStyleSettings>
+          <option name="BLANK_LINES_BETWEEN_BLOCKS" value="0" />
+          <option name="KEEP_SINGLE_LINE_BLOCKS" value="true" />
+        </CssCodeStyleSettings>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+      </value>
+    </option>
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+  </component>
+</project>
+

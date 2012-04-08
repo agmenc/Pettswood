@@ -1,0 +1,2 @@
+
+Goal: the same document (test and output) changing in real-time (as I make edits)

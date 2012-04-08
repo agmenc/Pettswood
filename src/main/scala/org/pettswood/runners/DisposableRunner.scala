@@ -8,20 +8,19 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
   def run(inputPath: String): ResultSummary =  {
     prepareDirectories()
-    val rawResult = execute(load(inputPath))
+    val rawResult = parser.parse(load(inputPath))
     val decoratedResult = parser.decorate(rawResult)
     write(decoratedResult, outputPath(inputPath))
     parser.summary
   }
 
   def load(inputPath: String): Node = fileSystem loadXml inputPath
-  def execute(test: Node): Node = parser.parse(test)
   def write(result: Node, path: String) { fileSystem save result.toString() to path}
   def outputPath(path: String) = path replace("src/test/resources", "target/pettswood")
 
   def prepareDirectories() {
-    ifNoCssIn("src/test/resources") { fileSystem.save(fileSystem.loadResource("pettswood.css")) to ("src/test/resources/pettswood.css") }
-    ifNoCssIn("target/pettswood") { fileSystem.copy("src/test/resources/pettswood.css", "target/pettswood/pettswood.css") }
+    ifNoCssIn("src/test/resources/css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to ("src/test/resources/css/pettswood.css") }
+    ifNoCssIn("target/pettswood/css") { fileSystem.copy("src/test/resources/css/pettswood.css", "target/pettswood/css/pettswood.css") }
   }
 
   def ifNoCssIn(path: String)(f: => Unit) {

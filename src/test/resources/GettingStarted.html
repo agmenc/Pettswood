@@ -9,10 +9,11 @@
     <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
 </head>
 <body>
-<div style="width: 960px; margin: 0 auto;">
+<div class="centralColumn">
     <div class="mainPanel">
         <h2>Adding Pettswood to your sbt project</h2>
-        <p>(1) Modify your build.sbt</p>
+
+        <p>Modify your build.sbt:</p>
                 <pre class="callout">
 // Add repo
 resolvers += "Pettswood on Github" at "https://github.com/agmenc/Pettswood/tree/master/releases/"
@@ -23,12 +24,20 @@ libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.2" % "test" withSou
 // Tell sbt that the "test" action should run your Pettswood tests
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
 </pre>
-        <p>(2) Create an empty class to hook into sbt's test integration</p>
+        <p>Create an empty class to hook into sbt's test integration:</p>
                 <pre class="callout">
 import org.pettswood.runners.SbtIntegrationHook
 
 class PettswoodConfig extends SbtIntegrationHook
 </pre>
+        <h2>Test Paths</h2>
+
+        <p>Pettswood expects an sbt-like input directory structure:</p><pre class="callout">
+[project root]/src/test/resources/<em>Your test here.html</em>
+[project root]/src/test/resources/someFeature/Another test here.html</pre>
+        <p>The results are written to the target folder:</p><pre class="callout">
+[project root]/target/pettswood/<em>Your test here.html</em>
+[project root]/target/pettswood/someFeature/Another test here.html</pre>
     </div>
     <div class="sidebar">
         <ul class="buttons">
