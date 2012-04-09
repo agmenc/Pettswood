@@ -1,0 +1,15 @@
+
+-------------------
+Publishing the code
+-------------------
+Update the version number in build.sbt
+Build the jar: sbt publish
+Push the jar to the repo (really just the github project): git add/commit/push
+
+----------------------------
+Publishing the documentation
+----------------------------
+[pettswood]/publish-docs.sh
+[pettswood-docs]/git add .
+[pettswood-docs]/git commit -m "Docs 4 github"
+[pettswood-docs]/git push origin gh-pages

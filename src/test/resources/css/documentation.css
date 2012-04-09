@@ -58,9 +58,9 @@ ul.buttons { margin-left: -40px; }
     text-align: center;
 }
 
-.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; margin-bottom: 10px;}
+.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; margin-bottom: 10px; }
 .page h2 { margin: 10px; }
-.little { font-size: x-small; margin-left: 10px; text-align: center; text-wrap: none;}
+.little { font-size: x-small; margin-left: 10px; text-align: center; text-wrap: none; }
 
 .show { width: 240px; }
 .tell { width: 440px; }

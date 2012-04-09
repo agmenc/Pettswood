@@ -6,7 +6,7 @@ import parsers.xml.scala.Parser
 import runners.DisposableRunner
 import scala.xml.Node
 
-class RunnerSpec extends SpecificationWithJUnit with Mockito {
+class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
   
   class Fixture {
     val domain = mock[DomainBridge]
@@ -58,8 +58,8 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was one(fixture.fileSystem).loadResource("pettswood.css")
-      there was one(fixture.saver).to("src/test/resources/pettswood.css")
+      there was one(fixture.fileSystem).loadResource("css/pettswood.css")
+      there was one(fixture.saver).to("src/test/resources/css/pettswood.css")
     }
     "Not write the CSS file if it is already there" in {
       val fixture = new Fixture
@@ -77,7 +77,7 @@ class RunnerSpec extends SpecificationWithJUnit with Mockito {
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was one(fixture.fileSystem).copy("src/test/resources/pettswood.css", "target/pettswood/pettswood.css")
+      there was one(fixture.fileSystem).copy("src/test/resources/css/pettswood.css", "target/pettswood/css/pettswood.css")
     }
     "Not copy the CSS file if it is already there" in {
       val fixture = new Fixture

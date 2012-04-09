@@ -52,7 +52,9 @@ case class Finder(path: String) {
   }
 
   def find(dir: File, filter: FileFilter): List[File] = {
-    dir.listFiles(filter).flatMap({
+    val files = dir.listFiles(filter)
+    val fileSeq = if (files == null) Seq.empty[File] else files.toSeq
+    fileSeq.flatMap({
       case file: File if (file.isDirectory) => find(file, filter)
       case file: File => List(file)
     }).toList
