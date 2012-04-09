@@ -13,13 +13,10 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
   args(sequential = true)
 
   val BASE_PATH = userDir + File.separator
+  val TARGET_DIR = "./target/pettswood/unitTests/"
 
   def after = {
-    List("./target/some.file",
-      "./target/a/very/nested/directory/structure/some.file",
-      "./target/pettswood/tmp1/monkeys.file",
-      "./target/pettswood/tmp2/moreMonkeys.file"
-    ) foreach (new File(_).delete())
+    new FileSystem in TARGET_DIR find ".*" foreach (new File(_).delete())
     "Why does this procedure have to return Any(thing)?"
   }
 
@@ -37,23 +34,21 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "write output files" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to ("./target/pettswood/some.file")
+      fileSystem save ("some data") to (TARGET_DIR + "some.file")
 
-      fromFile("./target/pettswood/some.file").mkString must be equalTo "some data"
+      fromFile(TARGET_DIR + "some.file").mkString must be equalTo "some data"
     }
     "make sure that the target folder exists when writing a file" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to ("./target/pettswood/a/very/nested/directory/structure/some.file")
+      fileSystem save ("some data") to (TARGET_DIR + "a/very/nested/directory/structure/some.file")
 
-      fromFile("./target/pettswood/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
+      fromFile(TARGET_DIR + "a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
     "finds absolutely no files in folders that don't exist" in {
       val fileSystem = new FileSystem
 
-      fileSystem in "some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
-
-      fromFile("./target/pettswood/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
+      fileSystem in TARGET_DIR + "some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
     }
     "know how to find files by name regex" in {
       val fileSystem = new FileSystem
@@ -74,16 +69,16 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fileSystem in "src/test" must be equalTo Finder(BASE_PATH + "src/test")
 
-      fileSystem save ("some data") to "target/pettswood/a.file"
-      fromFile(BASE_PATH + "target/pettswood/a.file").mkString must be equalTo "some data"
+      fileSystem save ("some data") to TARGET_DIR + "a.file"
+      fromFile(BASE_PATH + TARGET_DIR + "a.file").mkString must be equalTo "some data"
     }
     "Copy files" in {
       val fileSystem = new FileSystem
-      fileSystem.save("some monkeys").to("target/pettswood/tmp1/monkeys.file")
+      fileSystem.save("some monkeys").to(TARGET_DIR + "tmp1/monkeys.file")
 
-      fileSystem.copy("target/pettswood/tmp1/monkeys.file", "target/pettswood/tmp2/moreMonkeys.file")
+      fileSystem.copy(TARGET_DIR + "tmp1/monkeys.file", TARGET_DIR + "tmp2/moreMonkeys.file")
       
-      fromFile(BASE_PATH + "target/pettswood/tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
+      fromFile(TARGET_DIR + "tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
     }
     "Fail fast if the test we are loading contains a non-HTML5 doctype" in  {
       val nonHtml5Doc = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n        \"http://www.w3.org/TR/html4/loose.dtd\"><xml/>"
@@ -100,7 +95,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
   }
 
   def load(structure: String): NodeSeq = {
-    val someFile = "target/pettswood/whatever.xml"
+    val someFile = TARGET_DIR + "whatever.xml"
     val fileSystem = new FileSystem
     fileSystem.save(structure) to someFile
     fileSystem.loadXml(someFile)

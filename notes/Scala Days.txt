@@ -42,6 +42,7 @@ Didn't stop the flow of verbose, out-of-date and wrong specifications
 A better way [Show the quote from a Timeless Way of Building]
 Encourage the business to become engaged with the project
 Give them a way to describe what they want that helps you to understand and question it
+Clarify features, with no wriggle-room or weasel-words (should, could, might, in the future)
 
 Former Frameworks
  - Fit, Fitnesse, Concordion

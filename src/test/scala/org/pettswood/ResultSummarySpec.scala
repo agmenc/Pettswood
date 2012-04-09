@@ -6,9 +6,6 @@ import org.pettswood.stubs.Results._
 
 class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
   "The result summary" should {
-    "be an overall fail if no Pass results were received" in {
-      ResultSummary(NONE).overallPass must be equalTo false
-    }
     "be an overall pass if only Pass and Setup results were received" in {
       ResultSummary(List(PASS, SETUP)).overallPass must be equalTo true
     }

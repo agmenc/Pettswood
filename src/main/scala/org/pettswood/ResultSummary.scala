@@ -26,6 +26,6 @@ object ResultSummary {
 
 case class Tally(pass: Int, fail: Int, setup: Int, exception: Int) {
   override def toString = "Pass: " + pass + " Fail: " + fail + " Setup: " + setup + " Exception: " + exception
-  def overallPass = pass > 0 && (fail + exception) == 0
+  def overallPass = pass >= 0 && (fail + exception) == 0
   def plus(that: Tally): Tally = Tally(pass + that.pass, fail + that.fail, setup + that.setup, exception + that.exception)
 }

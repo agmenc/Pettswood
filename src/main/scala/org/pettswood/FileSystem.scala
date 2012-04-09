@@ -63,7 +63,7 @@ case class Finder(path: String) {
 
 case class Saver(data: String) {
   def to(path: String) {
-    val writer = new PrintWriter(guarantee(absolute(path)))
+    val writer = new PrintWriter(guarantee(path))
     writer.write(data)
     writer.close();
   }
