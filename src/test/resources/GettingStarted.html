@@ -16,10 +16,10 @@
         <p>Modify your build.sbt:</p>
                 <pre class="callout">
 // Add repo
-resolvers += "Pettswood on Github" at "https://github.com/agmenc/Pettswood/tree/master/releases/"
+resolvers += "Pettswood on Github" at "https://raw.github.com/agmenc/Pettswood/master/releases/"
 
 // Add Pettswood library dependency
-libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.2" % "test" withSources()
+libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.4" % "test" withSources()
 
 // Tell sbt that the "test" action should run your Pettswood tests
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
