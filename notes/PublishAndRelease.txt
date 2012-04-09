@@ -4,7 +4,8 @@ Publishing the code
 -------------------
 Update the version number in build.sbt
 Build the jar: sbt publish
-Push the jar to the repo (really just the github project): git add/commit/push
+Add the new release files to git
+Push the jar to the repo (really just the github project): commit and push
 
 ----------------------------
 Publishing the documentation
