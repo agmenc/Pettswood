@@ -24,7 +24,7 @@ libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.4" % "test" withSou
 // Tell sbt that the "test" action should run your Pettswood tests
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
 </pre>
-        <p>Create an empty class to hook into sbt's test integration:</p>
+        <p>Create an empty class anywhere in <em>src/test/scala</em> to hook into sbt's test integration:</p>
                 <pre class="callout">
 import org.pettswood.runners.SbtIntegrationHook
 
@@ -32,7 +32,7 @@ class PettswoodConfig extends SbtIntegrationHook
 </pre>
         <h2>Test Paths</h2>
 
-        <p>Pettswood expects an sbt-like input directory structure:</p><pre class="callout">
+        <p>Tests go in the resources directory:</p><pre class="callout">
 [project root]/src/test/resources/<em>Your test here.html</em>
 [project root]/src/test/resources/someFeature/Another test here.html</pre>
         <p>The results are written to the target folder:</p><pre class="callout">
