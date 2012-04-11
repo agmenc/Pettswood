@@ -42,13 +42,13 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
 
   val PROCESSED_HTML =
     <html>
-      <table>
+      <table class="Setup">
         <tr>
           <td class="Setup">Mixins</td>
           <td class="Setup">Cryptography</td>
         </tr>
       </table>
-      <table>
+      <table class="Setup">
         <tr>
           <td class="Setup">Mirror</td>
           <td class="Pass">Hello</td>

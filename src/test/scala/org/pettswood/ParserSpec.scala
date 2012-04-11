@@ -11,6 +11,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
     val summary = mock[ResultSummary]
     domain.summary returns summary
     domain.cell(any[String]) returns Pass("Monkeys")
+    domain.table(any[String]) returns Setup()
   }
 
   "when html does not contains tables, the parser" should {
@@ -69,13 +70,23 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
         <td class="Fail"><span class="result">potato<br></br>but expected:<br></br></span>sausage</td>
     }
-    "display exception results" in {
+    "display exception results in cells" in {
       val fixture = new Fixture()
       fixture.domain.cell("sausage") returns Exception(new NullPointerException("Your pointy things are all null"))
 
       // TODO - children of result are NodeSeq and children of expect are ArrayBuffer. WTF?!?
       val result = new Parser(fixture.domain).parse(<td>sausage</td>)
+
       val expect = <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>
+      result.toString() must be equalTo expect.toString()
+    }
+    "display exception results for unknown table headers" in {
+      val fixture = new Fixture()
+      fixture.domain.table("sausage") returns Exception(new RuntimeException("Unknown concept: \"sausage\". Known concepts: [mixins]"))
+
+      val result = new Parser(fixture.domain).parse(<table><tr><td>sausage</td></tr></table>)
+
+      val expect = <table class="Exception"><tr><td><span class="result">java.lang.RuntimeException: Unknown concept: "sausage". Known concepts: [mixins]<br></br>Expected:<br></br></span></td></tr><tr><td class="Pass">sausage</td></tr></table>
       result.toString() must be equalTo expect.toString()
     }
     "respect existing classes" in {
@@ -88,9 +99,10 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       val fixture = new Fixture()
       val nestlingDomain = mock[DomainBridge]
       nestlingDomain.cell(any[String]) returns Pass("Monkeys")
+      nestlingDomain.table(any[String]) returns Setup()
       fixture.domain.nestedDomain() returns nestlingDomain
 
-      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
+      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table class="Setup"><td class="Pass">Nested Table</td></table></div></td>
       
       there was one(nestlingDomain).table("Nested Table")
     }

@@ -18,6 +18,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
     fileSystem.loadXml(any[String]) returns <input></input>
     fileSystem.save(any[String]) returns saver
     fileSystem.in(any[String]) returns finder
+    finder.find(any[String]) returns List.empty[String]
     parser.parse(any[Node]) returns <output></output>
     parser.decorate(any[Node]) returns <decorated></decorated>
   }
@@ -71,13 +72,15 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
       there was no(fixture.fileSystem).loadResource("pettswood.css")
       there was no(fixture.saver).to("src/test/resources/pettswood.css")
     }
-    "Copy the CSS file from the src directory to the target directory" in {
+
+    "Copy all CSS files from the src directory to the target directory" in {
       val fixture = new Fixture
-      fixture.finder.find(any[String]) returns Nil
+      fixture.finder.find(any[String]) returns List("a/b/c/src/test/resources/css/first.css", "a/b/c/src/test/resources/css/second.css")
 
       fixture.runner run ("src/test/resources/category/some.file")
 
-      there was one(fixture.fileSystem).copy("src/test/resources/css/pettswood.css", "target/pettswood/css/pettswood.css")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/first.css", "a/b/c/target/pettswood/css/first.css")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/second.css", "a/b/c/target/pettswood/css/second.css")
     }
     "Not copy the CSS file if it is already there" in {
       val fixture = new Fixture

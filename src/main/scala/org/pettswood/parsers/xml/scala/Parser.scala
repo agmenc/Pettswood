@@ -10,10 +10,10 @@ class Parser(domain: DomainBridge) {
   class TestParser extends TraverseCopy {
     def traverse(node: Node) = node match {
       case elem: Elem => elem.label match {
-        case "table" => domain.table(firstCell(elem).text); parseCopy(elem)
+        case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, cssAdder(result.name), describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
         case "td" if((elem \\ "table").iterator.hasNext) => <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
-        case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeAnyFailures(elem.text, result))
+        case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }
       case any => any
@@ -30,10 +30,20 @@ class Parser(domain: DomainBridge) {
     }
   }
 
-  def describeAnyFailures(expectedText: String, result: Result) = {
+  def describeCellFailures(expectedText: String, result: Result) = {
     result match {
       case Fail(actual) => <span class="result">{actual}<br></br>but expected:<br></br></span>
       case Exception(exceptionText) => <span class="result">{exceptionText}<br></br>Expected:<br></br></span>
+      case _ => NodeSeq.Empty
+    }
+  }
+
+  // TODO - CAS - 10/04/2012 - Combine and simplify these two "describe" methods
+  // TODO - CAS - 11/04/2012 - Bring in AntiXML zippers and remove these two "describe" methods
+  def describeTableFailures(expectedText: String, result: Result) = {
+    result match {
+      case Fail(actual) => <tr><td><span class="result">{actual}<br></br>but expected:<br></br></span></td></tr>
+      case Exception(exceptionText) => <tr><td><span class="result">{exceptionText}<br></br>Expected:<br></br></span></td></tr>
       case _ => NodeSeq.Empty
     }
   }
