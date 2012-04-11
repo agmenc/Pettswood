@@ -21,6 +21,7 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
   def prepareDirectories() {
     ifNoCssIn("src/test/resources/css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to ("src/test/resources/css/pettswood.css") }
     fileSystem in ("src/test/resources/css") find (".*.css") foreach (path => fileSystem.copy(path, outputPath(path)))
+    fileSystem in ("src/test/resources/javascript") find (".*.js") foreach (path => fileSystem.copy(path, outputPath(path)))
   }
 
   def ifNoCssIn(path: String)(f: => Unit) {

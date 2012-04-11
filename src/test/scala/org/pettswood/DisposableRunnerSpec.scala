@@ -72,15 +72,24 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
       there was no(fixture.fileSystem).loadResource("pettswood.css")
       there was no(fixture.saver).to("src/test/resources/pettswood.css")
     }
-
     "Copy all CSS files from the src directory to the target directory" in {
       val fixture = new Fixture
-      fixture.finder.find(any[String]) returns List("a/b/c/src/test/resources/css/first.css", "a/b/c/src/test/resources/css/second.css")
+      fixture.finder.find(".*.css") returns List("a/b/c/src/test/resources/css/first.css", "a/b/c/src/test/resources/css/second.css")
 
       fixture.runner run ("src/test/resources/category/some.file")
 
       there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/first.css", "a/b/c/target/pettswood/css/first.css")
       there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/second.css", "a/b/c/target/pettswood/css/second.css")
+    }
+
+    "Copy all Javascript files from the src directory to the target directory" in {
+      val fixture = new Fixture
+      fixture.finder.find(".*.js") returns List("a/b/c/src/test/resources/javascript/first.js", "a/b/c/src/test/resources/javascript/second.js")
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/first.js", "a/b/c/target/pettswood/javascript/first.js")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/second.js", "a/b/c/target/pettswood/javascript/second.js")
     }
     "Not copy the CSS file if it is already there" in {
       val fixture = new Fixture
