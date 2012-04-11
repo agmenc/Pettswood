@@ -1,7 +1,17 @@
 /**/
 
 em { font-weight: bold; font-style: normal; }
-h1, h2 { border-bottom: thin dashed grey; margin-top: 30px; }
+h1 {
+    font-family: Courier, serif;
+    font-size: xx-large;
+    text-align: center;
+    margin: 5px 5px;
+    border-top: thin solid grey;
+    border-bottom: thin solid grey;
+    text-shadow: 1px 1px 3px #ffffff;
+    background-color: #dddddd;
+}
+h2 { border-bottom: thin dashed grey; margin-top: 30px; }
 
 ul.buttons { margin-left: -40px; }
 .buttons .current { border: 2px solid black; background-color: #d0d0d0; }

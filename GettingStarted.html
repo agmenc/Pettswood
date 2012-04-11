@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
     <link rel="stylesheet" type="text/css" href="css/documentation.css"/>
     <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="javascript/documentation.js"></script>
+    <script type="text/javascript" src="javascript/pettswood.js"></script>
     <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
 </head>
 <body>
 <div class="centralColumn">
     <div class="mainPanel">
+        <h1>Getting Started</h1>
         <h2>Adding Pettswood to your sbt project</h2>
 
         <p>Modify your build.sbt:</p>
@@ -28,7 +29,7 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
                 <pre class="callout">
 import org.pettswood.runners.SbtIntegrationHook
 
-class PettswoodConfig extends SbtIntegrationHook
+class PettswoodSbt extends SbtIntegrationHook
 </pre>
         <h2>Test Paths</h2>
 
