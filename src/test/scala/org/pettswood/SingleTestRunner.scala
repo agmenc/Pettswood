@@ -1,9 +1,7 @@
 package org.pettswood
 
-import runners.DefaultRunner
+import runners.SingleRunner
 
 object SingleTestRunner extends App {
-  val inputPath = "src/test/resources/AdvancedTopics.html"
-  val summary = DefaultRunner.run(inputPath)
-  println(" " + summary.toString + " ==> " + inputPath)
+  SingleRunner("src/test/resources/AdvancedTopics.html")
 }

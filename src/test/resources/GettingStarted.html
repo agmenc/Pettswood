@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/documentation.css"/>
     <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="javascript/pettswood.js"></script>
+    <script type="text/javascript" src="javascript/documentation.js"></script>
     <!--<script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"></script>-->
 </head>
 <body>
@@ -41,7 +42,39 @@ class PettswoodSbt extends SbtIntegrationHook
 [project root]/target/pettswood/someFeature/Another test here.html</pre>
 
         <h2>Running Tests</h2>
-        <p>In sbt's interactive mode, type <em>test</em>. Otherwise, on the command line, type <em>sbt test</em></p>
+        <h3>In sbt</h3>
+        <ul>
+            <li>Run all the tests (including Pettswood) tests:
+<pre class="callout">
+test
+</pre>
+            </li>
+            <li>Run just the Pettswood tests:
+<pre class="callout">
+test-only org.path.to.MyPettswoodSbtIntegrationHook
+</pre>
+            </li>
+        </ul>
+        <h3>In the IDE</h3>
+        <p>Until I write an IntelliJ plugin, you can use the SingleRunner class to run tests, either:</p>
+        <ul>
+            <li>Through your current testing framework:
+<pre class="callout">
+class SingleRunnerSpec extends Specification {
+  "Frameworks such as Specs2 can run your test" in {
+    SingleRunner("src/test/resources/AdvancedTopics.html")
+  }
+}
+</pre>
+            </li>
+            <li>With a mini-app:
+<pre class="callout">
+object SingleTestRunner extends App {
+  SingleRunner("src/test/resources/AdvancedTopics.html")
+}
+</pre>
+            </li>
+        </ul>
     </div>
     <div class="sidebar">
         <ul class="buttons">

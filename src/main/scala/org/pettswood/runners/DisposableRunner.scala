@@ -42,3 +42,11 @@ object DefaultRunner extends RecycleableRunner {
     new DisposableRunner(new Parser(domainBridge), new FileSystem).run(filePath)
   }
 }
+
+object SingleRunner {
+  def apply(inputPath: String) = {
+    val summary = DefaultRunner.run(inputPath)
+    println(" " + summary.toString + " ==> " + inputPath)
+    summary
+  }
+}
