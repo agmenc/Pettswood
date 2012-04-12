@@ -14,3 +14,5 @@ class PettswoodFingerprint(override val isModule: Boolean) extends SubclassFinge
 }
 
 trait SbtIntegrationHook
+
+class PettswoodSbtIntegrationHook extends SbtIntegrationHook
