@@ -6,4 +6,4 @@ trait Digger extends Probe {
   def actual: String
 }
 
-case class DoNothingProbe(text: String) extends Probe
+case class DoNothingProbe(text: String) extends Doer

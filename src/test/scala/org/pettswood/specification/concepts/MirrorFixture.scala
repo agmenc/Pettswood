@@ -2,7 +2,7 @@ package org.pettswood.specification.concepts
 
 import org.pettswood._
 
-class MirrorFixture extends SimpleConcept {
+class MirrorFixture extends Concept {
   var mirror: Mirror = EmptyMirror
 
   def cell(text: String) = text match {
