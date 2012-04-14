@@ -8,14 +8,14 @@ class MirrorSpec extends SpecificationWithJUnit with Mockito {
 
   "The mirror" should {
     "pass when the final cell contains the mirror of the input cell" in {
-      val mirror = new Mirror
+      val mirror = new MirrorFixture
 
       mirror.cell("Hello") must be equalTo Pass("Hello")
       mirror.cell("becomes") must be equalTo Setup()
       mirror.cell("olleH") must be equalTo Pass("olleH")
     }
     "fail otherwise" in {
-      val mirror = new Mirror
+      val mirror = new MirrorFixture
 
       mirror.cell("Hello") must be equalTo Pass("Hello")
       mirror.cell("becomes") must be equalTo Setup()

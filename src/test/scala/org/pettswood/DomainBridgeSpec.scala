@@ -2,7 +2,7 @@ package org.pettswood
 
 import org.specs2.mutable.Specification
 import org.specs2.mock._
-import specification.concepts.{Mirror, Maths}
+import specification.concepts.{MirrorFixture, Maths}
 import stubs._
 import org.pettswood.stubs.Results._
 
@@ -83,12 +83,12 @@ class DomainBridgeSpec extends Specification with Mockito {
     "spawn nested tables that know Concepts provided by the current Concept" in {
       val domain = new DomainBridge()
       domain.currentConcept = mock[Concept]
-      domain.currentConcept.nestedConcepts() returns Map(("maths", () => new Maths), ("mirror", () => new Mirror))
+      domain.currentConcept.nestedConcepts() returns Map(("maths", () => new Maths), ("mirror", () => new MirrorFixture))
 
       val nestling = domain.nestedDomain()
 
       nestling.conceptFor("maths") must beAnInstanceOf[Maths]
-      nestling.conceptFor("mirror") must beAnInstanceOf[Mirror]
+      nestling.conceptFor("mirror") must beAnInstanceOf[MirrorFixture]
       nestling.conceptFor("sausage") must throwA[RuntimeException]
     }
     "gather results from its nestlings" in {

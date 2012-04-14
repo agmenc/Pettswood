@@ -12,6 +12,6 @@ class Results(results: ResultSummary) extends Concept with MultiRow {
     case "time" => Expect(results.totalTally.exception)
   }
 
-  case class Expect(actualCount: Int)(expectedCount: String) extends Digger { def result = String.valueOf(actualCount) }
-  case class Time(time: String) extends Digger { def result = "XXX" }
+  case class Expect(actualCount: Int)(expectedCount: String) extends Digger { def actual = String.valueOf(actualCount) }
+  case class Time(time: String) extends Digger { def actual = "XXX" }
 }

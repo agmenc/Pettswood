@@ -15,6 +15,7 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 // initialCommands in console := "println"
 
 libraryDependencies ++= Seq(
+  "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2" withSources(),
   "org.specs2" %% "specs2" % "1.6.1" % "test" withSources(),
   "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test" withSources(),
   "junit" % "junit" % "4.8.1" % "test" withSources(),
@@ -23,7 +24,8 @@ libraryDependencies ++= Seq(
 )
 
 resolvers ++= Seq("snapshots" at "http://scala-tools.org/repo-snapshots",
-                    "releases"  at "http://scala-tools.org/repo-releases")
+                    "releases"  at "http://scala-tools.org/repo-releases",
+                    "mvn" at "http://mvnrepository.com/artifact/")
 
 // --------- Publishing -----------------------
 publishTo := Some(Resolver.file("file", new File("releases")))

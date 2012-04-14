@@ -23,6 +23,6 @@ class Pettswood extends Concept with MultiRow {
   }
 
   case class FileExists(filePath: String) extends Digger {
-    val result = if (!new File(filePath).exists()) "File not found" else filePath
+    val actual = if (!new File(filePath).exists()) "File not found" else filePath
   }
 }

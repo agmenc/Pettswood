@@ -1,8 +1,7 @@
 package org.pettswood
 
-import org.pettswood.Result._
 
-trait MultiRow extends Concept {
+trait MultiRow extends SimpleConcept {
   
   def columns: String => String => Probe
   def initialiseRow() {}
@@ -12,7 +11,7 @@ trait MultiRow extends Concept {
 
   override def row() {
     rowPointer += 1
-    currentProbes = probeTemplate.map(x => x).reverse
+    currentProbes = probeTemplate.reverse
     initialiseRow()
   }
 
@@ -25,18 +24,15 @@ trait MultiRow extends Concept {
     }
   }
 
-  def cell(text: String) = rowPointer match {
+  def cell(cellText: String) = rowPointer match {
     case 1 => Setup()
-    case 2 => probeTemplate = probeFor(text) :: probeTemplate; Setup()
-    case x => probe(text)
+    case 2 => probeTemplate = probeFor(cellText) :: probeTemplate; Setup()
+    case x => probe(cellText)
   }
 
-  def probe(expected: String): Result = {
-    val probe = currentProbes.head(expected)
+  def probe(cellText: String): Result = {
+    val probe = currentProbes.head(cellText)
     currentProbes = currentProbes.tail
-    probe match {
-      case doer: Doer => Setup()
-      case digger: Digger => given(expected, digger.result)
-    }
+    resultFor(probe, cellText)
   }
 }

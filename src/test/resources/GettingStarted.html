@@ -21,7 +21,7 @@
 resolvers += "Pettswood on Github" at "https://raw.github.com/agmenc/Pettswood/master/releases/"
 
 // Add Pettswood library dependency
-libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.4" % "test" withSources()
+libraryDependencies += "org.pettswood" %% "pettswood" % "0.0.6" % "test" withSources()
 
 // Tell sbt that the "test" action should run your Pettswood tests
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")

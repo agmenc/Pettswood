@@ -54,7 +54,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Pass">Hello</td>
           <td class="Setup">becomes</td>
           <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>Sausage</td>
-          <td class="Exception"><span class="result">java.lang.IllegalStateException: Unhandled state: List(What about an extra cell?, Sausage, becomes, Hello)<br></br>Expected:<br></br></span>What about an extra cell?</td>
+          <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>What about an extra cell?</td>
         </tr>
       </table>
     </html>

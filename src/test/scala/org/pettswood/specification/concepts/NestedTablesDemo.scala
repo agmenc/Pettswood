@@ -9,8 +9,8 @@ class NestedTablesDemo extends Concept with MultiRow {
   }
 
   override def nestedConcepts() = Map(
-    "Nested Tables Demo" -> (() => new NestedTablesDemo()),
-    "Mirror" -> (() => new Mirror()),
-    "Maths" -> (() => new Maths())
+    "Nested Tables Demo" -> (() => new NestedTablesDemo),
+    "Mirror" -> (() => new MirrorFixture),
+    "Maths" -> (() => new Maths)
   )
 }

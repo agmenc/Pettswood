@@ -15,5 +15,5 @@ class Maths extends Concept with MultiRow {
   }
 
   case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses}
-  case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)}
+  case class CalculationPerformer(text: String) extends Digger {def actual = calculator.calculate(keyPresses)}
 }

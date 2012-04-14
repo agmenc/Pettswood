@@ -31,7 +31,7 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
       logResults(summary, filePath)
     }
     catch {
-      case e => eventHandler.handle(Error(filePath, e)); log(_.error("  *** Failed to read test   *** ==> " + filePath)); log(_.trace(e))
+      case e =>  eventHandler.handle(Error(filePath, e)); log(_.error("  *** Failed to read test *** " + e.getMessage + " ==> " + filePath)); log(_.trace(e))
     }
   }
 }
