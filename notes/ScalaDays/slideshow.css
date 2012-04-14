@@ -1,0 +1,38 @@
+/**/
+
+body {
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+}
+
+iframe {
+    background-color: white;
+    display: block;
+    width: 800px;
+    height: 720px;
+    margin: 0 auto;
+    border: thin solid grey;
+    box-shadow: 2px 2px 4px black;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+table.buttons {
+    margin-top: 10px;
+    line-height: 20px;
+}
+
+.card {
+    font-size: xx-large;
+    font-weight: bold;
+    background-color: white;
+    border: thin solid grey;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.middle { margin: 0 auto; }
+.arrow { font-size: xx-large; }

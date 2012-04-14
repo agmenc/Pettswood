@@ -7,3 +7,6 @@ trait Digger extends Probe {
 }
 
 case class DoNothingProbe(text: String) extends Doer
+case class NotImplementedProbe(text: String) extends Digger {
+  def actual = "Not implemented"
+}

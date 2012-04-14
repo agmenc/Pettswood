@@ -26,10 +26,10 @@ trait MultiRow extends Concept {
   def cell(cellText: String) = rowPointer match {
     case 1 => Setup()
     case 2 => probeTemplate = probeFor(cellText) :: probeTemplate; Setup()
-    case x => probe(cellText)
+    case x => determineResult(cellText)
   }
 
-  def probe(cellText: String): Result = {
+  def determineResult(cellText: String): Result = {
     val probe = currentProbes.head(cellText)
     currentProbes = currentProbes.tail
     probe match {

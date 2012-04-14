@@ -3,15 +3,9 @@ body {
     font-size: 12px;
 }
 
-table {
-    border-collapse: collapse;
-    margin: 10px;
-}
-
-td {
-    border: thin solid #979797;
-    padding: 1px 3px;
-}
+h1 { cursor: pointer; }
+table { border-collapse: collapse; margin: 10px; }
+td { border: thin solid #979797; padding: 1px 3px; }
 
 table.mixins { float: right; }
 
