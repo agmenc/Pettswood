@@ -52,25 +52,35 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
 
       there was one(fixture.parser).decorate(<output></output>)
     }
-    "Write the CSS file from the pettswood jar into the test src directory" in {
+    "Extract CSS and javascript files from the pettswood jar into the test src directory" in {
       val fixture = new Fixture
       fixture.fileSystem.loadResource(any[String]) returns "body {color: blue}"
       fixture.finder.find(any[String]) returns Nil
 
       fixture.runner run ("src/test/resources/category/some.file")
 
+      // TODO - CAS - 14/04/2012 - just load all resources in one go
       there was one(fixture.fileSystem).loadResource("css/pettswood.css")
+      there was one(fixture.fileSystem).loadResource("javascript/jquery-1.7.2.min.js")
+      there was one(fixture.fileSystem).loadResource("javascript/pettswood.js")
       there was one(fixture.saver).to("src/test/resources/css/pettswood.css")
+      there was one(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
+      there was one(fixture.saver).to("src/test/resources/javascript/pettswood.js")
     }
-    "Not write the CSS file if it is already there" in {
+    "Not extract CSS or javascript files if any are already there" in {
       val fixture = new Fixture
-      fixture.finder.find(any[String]) returns List("pettswood.css")
-      fixture.fileSystem.loadResource(any[String]) returns "body {color: blue}"
+      fixture.finder.find(".*.css") returns List("a.css")
+      fixture.finder.find(".*.js") returns List("x.js", "y.js")
+      fixture.fileSystem.loadResource(any[String]) returns "xxx"
 
       fixture.runner run ("src/test/resources/category/some.file")
 
       there was no(fixture.fileSystem).loadResource("pettswood.css")
-      there was no(fixture.saver).to("src/test/resources/pettswood.css")
+      there was no(fixture.fileSystem).loadResource("jquery-1.7.2.min.js")
+      there was no(fixture.fileSystem).loadResource("pettswood.js")
+      there was no(fixture.saver).to("src/test/resources/css/pettswood.css")
+      there was no(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
+      there was no(fixture.saver).to("src/test/resources/javascript/pettswood.js")
     }
     "Copy all CSS files from the src directory to the target directory" in {
       val fixture = new Fixture
