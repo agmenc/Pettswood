@@ -88,23 +88,19 @@ class Cryptography(domain: DomainBridge) extends Mixin(domain) {
                 </li>
                 <li>
                     <em>Concept</em>s adapt a business concept to your underlying codebase. You can see the supporting fixture code in
-                    <a class="calloutLink" href="">Mirror.scala</a>.
+                    <a class="calloutLink" href="">MirrorFixture.scala</a>.
             <pre class="callout" id="Mirror">
 package org.pettswood.specification.concepts
 
 import org.pettswood._
 
-class Mirror extends Concept {
-  var state = List.empty[String]
+class MirrorFixture extends SimpleConcept {
+  var mirror: Mirror = EmptyMirror
 
-  def cell(text: String) = {
-    state = text :: state
-    state match {
-      case List(input) => Pass(input)
-      case List("becomes", _) => Setup()
-      case List(expected, _, input) => Result.given(expected, input.reverse)
-      case _ => Exception(new IllegalStateException("Unhandled state: " + state))
-    }
+  def cell(text: String) = text match {
+    case input if (mirror == EmptyMirror) => mirror = Mirror(input); Pass(input)
+    case "becomes" => Setup()
+    case expected => Result.given(expected, mirror.reflection)
   }
 }</pre>
                 </li>
