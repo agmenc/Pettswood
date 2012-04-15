@@ -19,10 +19,17 @@ img {
     margin: 0 auto;
 }
 
+em {
+    font-weight: bold;
+    color: #00003a;
+}
+
 table.buttons {
     margin-top: 10px;
     line-height: 20px;
 }
+
+.right { float: right; }
 
 .card {
     font-size: xx-large;
@@ -34,5 +41,33 @@ table.buttons {
     text-align: center;
 }
 
-.middle { margin: 0 auto; }
+.code {
+    width: 740px;
+    padding: 10px;
+}
+
+.contract {
+    background-color: #94ffaf;
+    border: thin solid black;
+    display: table;
+    border-radius: 5px;
+    margin: 20px auto;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.callout {
+    background-color: #f5f5dc;
+    padding: 10px;
+    border: thin solid black;
+    display: table;
+    border-radius: 5px;
+    margin: 10 0px;
+}
+
+.highlight { background-color: yellow; }
+.head { text-decoration: underline; font-size: large; }
+.middle { margin: 0 auto; display: table; }
 .arrow { font-size: xx-large; }
+.notes { margin: 30px auto; font-size: larger; }
+.biggify { font-size: large; margin: 50px auto; }
