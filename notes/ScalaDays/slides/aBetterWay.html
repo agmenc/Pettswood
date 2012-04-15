@@ -6,8 +6,30 @@
 </head>
 <body>
 <div class="middle">
-    <img src="noAsshole.jpg" style="margin-top: 200px;"/>
-    <div style="clear: both;"></div>
+    <h1>Pettswood: Executable Documentation</h1>
+
+    <p>Pettswood reads specifications, executes them as tests, and outputs the results. Pettswood was inspired by <em>Fit</em>, and derivatives such as <em>FitNesse</em> and <em>Concordion</em></p>
+
+    <div class="left">
+        <div class="diagram page"><em>Input</em><br/>Readable specification in HTML</div>
+        <div style="clear: both"><p class="little">./src/test/resources/SomeTest.html</p></div>
+    </div>
+    <div class="arrow left">&#8594;</div>
+    <div class="left">
+        <div class="diagram"><em>Pettswood</em></div>
+        <div class="arrow vertical">&#8595; &#8593;</div>
+        <div class="diagram"><em>Fixture</em><br/>Classes <em>you</em> write to link Pettswood with your codebase</div>
+        <div class="arrow vertical">&#8595; &#8593;</div>
+        <div class="diagram"><em>Your App</em></div>
+    </div>
+    <div class="arrow left">&#8594;</div>
+    <div class="left">
+        <div class="diagram left page"><em>Output</em><br/>The same spec, with <span class="pass">passes</span> and
+            <span class="fail">failures</span> highlighted
+        </div>
+        <div style="clear: both"><p class="little">./target/pettswood/SomeTest.html</p></div>
+    </div>
+    <div style="clear: both"></div>
 </div>
 </body>
 </html>

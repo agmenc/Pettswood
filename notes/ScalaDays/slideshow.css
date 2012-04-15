@@ -29,6 +29,7 @@ table.buttons {
     line-height: 20px;
 }
 
+.left { float: left; }
 .right { float: right; }
 
 .card {
@@ -65,9 +66,36 @@ table.buttons {
     margin: 10 0px;
 }
 
+
+.diagram {
+    width: 150px;
+    border: thin solid black;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.vertical { top: -20px; }
+.arrow {
+    font-size: xx-large;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 10px;
+    text-align: center;
+}
+
+.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; margin-bottom: 10px; }
+.page h2 { margin: 10px; }
+.little { font-size: x-small; margin-left: 10px; text-align: center; text-wrap: none; }
+
 .highlight { background-color: yellow; }
 .head { text-decoration: underline; font-size: large; }
 .middle { margin: 0 auto; display: table; }
 .arrow { font-size: xx-large; }
 .notes { margin: 30px auto; font-size: larger; }
 .biggify { font-size: large; margin: 50px auto; }
+.pass { background-color: #90ee90; }
+.setup { background-color: #aac4f4; }
+.fail { background-color: #ff69b4; }
+.exception { background-color: #ffcc66; }
