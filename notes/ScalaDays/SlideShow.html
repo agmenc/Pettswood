@@ -6,7 +6,7 @@
     <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="slideshow.js"></script>
 </head>
-<body style="background-color: #4f4f4f;">
+<body id="main">
 <div id="slides">
     <iframe src="slides/intro.html"></iframe>
     <iframe src="slides/roleplay.html"></iframe>
@@ -19,15 +19,25 @@
     <iframe src="slides/FitBits.html"></iframe>
     <iframe src="slides/FitBits2.html"></iframe>
     <iframe src="slides/ScalaHelps.html"></iframe>
-    <iframe src="slides/Next.html"></iframe>
+    <iframe src="slides/WhereToNow.html"></iframe>
     <iframe src="slides/QuestionsAndSuggestions.html"></iframe>
 </div>
-<table class="buttons middle">
-    <tr>
-        <td class="arrow">&larr;</td>
-        <td id="counter">&nbsp;</td>
-        <td class="arrow">&rarr;</td>
-    </tr>
-</table>
+<div class="buttons middle">
+    <div id="counter" class="left">&nbsp;</div>
+    <div class="right">
+        <table id="timer">
+            <tr class="untimed">
+                <td style="width: 2px;"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div style="clear: both"></div>
+</div>
 </body>
 </html>
