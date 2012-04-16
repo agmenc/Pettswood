@@ -6,18 +6,38 @@
     <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
 </head>
 <body>
-<div class="contract"><span class="head">Mixins</span>&nbsp; "teach" the DomainBridge about your fixture</div>
-<table class="mixins biggify">
-    <tr>
-        <td class="names">Mixins</td>
-        <td>Authorisation</td>
-    </tr>
-</table>
-<ul class="notes left">
-    <li>Mixins like to sit in the top right corner</li>
-    <li>They allow you to compose test dependencies by business or technical area</li>
-</ul>
+<div class="middle">
+    <table class="large" style="float: left; clear: both;">
+        <tr>
+            <td class="names">Mixins</td>
+            <td>Authorisation</td>
+        </tr>
+    </table>
+    <table class="large" style="float: left; clear: both;">
+        <tr>
+            <td class="names">Mixins</td>
+            <td>Settlement</td>
+            <td>Audit</td>
+        </tr>
+    </table>
+    <div style="clear: both"></div>
+</div>
 <div style="clear: both;"></div>
-<iframe class="code callout" style="height: 190px;" src="../../../../pettswood-ecosystem/examples/src/test/scala/Authorisation.scala"></iframe>
+<div class="middle">
+<pre class="code">
+import collection.mutable.HashMap
+import org.pettswood.examples.authorisation._
+import org.pettswood._
+
+class Authorisation(pettswood: DomainBridge) extends Mixin(pettswood) {
+  val userDatabase = HashMap[String, User]()
+  val service = new AuthorisationService(userDatabase)
+
+<span class="highlight">  pettswood.learn("Start", () => new Start(service))
+  pettswood.learn("Assuming users", () => new AssumingUsers(userDatabase))
+  pettswood.learn("Access by user", () => new AccessByUser(service))</span>
+}
+</pre>
+</div>
 </body>
 </html>

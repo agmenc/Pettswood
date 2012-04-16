@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
 </head>
 <body>
-<div class="contract"><span class="head">Nested Tables</span>&nbsp; must override <em>nestedConcepts()</em> and associate column headings for nested tables with the DoNothingProbe</div>
 <table class="middle">
     <tbody>
     <tr class="fixture">
@@ -80,6 +79,25 @@
     </tr>
     </tbody>
 </table>
-<iframe class="code callout" style="height: 250px;" src="../../../src/test/scala/org/pettswood/specification/concepts/NestedTablesDemo.scala"></iframe>
+<div class="middle">
+<pre class="code">
+package org.pettswood.specification.concepts
+
+import org.pettswood._
+
+class NestedTablesDemo extends Concept with MultiRow {
+
+  def columns = {
+    case "Addition" | "Mirroring" | "More Nesting" => <span class="highlight">DoNothingProbe</span>
+  }
+
+  override def <span class="highlight">nestedConcepts()</span> = Map(
+    "Nested Tables Demo" -> (() => new NestedTablesDemo),
+    "Mirror" -> (() => new MirrorFixture),
+    "Maths" -> (() => new Maths)
+  )
+}
+</pre>
+</div>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Fit Bits</title>
+    <link rel="stylesheet" type="text/css" href="../slideshow.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
+</head>
+<body>
+<h1>TypeAdapters - a bit messy</h1>
+<pre class="code" style="font-size: 13px;">
+<span class="highlight">// Somewhere deep inside a ColumnFixture</span>
+@Override <span class="highlight">// to handle our own special column types</span>
+protected TypeAdapter bindMethod(String columnName) throws Exception {
+    if ("queue message".equals(columnName)) {
+        return new QueueReadingAdapter(... queue and data value ...);
+    }
+    if ("request status".equals(columnName)) {
+        return new MethodTypeAdapter() {
+            @Override
+            public Object get() {
+                <span class="highlight">... 20 lines of messy inner class ...</span>
+            }
+
+        };
+    }
+    if ("events".equals(columnName)) {
+        <span class="highlight">// All this for a nested table</span>
+        return new NestedTableFixtureTypeAdapterAndRunner(this, new NestedFixtureFactory() {
+            public Fixture createNestedFixture() {
+                return new EventsFixture(Operation.class.getSimpleName());
+            }
+        });
+    }
+
+    // Sensible defaults for Integers, Strings, Doubles etc
+    return super.bindMethod(columnName);
+}
+</pre>
+</body>
+</html>

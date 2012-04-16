@@ -6,37 +6,33 @@
     <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
 </head>
 <body>
-<table class="middle">
-    <tbody>
-    <tr class="fixture">
-        <td>Assuming users</td>
-    </tr>
-    <tr class="names">
-        <td>Name</td>
-        <td>Roles</td>
-    </tr>
-    <tr>
-        <td>Sue from trading</td>
-        <td>Trading, Structuring</td>
-    </tr>
-    <tr>
-        <td>Bob from trade support</td>
-        <td>Trade Support</td>
-    </tr>
-    <tr>
-        <td>John from IT</td>
-        <td>IT, First-line support</td>
-    </tr>
-    <tr>
-        <td>Frank from first-line support</td>
-        <td>First-line support</td>
-    </tr>
-    <tr>
-        <td>Brian the tea lady</td>
-        <td>Tea lady</td>
-    </tr>
-    </tbody>
-</table>
+<div class="middle">
+<pre class="code">
+import collection.mutable.HashMap
+import org.pettswood.examples.authorisation._
+import org.pettswood._
+
+class Authorisation(pettswood: DomainBridge) extends Mixin(pettswood) {
+  val userDatabase = HashMap[String, User]()
+  val service = new AuthorisationService(userDatabase)
+
+<span class="highlight">  pettswood.learn("Start", () => new Start(service))
+  pettswood.learn("Assuming users", () => new AssumingUsers(userDatabase))
+  pettswood.learn("Access by user", () => new AccessByUser(service))</span>
+}
+</pre>
+</div>
+<div class="middle">
+<pre class="code">
+package org.pettswood.examples.authorisation
+
+import org.pettswood._
+
+class Start(service: Service) extends <span class="highlight">Concept</span> {
+  protected def <span class="highlight">cell(text: String)</span> = { service.start(); <span class="highlight">Pass("Started")</span> }
+}
+</pre>
+</div>
 <div class="middle">
 <pre class="code">
 package org.pettswood.examples.authorisation

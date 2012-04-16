@@ -9,7 +9,7 @@ iframe {
     background-color: white;
     display: block;
     width: 800px;
-    height: 720px;
+    height: 700px;
     margin: 0 auto;
     border: thin solid black;
     border-radius: 15px;
@@ -23,6 +23,10 @@ img {
 em {
     font-weight: bold;
     color: #00003a;
+}
+
+h1 {
+    text-align: center;
 }
 
 #main {
@@ -53,6 +57,10 @@ td.gone {
     background-color: orange;
 }
 
+.large {
+    font-size: x-large;
+}
+
 .buttons {
     width: 800px;
     margin-top: 20px;
@@ -73,22 +81,10 @@ td.gone {
 }
 
 .code {
-    padding: 10px;
-}
-
-.contract {
-    background-color: #94ffaf;
-    border: thin solid black;
-    display: table;
-    border-radius: 5px;
-    margin: 20px auto;
-    padding: 5px 20px;
+    font-size: 16px;
     font-weight: bold;
-}
-
-.callout {
-    background-color: #f5f5dc;
     padding: 10px;
+    background-color: #f5f5dc;
     border: thin solid black;
     display: table;
     border-radius: 5px;
@@ -121,8 +117,8 @@ td.gone {
 .head { text-decoration: underline; font-size: large; }
 .middle { margin: 20px auto; display: table; }
 .arrow { font-size: xx-large; }
-.notes { margin: 15px auto; font-size: larger; }
-.biggify { font-size: large; margin: 50px auto; }
+.notes { display: table; margin: 15px auto; font-size: 18px; }
+.biggify { font-size: large; margin: 30px auto; }
 .pass { background-color: #90ee90; }
 .setup { background-color: #aac4f4; }
 .fail { background-color: #ff69b4; }

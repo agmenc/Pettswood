@@ -6,18 +6,41 @@
     <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
 </head>
 <body>
-<div class="contract"><span class="head">Simple Concepts</span>&nbsp; must override cell() and return a Result</div>
 <table class="middle biggify">
     <tr>
         <td class="names">Start</td>
         <td>Authorisation service</td>
     </tr>
 </table>
-<ul class="notes">
-    <li>Result types are: <em>Pass</em>, <em>Fail</em>, <em>Setup</em>, <em>Exception</em></li>
-    <li>Result.given(expected, actual) will work it out for you</li>
-    <li>If your code throws an exception, Pettswood will catch it and return an <em>Exception</em> result</li>
-</ul>
-<iframe class="code callout" style="height: 120px;" src="../../../../pettswood-ecosystem/examples/src/test/scala/org/pettswood/examples/authorisation/Start.scala"></iframe>
+<table class="middle biggify">
+    <tr>
+        <td class="names">Load Products</td>
+    </tr>
+    <tr>
+        <td>US185454IIA32</td>
+    </tr>
+    <tr>
+        <td>DE000AK0E1V3</td>
+    </tr>
+</table>
+<div class="middle">
+<pre class="code">
+package org.pettswood.examples.authorisation
+
+import org.pettswood._
+
+class Start(service: Service) extends <span class="highlight">Concept</span> {
+  protected def <span class="highlight">cell(text: String)</span> = { service.start(); <span class="highlight">Pass("Started")</span> }
+}
+</pre>
+</div>
+<table>
+    <tr>
+        <td class="pass"><em>Pass</em></td>
+        <td class="setup"><em>Setup</em></td>
+        <td class="fail"><em>Fail</em></td>
+        <td class="exception"><em>Exception</em></td>
+    </tr>
+</table>
 </body>
 </html>
