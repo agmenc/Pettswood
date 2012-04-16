@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Fixture</title>
+    <link rel="stylesheet" type="text/css" href="../slideshow.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../src/test/resources/css/pettswood.css"/>
+</head>
+<body>
+<div class="contract"><span class="head">Simple Concepts</span>&nbsp; must override cell() and return a Result</div>
+<table class="middle biggify">
+    <tr>
+        <td class="names">Start</td>
+        <td>Authorisation service</td>
+    </tr>
+</table>
+<ul class="notes">
+    <li>Result types are: <em>Pass</em>, <em>Fail</em>, <em>Setup</em>, <em>Exception</em></li>
+    <li>Result.given(expected, actual) will work it out for you</li>
+    <li>If your code throws an exception, Pettswood will catch it and return an <em>Exception</em> result</li>
+</ul>
+<iframe class="code callout" style="height: 120px;" src="../../../../pettswood-ecosystem/examples/src/test/scala/org/pettswood/examples/authorisation/Start.scala"></iframe>
+</body>
+</html>
