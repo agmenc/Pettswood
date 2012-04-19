@@ -1,32 +1,19 @@
 package org.pettswood
 
 import scala.util.Properties._
+import parsers.HtmlToXml
 import FileSystem._
 import scala.io.Source._
 import java.net.URL
-import scala.xml._
 import java.io._
 
 class FileSystem {
   def loadResource(resourcePath: String) = fromInputStream(url(resourcePath).openStream()).mkString
-
-  def loadXml(filePath: String) = {
-    checkDoctype(filePath)
-    XML.loadFile(filePath)
-  }
-  
+  def loadXml(filePath: String) = HtmlToXml(fromFile(filePath).mkString)
   def save(data: String) = Saver(data)
   def in(path: String) = Finder(absolute(path))
   def copy(source: String, destination: String) { save(fromFile(source).mkString) to destination }
   def url(resourcePath: String): URL = getClass.getClassLoader.getResource(resourcePath)
-
-  def checkDoctype(filePath: String) {
-    firstLine(filePath) match {
-      case string if (string.startsWith("<!DOCTYPE HTML>")) =>
-      case string if (string.startsWith("<!DOCTYPE")) => throw new UnsupportedOperationException("Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser.")
-      case _ =>
-    }
-  }
 
   def firstLine(filePath: String): String = {
     val reader = new BufferedReader(new FileReader(filePath))

@@ -82,17 +82,11 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       
       fromFile(TARGET_DIR + "tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
     }
-    "Fail fast if the test we are loading contains a non-HTML5 doctype" in  {
-      val nonHtml5Doc = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n        \"http://www.w3.org/TR/html4/loose.dtd\"><xml/>"
-      val friendlyErrorMessage = "Please remove the doctype from the first line of the test file, as it horribly confuses the JVM's built-in SAX parser."
-
-      load(nonHtml5Doc) must throwA[UnsupportedOperationException] (message = friendlyErrorMessage)
-    }
-    "allow HTML5 doctypes" in {
-      load("<!DOCTYPE HTML><xml/>") must be equalTo <xml/>
+    "allow html with doctypes" in {
+      load("<!DOCTYPE HTML><html><body>monkeys</body></html>") must ==/ (<html><head></head><body>monkeys</body></html>)
     }
     "allow HTML docs with no doctype" in {
-      load("<html><body>monkeys</body></html>") must be equalTo <html><body>monkeys</body></html>
+      load("<html><body>monkeys</body></html>") must ==/ (<html><head></head><body>monkeys</body></html>)
     }
   }
 

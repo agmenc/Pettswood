@@ -5,13 +5,10 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/lib/src/specs2-scalaz-core_2.9.1-6.0.1-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/src/specs2_2.9.1-1.6.1-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/src/junit-4.8.1-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/src/mockito-core-1.9.0-rc1-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/src/anti-xml_2.9.1-0.3-sources.jar!/" />
       <root url="file://$PROJECT_DIR$/../test-interface/src" />
+      <root url="file://$PROJECT_DIR$/lib/src" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/src" recursive="false" type="SOURCES" />
   </library>
 </component>
