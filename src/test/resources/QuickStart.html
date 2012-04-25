@@ -20,7 +20,7 @@
     </ul>
 </div>
 <div class="main left">
-    <h1>Getting Started</h1>
+    <h1>Quick Start Guide</h1>
     <h2>Adding Pettswood to your sbt project</h2>
 
     <p>Modify your build.sbt:</p>
@@ -65,7 +65,7 @@ test-only org.path.to.MyPettswoodSbtIntegrationHook
 <pre class="callout">
 class SingleRunnerSpec extends Specification {
   "Frameworks such as Specs2 can run your test" in {
-    SingleRunner("src/test/resources/AdvancedTopics.html")
+    SingleRunner("src/test/resources/AdvancedTopics.html").overallPass must beTrue
   }
 }
 </pre>
