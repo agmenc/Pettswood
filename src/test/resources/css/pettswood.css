@@ -46,6 +46,8 @@ table.mixins { float: right; }
     line-height: 60%;
 }
 
+.ignore { display: none; visibility: hidden; }
+
 .pass { background-color: #ADDF90; }
 .setup { background-color: #7EABBE; }
 .fail { background-color: #E594A7; }

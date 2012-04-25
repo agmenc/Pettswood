@@ -8,6 +8,7 @@ class DomainBridge {
   var nestlings = List.empty[DomainBridge]
 
   learn("mixins", () => new Mixins(this))
+  learn("ignore", () => Ignore)
 
   def table(firstCellText: String): Result = tryElse("Failure reading table heading") { currentConcept = conceptFor(firstCellText); Setup() }
   def row() { currentConcept.row() }

@@ -9,7 +9,6 @@ object HtmlToXml {
     props.setTranslateSpecialEntities(true);
     val tagNode = new HtmlCleaner(props).clean(input);
     val asString = new PrettyXmlSerializer(props).getAsString(tagNode)
-    println("asString: " + asString)
     XML.loadString(asString)
   }
 }

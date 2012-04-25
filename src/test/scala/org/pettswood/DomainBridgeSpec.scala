@@ -30,7 +30,7 @@ class DomainBridgeSpec extends Specification with Mockito {
     "return an exception result with a useful message when the concept is unrecognised" in {
       val domain = new DomainBridge()
 
-      domain.table("Donkeys") must be equalTo Exception(new RuntimeException("Unknown concept: \"Donkeys\". Known concepts: [mixins]"))
+      domain.table("Donkeys") must be equalTo Exception(new RuntimeException("Unknown concept: \"Donkeys\". Known concepts: [mixins, ignore]"))
     }
     "delegate further cell handling to the current concept" in {
       val domain = new DomainBridge()

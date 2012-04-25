@@ -11,6 +11,3 @@ Push the jar to the repo (really just the github project): commit and push
 Publishing the documentation
 ----------------------------
 [pettswood]/publish-docs.sh
-[pettswood-docs]/git add .
-[pettswood-docs]/git commit -m "Docs 4 github"
-[pettswood-docs]/git push origin gh-pages
