@@ -16,12 +16,11 @@
         <li><a href="ExecutableDocs.html">What are Executable Docs?</a></li>
         <li><a href="#">One-page quick-start</a></li>
         <li><a href="FullUserGuide.html">Full user guide</a></li>
-        <li><a href="#" id="current">Download jar</a></li>
-        <li><a href="#">Maven/sbt dependencies</a></li>
+        <li><a href="https://github.com/agmenc/Pettswood"><em>github</em></a></li>
     </ul>
 </div>
 <div class="main left">
-    <h1>Getting Started</h1>
+    <h1>Quick Start Guide</h1>
     <h2>Adding Pettswood to your sbt project</h2>
 
     <p>Modify your build.sbt:</p>
@@ -62,25 +61,20 @@ test-only org.path.to.MyPettswoodSbtIntegrationHook
 </pre>
 
     <h3>In the IDE</h3>
-    <p>Until I write an IntelliJ plugin, you can use the SingleRunner class to run tests, either:</p>
-    <ul>
-        <li>Through your current testing framework:
+    <p>Until I write an IntelliJ plugin, you can use the SingleRunner class to run tests, either through your current testing framework:</p>
 <pre class="callout">
 class SingleRunnerSpec extends Specification {
   "Frameworks such as Specs2 can run your test" in {
-    SingleRunner("src/test/resources/AdvancedTopics.html")
+    SingleRunner("src/test/resources/AdvancedTopics.html").overallPass must beTrue
   }
 }
 </pre>
-        </li>
-        <li>With a mini-app:
+        <p>Or with a mini-app:</p>
 <pre class="callout">
 object SingleTestRunner extends App {
   SingleRunner("src/test/resources/AdvancedTopics.html")
 }
 </pre>
-        </li>
-    </ul>
     <br/>
     <br/>
     <br/>
