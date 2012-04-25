@@ -1,6 +1,5 @@
 /*@include("HTML5-boilerplate")*/
 
-
 html, body, body div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
@@ -36,15 +35,6 @@ table.mixins { float: right; }
     text-decoration: none;
 }
 
-.callout {
-    background-color: #f5f5dc;
-    padding: 10px;
-    border: thin solid black;
-    display: table;
-    border-radius: 5px;
-    margin: 10 0px;
-}
-
 .fixture {
     font-weight: bold;
     font-size: medium;
@@ -56,7 +46,7 @@ table.mixins { float: right; }
     line-height: 60%;
 }
 
-.pass { background-color: #90ee90; }
-td.setup { background-color: #aac4f4; }
-.fail { background-color: #ff69b4; }
+.pass { background-color: #ADDF90; }
+.setup { background-color: #7EABBE; }
+.fail { background-color: #E594A7; }
 .exception { background-color: #ffcc66; }
