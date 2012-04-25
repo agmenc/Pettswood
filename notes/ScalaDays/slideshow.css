@@ -99,7 +99,7 @@ td.gone {
     text-align: center;
 }
 
-.vertical { top: -20px; }
+.up { top: -20px; }
 .arrow {
     font-size: xx-large;
     position: relative;

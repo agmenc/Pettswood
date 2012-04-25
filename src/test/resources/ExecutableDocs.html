@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Pettswood</title>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+</head>
+<body>
+<div class="left index">
+    <ul id="navigation">
+        <li id="title"><h4>Pettswood</h4></li>
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="#">What are Executable Docs?</a></li>
+        <li><a href="QuickStart.html">One-page quick-start</a></li>
+        <li><a href="FullUserGuide.html">Full user guide</a></li>
+        <li><a href="#" id="current">Download jar</a></li>
+        <li><a href="#">Maven/sbt dependencies</a></li>
+    </ul>
+</div>
+<div class="main left">
+    <h1>What are Executable Docs?</h1>
+    <h2>What they look like</h2>
+
+    <div class="half left">
+        <div class="page">
+            <h3>Crypto Components</h3>
+            <table class="mixins" style="float: left;">
+                <tbody>
+                <tr>
+                    <td class="names">Mixins</td>
+                    <td>Cryptography</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+            <table class="left">
+                <tbody>
+                <tr>
+                    <td class="names">Mirror</td>
+                    <td>Hello</td>
+                    <td class="names">becomes</td>
+                    <td>olleH</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+            <table class="left">
+                <tbody>
+                <tr class="fixture">
+                    <td colspan="4">Maths</td>
+                </tr>
+                <tr class="names">
+                    <td>a</td>
+                    <td>f</td>
+                    <td>b</td>
+                    <td>=</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>+</td>
+                    <td>6</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>-</td>
+                    <td>5</td>
+                    <td>3</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <div class="half left">
+        <p>This is a test. In fact, this whole HTML document is a test, but the tables on the left are the only bits that get <em>executed</em>. This test is <span style="background-color: #dddddd">grey</span>, meaning it has not been executed.</p>
+    </div>
+    <div style="clear: both"></div>
+    <br/>
+    <div class="half left">
+        <p>This is the output of the same test. It has coloured cells, so we can tell it has been run. The colours tell us which parts of the test <span class="pass">passed</span> or <span class="fail">failed</span>, or were simply <span class="setup">setup</span> steps, or threw <span class="exception">exceptions</span>.</p>
+    </div>
+    <div class="half left">
+        <div class="page">
+            <h3>Crypto Components</h3>
+            <table class="mixins" style="float: left;">
+                <tbody>
+                <tr>
+                    <td class="names">Mixins</td>
+                    <td class="setup">Cryptography</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+            <table class="left">
+                <tbody>
+                <tr>
+                    <td class="names">Mirror</td>
+                    <td class="setup">Hello</td>
+                    <td class="names">becomes</td>
+                    <td class="pass">olleH</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+            <table class="left">
+                <tbody>
+                <tr class="fixture">
+                    <td colspan="4" class="setup">Maths</td>
+                </tr>
+                <tr class="names">
+                    <td>a</td>
+                    <td>f</td>
+                    <td>b</td>
+                    <td>=</td>
+                </tr>
+                <tr class="setup">
+                    <td>7</td>
+                    <td>+</td>
+                    <td>6</td>
+                    <td class="pass">13</td>
+                </tr>
+                <tr class="setup">
+                    <td>8</td>
+                    <td>-</td>
+                    <td>5</td>
+                    <td class="pass">3</td>
+                </tr>
+                <tr class="setup">
+                    <td>12</td>
+                    <td>+</td>
+                    <td>2</td>
+                    <td class="fail">15</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+
+    <h2>Who does what ...</h2><br/>
+    <div class="left">
+        <div class="diagram page setup"><em>Collaborate on this</em></div>
+        <div class="arrow up">&#8595;</div>
+        <div style="clear: both"></div>
+    </div>
+    <div style="clear: both"></div>
+
+    <div style="opacity: 0.55">
+        <div class="left">
+            <div class="diagram page exception"><em>Input</em><br/>Readable specification in HTML</div>
+            <div style="clear: both"><p class="little">./src/test/resources/SomeTest.html</p></div>
+        </div>
+        <div class="arrow left">&#8594;</div>
+        <div class="left">
+            <div class="diagram"><em>Pettswood</em></div>
+            <div class="arrow up">&#8595; &#8593;</div>
+            <div class="diagram fail"><em>Fixture</em><br/>Classes <em>you</em> write to link Pettswood with your codebase</div>
+            <div class="arrow up">&#8595; &#8593;</div>
+            <div class="diagram"><em>Your App</em></div>
+        </div>
+        <div class="arrow left">&#8594;</div>
+        <div class="left">
+            <div class="diagram left page"><em>Output</em><br/>The same spec, with <span class="pass">passes</span> and <span class="fail">failures</span> highlighted
+            </div>
+            <div style="clear: both"><p class="little">./target/pettswood/SomeTest.html</p></div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <div style="position: relative; top: -140px">
+        <div class="diagram page left setup"><em>You do this bit</em></div>
+        <div class="arrow left">&#8594;</div>
+    </div>
+
+    <div style="clear: both"></div>
+    <h2>... and Why</h2>
+    <p>All the usual benefits of tests <em>do not apply</em> here:</p>
+    <div class="middle">
+        <ul class="notes">
+            <li>Knowing when I am done</li>
+            <li>Driving my design</li>
+            <li>Regression protection</li>
+            <li>[insert favourite example here]</li>
+        </ul>
+    </div>
+    <br/>
+    <p>You get these for free with executable docs, but they aren't the main attraction. Executable docs allow you to:</p>
+    <ul class="middle" style="width: 600px;">
+        <li><em>Engage</em> with your users</li>
+        <li>Create a <em>shared domain language</em></li>
+        <li>Build mutually-understood <em>delivery contracts</em></li>
+        <li><em>Describe the system concisely</em>, so that errors and redundancy are easily visible</li>
+        <li>Write <em>living documentation</em>: always coupled to the actual behaviour of the system</li>
+    </ul>
+    <br/> <br/> <br/> <br/>
+</div>
+<div style="clear: both"></div>
+</body>
+</html>
