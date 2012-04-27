@@ -298,6 +298,33 @@
         override def nestedConcepts() = Map( "Nested Tables Demo" -&gt; (() =&gt; new NestedTablesDemo()), "Mirror" -&gt; (() =&gt; new Mirror()), "Maths" -&gt; (() =&gt; new Maths()) ) }
     </div>
 
+    <h2>Style and Approach</h2>
+
+    <ul>
+        <li>
+            <em>Executable documents need an audience</em> - use Pettswood when the tests form a contract between you and the business, or when
+            they help to clarify system behaviour by laying it out in a table, or when you need a user manual that is always up-to-date.
+        </li>
+        <li>
+            <em>Truth tables are powerful</em> - avoid imperative do-this-then-do-that tests. Use the graphical layout of tables to represent
+            permutations and combinations that are meaningful to the business. It is easier to add a row to a table than it is to copy-and-paste
+            an entire test and change some of the values slightly.
+        </li>
+        <li>
+            <em>Avoid non-table content</em> - tables are constantly being tested during your continous build cycle. Other text is not, so it
+            becomes out-of-date.
+        </li>
+        <li>
+            <em>Think in pictures</em> - don't forget that you are writing HTML. You can do all sorts of cool things with your layout, to make
+            the page neat and tidy, and display things in a business-relevant way. If your company has a logo or a colour scheme, include them on the page to make the specs feel more official.
+        </li>
+        <li><em>Let users own the tests</em> - encourage users to edit their own tests, by adding wizzywig to the page &lt;head&gt;:
+        <pre class="callout">
+&lt;script type="text/javascript" src="http://www.agmen-smith.co.uk/wizzywig/wizzyWigBoot.js"&gt;&lt;/script&gt;
+        </pre>
+        </li>
+    </ul>
+
     <h2>The Pettswood ecosystem</h2>
 
     <h3>Skins</h3>

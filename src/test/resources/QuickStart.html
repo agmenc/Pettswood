@@ -21,7 +21,7 @@
 </div>
 <div class="main left">
     <h1>Quick Start Guide</h1>
-    <h2>Adding Pettswood to your sbt project</h2>
+    <h2>Step One: Add Pettswood to your sbt project</h2>
 
     <p>Modify your build.sbt:</p>
 <pre class="smaller callout">
@@ -40,26 +40,74 @@ import org.pettswood.runners.sbt.SbtIntegrationHook
 
 class PettswoodSbt extends SbtIntegrationHook
 </pre>
-    <h2>Test Paths</h2>
+    <h2>Step Two: Write a Test</h2>
 
-    <p>Tests go in the resources directory:</p><pre class="callout">
+    <p>Tests go in the resources directory:</p>
+<pre class="callout">
 [project root]/src/test/resources/<em>Your test here.html</em>
-[project root]/src/test/resources/someFeature/Another test here.html</pre>
-    <p>The results are written to the target folder:</p><pre class="callout">
-[project root]/target/pettswood/<em>Your test here.html</em>
-[project root]/target/pettswood/someFeature/Another test here.html</pre>
+[project root]/src/test/resources/someFeature/Another test here.html
+</pre>
 
-    <h2>Running Tests</h2>
+    <p>Copy this into <em>[project root]/src/test/resources/MyFirstTest.html:</em></p>
+<textarea class="callout" style="width: 700px; height: 380px; ">
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>My First Pettswood Test</title>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="javascript/pettswood.js"></script>
+</head>
+<body>
+<h1>My First Pettswood Test</h1>
+<table class="mixins">
+    <tr>
+        <td class="names">Mixins</td>
+        <td>MyFirstMixin</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td class="fixture">Hello</td>
+        <td>World</td>
+    </tr>
+</table>
+</body>
+</html>
+</textarea>
+
+    <h2>Step Three: Tell Pettswood how to process your test</h2>
+    <h3>A Simple Concept</h3>
+    <p>Accept any text in any cell, so long as it is the word "World":</p>
+<pre class="callout">
+import org.pettswood.{Result, Concept}
+
+class HelloWorld extends Concept {
+  protected def cell(text: String) = Result.given("World", text)
+}
+</pre>
+
+    <h3>Mix it in</h3>
+    <p>Any table with the first cell "Hello" should be processed by the HelloWorld Concept:</p>
+<pre class="callout">
+import org.pettswood.specification.concepts.HelloWorld
+import org.pettswood.{DomainBridge, Mixin}
+
+class MyFirstMixin(domain: DomainBridge) extends Mixin(domain) {
+  domain.learn("Hello", () => new HelloWorld())
+}
+</pre>
+
+    <h2>Step Four: Run the Test</h2>
     <h3>In sbt</h3>
-    <p>Run all the tests (including Pettswood) tests:</p>
+    <p>Run all tests (including Pettswood):</p>
 <pre class="callout">
 test
 </pre>
     <p>Run just the Pettswood tests:</p>
 <pre class="callout">
-test-only org.path.to.MyPettswoodSbtIntegrationHook
+test-only path.to.PettswoodSbt
 </pre>
-
     <h3>In the IDE</h3>
     <p>Until I write an IntelliJ plugin, you can use the SingleRunner class to run tests, either through your current testing framework:</p>
 <pre class="callout">
@@ -75,6 +123,13 @@ object SingleTestRunner extends App {
   SingleRunner("src/test/resources/AdvancedTopics.html")
 }
 </pre>
+    <h2>Step Five: Look at the test results</h2>
+    <p>The results are written to the target folder:</p><pre class="callout">
+[project root]/target/pettswood/<em>Your test here.html</em>
+[project root]/target/pettswood/someFeature/Another test here.html</pre>
+
+    <p>But why should you have to know that? If you include pettswood.js in your test, you can just <em>click on the title</em> to toggle between the test input and the test output.</p>
+
     <br/>
     <br/>
     <br/>
