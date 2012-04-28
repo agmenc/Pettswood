@@ -16,6 +16,7 @@
         <li><a href="ExecutableDocs.html">What are Executable Docs?</a></li>
         <li><a href="#">One-page quick-start</a></li>
         <li><a href="FullUserGuide.html">Full user guide</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
         <li><a href="https://github.com/agmenc/Pettswood"><em>github</em></a></li>
     </ul>
 </div>
@@ -83,7 +84,7 @@ class PettswoodSbt extends SbtIntegrationHook
 import org.pettswood.{Result, Concept}
 
 class HelloWorld extends Concept {
-  protected def cell(text: String) = Result.given("World", text)
+  protected def cell(text: String) = Result.given(text, "World")
 }
 </pre>
 
