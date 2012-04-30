@@ -5,8 +5,6 @@ table tr:first-child td:first-child { border-radius: 0 10px 0 0; }
 table tr:first-child td:last-child { border-radius: 10px 10px 0 0; }
 table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
 table tr:last-child td:last-child { border-radius: 0 0 10px 0; }
-/*background-color: #afc9f9;*/
-/*.names { background-color: #7d88c0; }*/
 
 
 body { font-family: Lucida Sans Unicode, Lucida Grande, sans-serif; font-size: 18px; padding: 0 20px; }

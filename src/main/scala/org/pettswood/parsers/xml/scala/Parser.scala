@@ -38,14 +38,9 @@ class Parser(domain: DomainBridge) {
     }
   }
 
-  // TODO - CAS - 10/04/2012 - Combine and simplify these two "describe" methods
-  // TODO - CAS - 11/04/2012 - Bring in AntiXML zippers and remove these two "describe" methods
   def describeTableFailures(expectedText: String, result: Result) = {
-    result match {
-      case Fail(actual) => <tr><td><span class="result">{actual}<br></br>but expected:<br></br></span></td></tr>
-      case Exception(exceptionText) => <tr><td><span class="result">{exceptionText}<br></br>Expected:<br></br></span></td></tr>
-      case _ => NodeSeq.Empty
-    }
+    val failureMarker = describeCellFailures(expectedText, result)
+    if (failureMarker.isEmpty) failureMarker else <tr><td>{failureMarker}</td></tr>
   }
 
   def firstCell(nodeSeq: NodeSeq): Elem = (nodeSeq \\ "td").head match { case elem: Elem => elem }
