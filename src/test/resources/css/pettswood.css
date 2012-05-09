@@ -20,7 +20,7 @@ body {
     font-size: 12px;
 }
 
-h1, table { margin: 10px; }
+h1, h2, h3, h4, h5, h6, table { margin: 10px; }
 h1 { font-size: 20px; cursor: pointer; }
 table { border-collapse: collapse; }
 td { border: thin solid #979797; padding: 1px 3px; }
