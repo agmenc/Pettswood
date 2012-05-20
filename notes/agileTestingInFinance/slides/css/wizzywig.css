@@ -1,0 +1,51 @@
+/**/
+
+input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; border: none; resize: horizontal; background-color: #ffeccc; }
+
+#wizzywigConsole {
+    height: 20px; width: 20px; overflow: hidden;
+    left: -50%; text-align: center;
+}
+#wizzywigConsole table { font-size: 70%; }
+#wizzywigConsole td { background-color: white; }
+#wizzywigConsole table.drag td { background-color: black; }
+#wizzywigConsole .fixture { font-size: 120%; }
+#wizzywigConsole .fixture, #wizzywigConsole .names { background-color: #dddddd }
+#wizzywigConsole button { margin: 0; }
+#wizzywigConsole #plus { font-size: 20px; font-weight: bold; position: relative; top: -6px; text-shadow: 1px 1px 2px white }
+#wizzywigConsole:hover #plus { display: none; }
+#wizzywigConsole:hover { height: auto; width: auto; }
+
+#wizzywigTableEditor { position: absolute; }
+#wizzywigTableEditor table, #wizzywigTableEditor td { margin: 0; padding: 0; border: none; }
+#wizzywigTableEditor td:hover { background-color: #00d000; }
+
+h1, h2, h3, h4, h5, h6  { display: table; }
+
+.console { border: thin solid grey; background-color: rgba(177, 197, 222, 0.7); }
+.tablet { border-radius: 10px; position: relative; }
+.circle { height: 60px; width: 60px; border-radius: 30px; }
+
+.arrow { width: 0; height: 0; border: 10px solid transparent; margin: auto; }
+.u { border-bottom: 20px solid black; border-top: none; }
+.d { border-top: 20px solid black; border-bottom: none; }
+.l { border-right: 20px solid black; border-left: none; }
+.r { border-left: 20px solid black; border-right: none; }
+
+.rotate {
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.expand {width: 100%; height: 100%; margin: 0; }
+.middle { vertical-align: middle; text-align: center; margin: 0; }
+.middleFixed { position: fixed; left: 50%; top: 10px; }
+.hidden { display: none; visibility: hidden; }
+.editable:hover { background-color: gray; }
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+.spaced { margin: 5px; }
+/*.drag { color: white; background-color: black; }*/
+.dropTarget { border-top: thick solid red; }
