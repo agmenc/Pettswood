@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+    <style>
+        table { border-collapse: collapse; border-radius: 0; border: 1px solid grey }
+    </style>
+</head>
+<body>
+<div class="middle">
+    <table class="large" style="float: left; clear: both;">
+        <tr>
+            <td class="names">Mixins</td>
+            <td>Settlement</td>
+            <td>Audit</td>
+        </tr>
+    </table>
+    <table class="large" style="float: left; clear: both;">
+        <tr>
+            <td class="names">Mixins</td>
+            <td>Authorisation</td>
+        </tr>
+    </table>
+    <div style="clear: both"></div>
+</div>
+<div style="clear: both;"></div>
+<div class="middle">
+<pre class="callout" style="font-size: large; margin-left: 0; ">
+import collection.mutable.HashMap
+import org.pettswood.examples.authorisation._
+import org.pettswood._
+
+class Authorisation(pettswood: DomainBridge) extends Mixin(pettswood) {
+  val userDatabase = HashMap[String, User]()
+  val service = new AuthorisationService(userDatabase)
+
+<span class="highlight">  pettswood.learn("Start", () => new Start(service))
+  pettswood.learn("Assuming users", () => new AssumingUsers(userDatabase))
+  pettswood.learn("Access by user", () => new AccessByUser(service))</span>
+}
+</pre>
+</div>
+</body>
+</html>

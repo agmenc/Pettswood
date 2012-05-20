@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+    <style>
+        table { border-collapse: collapse; border-radius: 0; border: 1px solid grey }
+    </style>
+</head>
+<body>
+<table class="middle">
+    <tbody>
+    <tr class="fixture">
+        <td colspan="2">Nested Tables Demo</td>
+    </tr>
+    <tr class="names">
+        <td>Addition</td>
+        <td>Mirroring</td>
+        <td>More Nesting</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="left">
+                <tbody>
+                <tr class="fixture">
+                    <td colspan="4">Maths</td>
+                </tr>
+                <tr class="names">
+                    <td>a</td>
+                    <td>f</td>
+                    <td>b</td>
+                    <td>=</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>+</td>
+                    <td>6</td>
+                    <td>13</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="left">
+                <tbody>
+                <tr>
+                    <td class="names">Mirror</td>
+                    <td>Hello</td>
+                    <td class="names">becomes</td>
+                    <td>olleH</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tbody>
+                <tr class="fixture">
+                    <td>Nested Tables Demo</td>
+                </tr>
+                <tr class="names">
+                    <td>Mirroring</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="left">
+                            <tbody>
+                            <tr>
+                                <td class="names">Mirror</td>
+                                <td>detsen ylpeeD</td>
+                                <td class="names">becomes</td>
+                                <td>Deeply nested</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="middle">
+<pre class="callout" style="margin-left: 0; ">
+package org.pettswood.specification.concepts
+
+import org.pettswood._
+
+class NestedTablesDemo extends Concept with MultiRow {
+
+  def columns = {
+    case "Addition" | "Mirroring" | "More Nesting" => <span class="highlight">DoNothingProbe</span>
+  }
+
+  override def <span class="highlight">nestedConcepts()</span> = Map(
+    "Nested Tables Demo" -> (() => new NestedTablesDemo),
+    "Mirror" -> (() => new MirrorFixture),
+    "Maths" -> (() => new Maths)
+  )
+}
+</pre>
+</div>
+</body>
+</html>

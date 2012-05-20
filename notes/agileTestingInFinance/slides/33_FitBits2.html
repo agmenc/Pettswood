@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+    <style>
+        .highlight { background-color: yellow; color: blue; }
+    </style>
+</head>
+<body>
+<h1>Hooks deep into Fit</h1>
+<h1>Nested Tables - DIY</h1>
+<pre class="callout" style="font-size: 13px; margin-left: 0; ">
+public void runFixtureInNestedTable(Fixture parentFixture, Parse cellWithTableOfExceptions) {
+    if (cellWithTableOfExceptions != null
+        && cellWithTableOfExceptions.parts != null
+        && cellWithTableOfExceptions.parts.parts != null) {
+        <span class="highlight">super.doRows</span>(cellWithTableOfExceptions<span class="highlight">.parts.parts</span>);
+        <span class="highlight">parentFixture.counts.tally(this.counts);</span>
+    } else {
+        throw new FatalException("Expected a nested table but did not get one!");
+    }
+}
+</pre>
+</body>
+</html>

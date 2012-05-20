@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+    <style>
+        table { border-collapse: collapse; border-radius: 0; border: 1px solid grey }
+    </style>
+</head>
+<body>
+<table class="middle">
+    <tbody>
+    <tr class="fixture">
+        <td>Assuming users</td>
+    </tr>
+    <tr class="names">
+        <td>Name</td>
+        <td>Roles</td>
+    </tr>
+    <tr>
+        <td>Sue from trading</td>
+        <td>Trading, Structuring</td>
+    </tr>
+    <tr>
+        <td>Bob from trade support</td>
+        <td>Trade Support</td>
+    </tr>
+    <tr>
+        <td>John from IT</td>
+        <td>IT, First-line support</td>
+    </tr>
+    <tr>
+        <td>Frank from first-line support</td>
+        <td>First-line support</td>
+    </tr>
+    <tr>
+        <td>Brian the tea lady</td>
+        <td>Tea lady</td>
+    </tr>
+    </tbody>
+</table>
+<div class="middle">
+<pre class="callout" style="margin-left: 0; ">
+package org.pettswood.examples.authorisation
+
+import collection.mutable.HashMap
+import org.pettswood._
+
+class AssumingUsers(database: HashMap[String, User]) extends <span class="highlight">MultiRow</span> {
+  var username = ""
+
+  def <span class="highlight">columns</span> = {
+    case "Name" => Name
+    case "Roles" => Roles
+  }
+
+  case class Name(name: String) extends <span class="highlight">Doer</span> {username = name}
+  case class Roles(roles: String) extends <span class="highlight">Digger</span> {
+    val allowedRoles = roles.split(",").map(_ trim).map(AvailableRoles(_))
+    database.put(username, User(username, allowedRoles: _*))
+    def <span class="highlight">actual</span> = roles
+  }
+}
+</pre>
+</div>
+</body>
+</html>

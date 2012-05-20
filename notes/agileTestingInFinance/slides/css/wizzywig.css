@@ -10,7 +10,7 @@ input.inputter { font: inherit; font-size: inherit; padding: 0; margin: 0; borde
 #wizzywigConsole td { background-color: white; }
 #wizzywigConsole table.drag td { background-color: black; }
 #wizzywigConsole .fixture { font-size: 120%; }
-#wizzywigConsole .fixture, #wizzywigConsole .names { background-color: #dddddd }
+#wizzywigConsole tr.names td, #wizzywigConsole td.names { background-color: #dddddd }
 #wizzywigConsole button { margin: 0; }
 #wizzywigConsole #plus { font-size: 20px; font-weight: bold; position: relative; top: -6px; text-shadow: 1px 1px 2px white }
 #wizzywigConsole:hover #plus { display: none; }
