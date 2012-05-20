@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="pettswood-website.css"/>
+</head>
+<body>
+<h1>What are Executable Docs?</h1>
+<h2>Who does what ...</h2><br/>
+<div class="left">
+    <div class="diagram page setup"><em>Collaborate with users on this</em></div>
+    <div class="arrow up">&#8595;</div>
+    <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>
+
+<div style="opacity: 0.55">
+    <div class="left">
+        <div class="diagram page exception"><em>Input</em><br/>Readable specification in HTML</div>
+        <div style="clear: both"><p class="little">./src/test/resources/SomeTest.html</p></div>
+    </div>
+    <div class="arrow left">&#8594;</div>
+    <div class="left">
+        <div class="diagram"><em>Pettswood</em></div>
+        <div class="arrow up">&#8595; &#8593;</div>
+        <div class="diagram fail"><em>Fixture</em><br/>Classes <em>you</em> write to link Pettswood with your codebase</div>
+        <div class="arrow up">&#8595; &#8593;</div>
+        <div class="diagram"><em>Your App</em></div>
+    </div>
+    <div class="arrow left">&#8594;</div>
+    <div class="left">
+        <div class="diagram left page"><em>Output</em><br/>The same spec, with <span class="pass">passes</span> and <span class="fail">failures</span> highlighted
+        </div>
+        <div style="clear: both"><p class="little">./target/pettswood/SomeTest.html</p></div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<div style="position: relative; top: -140px">
+    <div class="diagram page left setup"><em>You do this bit</em></div>
+    <div class="arrow left">&#8594;</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+/**/
+
+body {
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    padding: 0 20px;
+}
+
+iframe {
+    background-color: white;
+    display: block;
+    width: 800px;
+    height: 650px;
+    margin: 0 auto;
+    border: thin solid black;
+    border-radius: 15px;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+em {
+    font-weight: bold;
+    color: #00003a;
+}
+
+h1 {
+    text-align: center;
+}
+
+#main {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2A0770', endColorstr='#18181A');
+    background: -webkit-gradient(linear, left top, left bottom, from(#2A0770), to(#18181A));
+    background: -moz-linear-gradient(top,  #2A0770,  #18181A);
+}
+
+#counter {
+    position: relative;
+    top: -43px;
+    left: 6px;
+}
+
+#timer.table {
+    border-collapse: separate;
+}
+
+iframe.code { height: inherit; width: 600px; display: table }
+
+.untimed td {
+    background-color: grey;
+    width: 20px;
+    height: 10px;
+}
+
+td.gone {
+    background-color: orange;
+}
+
+.large {
+    font-size: x-large;
+}
+
+.buttons {
+    width: 800px;
+    margin-top: 20px;
+    line-height: 20px;
+}
+
+.left { float: left; }
+.right { float: right; }
+
+.card {
+    font-size: x-large;
+    font-weight: bold;
+    background-color: white;
+    border: thin solid grey;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.code {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f5f5dc;
+    border: thin solid black;
+    display: table;
+    border-radius: 5px;
+    margin: 10 0px;
+}
+
+.diagram {
+    width: 150px;
+    border: thin solid black;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.up { top: -20px; }
+.arrow {
+    font-size: xx-large;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 10px;
+    text-align: center;
+}
+
+.page { border: thin solid black; box-shadow: 3px 3px 4px #000; width: 200px; margin-bottom: 10px; }
+.page h2 { margin: 10px; }
+.little { font-size: x-small; margin-left: 10px; text-align: center; text-wrap: none; }
+
+.highlight { background-color: yellow; }
+.head { text-decoration: underline; font-size: large; }
+.middle { margin: 20px auto; display: table; }
+.arrow { font-size: xx-large; }
+.notes { display: table; margin: 15px auto; font-size: 18px; }
+.biggify { font-size: large; margin: 30px auto; }
+.pass { background-color: #90ee90; }
+.setup { background-color: #aac4f4; }
+.fail { background-color: #ff69b4; }
+.exception { background-color: #ffcc66; }

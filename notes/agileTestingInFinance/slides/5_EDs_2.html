@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="pettswood-website.css"/>
+</head>
+<body>
+<h1>What are Executable Docs?</h1>
+<h2>What they look like after they run</h2>
+<div class="half left">
+    <p>This is the output of the same test. It has coloured cells, so we can tell it has been run. The colours tell us which parts of the test <span class="pass">passed</span> or <span class="fail">failed</span>, or were simply <span class="setup">setup</span> steps, or threw <span class="exception">exceptions</span>.</p>
+</div>
+<div class="half left">
+    <div class="page">
+        <h3>Crypto Components</h3>
+        <table class="mixins" style="float: left;">
+            <tbody>
+            <tr>
+                <td class="names">Mixins</td>
+                <td class="setup">Cryptography</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="clear: both"></div>
+        <table class="left">
+            <tbody>
+            <tr>
+                <td class="names">Mirror</td>
+                <td class="setup">Hello</td>
+                <td class="names">becomes</td>
+                <td class="pass">olleH</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="clear: both"></div>
+        <table class="left">
+            <tbody>
+            <tr class="ignore">
+                <td>ignore</td>
+            </tr>
+            <tr class="fixture">
+                <td colspan="2" class="setup">Maths</td>
+            </tr>
+            <tr class="names">
+                <td>a</td>
+                <td>f</td>
+                <td>b</td>
+                <td>=</td>
+            </tr>
+            <tr class="setup">
+                <td>7</td>
+                <td>+</td>
+                <td>6</td>
+                <td class="pass">13</td>
+            </tr>
+            <tr class="setup">
+                <td>8</td>
+                <td>-</td>
+                <td>5</td>
+                <td class="pass">3</td>
+            </tr>
+            <tr class="setup">
+                <td>12</td>
+                <td>+</td>
+                <td>2</td>
+                <td class="fail">15</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="clear: both"></div>
+    </div>
+</div>
+</body>
+</html>

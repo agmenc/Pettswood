@@ -69,6 +69,8 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
         <td class="Fail"><span class="result">potato<br></br>but expected:<br></br></span>sausage</td>
+      // TODO - CAS - 20/05/2012 - failures really could be displayed better, like this:
+//        <td class="Fail"><span class="strikethrough">sausage</span>potato</td>
     }
     "display exception results in cells" in {
       val fixture = new Fixture()
