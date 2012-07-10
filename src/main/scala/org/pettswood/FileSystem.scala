@@ -52,7 +52,7 @@ case class Saver(data: String) {
   def to(path: String) {
     val writer = new PrintWriter(guarantee(path))
     writer.write(data)
-    writer.close();
+    writer.close()
   }
 
   def guarantee(path: String): File = {

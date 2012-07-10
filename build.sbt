@@ -2,7 +2,9 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.8-SNAPSHOT"
+version := "0.0.9-SNAPSHOT"
+
+sbtVersion := "0.11.2"
 
 scalaVersion := "2.9.1"
 
