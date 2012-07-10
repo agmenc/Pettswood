@@ -23,7 +23,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
     parser.decorate(any[Node]) returns <decorated></decorated>
   }
 
-  "Constructing the runner" should {
+  "The runner" should {
     "load the test file into the DomainBridge" in {
       val fixture = new Fixture
 
@@ -42,8 +42,10 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
       val fixture = new Fixture
 
       fixture.runner run ("src/test/resources/category/some.file")
+      fixture.runner run ("src/acceptance/resources/features/another.file")
 
       there was one(fixture.saver).to("target/pettswood/category/some.file")
+      there was one(fixture.saver).to("target/pettswood/features/another.file")
     }
     "Tell the parser to decorate the output results" in {
       val fixture = new Fixture

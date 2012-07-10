@@ -16,7 +16,7 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
   def load(inputPath: String): Node = fileSystem loadXml inputPath
   def write(result: Node, path: String) { fileSystem save result.toString() to path}
-  def outputPath(path: String) = path replace("src/test/resources", "target/pettswood")
+  def outputPath(path: String) = path replaceAll("src/[a-zA-Z]*/resources", "target/pettswood")
 
   def prepareDirectories() {
     ifNotFound("src/test/resources/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to ("src/test/resources/css/pettswood.css") }
