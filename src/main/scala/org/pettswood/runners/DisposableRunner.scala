@@ -3,6 +3,7 @@ package org.pettswood.runners
 import scala.xml.Node
 import org.pettswood.parsers.xml.scala.Parser
 import org.pettswood.{ResultSummary, FileSystem, DomainBridge}
+import java.io.File
 
 class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
@@ -10,13 +11,14 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
     prepareDirectories()
     val rawResult = parser.parse(load(inputPath))
     val decoratedResult = parser.decorate(rawResult)
+    println("outputPath(inputPath): " + outputPath(inputPath))
     write(decoratedResult, outputPath(inputPath))
     parser.summary
   }
 
   def load(inputPath: String): Node = fileSystem loadXml inputPath
   def write(result: Node, path: String) { fileSystem save result.toString() to path}
-  def outputPath(path: String) = path replaceAll("src/[a-zA-Z]*/resources", "target/pettswood")
+  def outputPath(path: String) = path replaceAll("src.*resources", "target" + File.separator + "pettswood")
 
   def prepareDirectories() {
     ifNotFound("src/test/resources/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to ("src/test/resources/css/pettswood.css") }

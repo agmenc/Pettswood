@@ -47,6 +47,29 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito {
       there was one(fixture.saver).to("target/pettswood/category/some.file")
       there was one(fixture.saver).to("target/pettswood/features/another.file")
     }
+    "Work out the output file in Windows" in {
+      val fixture = new Fixture
+
+      fixture.runner run ("src\\integration\\resources\\category\\some.file")
+
+      there was one(fixture.saver).to("target/pettswood\\category\\some.file")
+    }
+    "Write the result of the test into the output file" in {
+      val fixture = new Fixture
+
+      fixture.runner run ("src/test/resources/category/some.file")
+
+      there was one(fixture.fileSystem).save(<decorated></decorated> toString())
+    }
+    "Put the output file heirarchy in target/pettswood" in {
+      val fixture = new Fixture
+
+      fixture.runner run ("src/test/resources/category/some.file")
+      fixture.runner run ("src/acceptance/resources/features/another.file")
+
+      there was one(fixture.saver).to("target/pettswood/category/some.file")
+      there was one(fixture.saver).to("target/pettswood/features/another.file")
+    }
     "Tell the parser to decorate the output results" in {
       val fixture = new Fixture
 
