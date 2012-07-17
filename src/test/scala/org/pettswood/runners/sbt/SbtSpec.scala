@@ -3,15 +3,18 @@ package org.pettswood.runners.sbt
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock.Mockito
 import org.pettswood.ResultSummary
-import org.scalatools.testing.{EventHandler, Logger}
+import org.scalatools.testing._
 import org.pettswood.runners.RecycleableRunner
+import org.pettswood.files.PettswoodFiles
+import scala.Array
 
 class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {
   class Fixture {
     val logger = mock[Logger]
     val eventHandler = mock[EventHandler]
     val runner = mock[RecycleableRunner]
-    val sbt = new Sbt(mock[ClassLoader], Array(logger), runner)
+    val finder = mock[PettswoodFiles]
+    val sbt = new Sbt(mock[ClassLoader], Array(logger), runner, finder)
     val summary = mock[ResultSummary]
   }
 
@@ -23,7 +26,6 @@ class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {
     fixture.sbt.runSingle("some file path", fixture.eventHandler)
 
     there was one(fixture.logger).error("  *** Failed to read test *** Stuff went wrong ==> some file path")
-    there was one(fixture.logger).trace(throwable)
     there was one(fixture.eventHandler).handle(any[Error])
     // TODO - mockito is not playing nicely here. The actual and expected are equal, but it thinks the method arguments are different
 //    there was one(fixture.eventHandler).handle(Error("some file path", throwable))
@@ -40,5 +42,14 @@ class SbtSpec extends SpecificationWithJUnit with Mockito with EventHandling {
     there was one(fixture.eventHandler).handle(any[Fail])
     // TODO - mockito is not playing nicely here. The actual and expected are equal, but it thinks the method arguments are different
 //    there was one(fixture.eventHandler).handle(Fail("some file path"))
+  }
+
+  "Uses the FileFinder to find test file paths" in {
+    val fixture = new Fixture
+    fixture.finder.testFilePaths returns Seq("path/a", "path/b")
+
+    fixture.sbt.run("org.pettswood.runners.sbt.SbtSpec", mock[Fingerprint], fixture.eventHandler, Array[String]())
+
+    there was one(fixture.finder).testFilePaths
   }
 }

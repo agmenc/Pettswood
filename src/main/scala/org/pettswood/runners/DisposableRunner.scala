@@ -2,7 +2,8 @@ package org.pettswood.runners
 
 import scala.xml.Node
 import org.pettswood.parsers.xml.scala.Parser
-import org.pettswood.{ResultSummary, FileSystem, DomainBridge}
+import org.pettswood.{ResultSummary, DomainBridge}
+import org.pettswood.files.FileSystem
 
 class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 
@@ -10,7 +11,6 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
     prepareDirectories()
     val rawResult = parser.parse(load(inputPath))
     val decoratedResult = parser.decorate(rawResult)
-    println("outputPath(inputPath): " + outputPath(inputPath))
     write(decoratedResult, outputPath(inputPath))
     parser.summary
   }

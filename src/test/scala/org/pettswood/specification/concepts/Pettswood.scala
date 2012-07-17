@@ -1,6 +1,7 @@
 package org.pettswood.specification.concepts
 
 import org.pettswood._
+import files.FileSystem
 import java.io.File
 import parsers.xml.scala.Parser
 import runners.DisposableRunner

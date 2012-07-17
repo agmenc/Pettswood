@@ -1,7 +1,7 @@
-package org.pettswood
+package org.pettswood.files
 
 import scala.util.Properties._
-import parsers.HtmlToXml
+import org.pettswood.parsers.HtmlToXml
 import FileSystem._
 import scala.io.Source._
 import java.net.URL

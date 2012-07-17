@@ -1,5 +1,6 @@
 package org.pettswood
 
+import files.FileSystem
 import org.specs2.mutable.Specification
 import org.specs2.mock._
 import parsers.xml.scala.Parser

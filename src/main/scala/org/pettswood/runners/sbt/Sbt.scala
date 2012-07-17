@@ -1,12 +1,14 @@
 package org.pettswood.runners.sbt
 
 import _root_.org.scalatools.testing._
-import org.pettswood.{ResultSummary, FileSystem}
+import org.pettswood.ResultSummary
 import org.pettswood.runners.RecycleableRunner
+import org.pettswood.files._
 
-class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRunner) extends Runner2 with EventHandling {
+class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRunner, finder: PettswoodFiles) extends Runner2 with EventHandling {
   def log(f: Logger => Unit) { loggers.foreach {f} }
   def info(data: Any) { log { logger => logger.info(data.toString) } }
+  def error(data: Any) { log { logger => logger.error(data.toString) } }
 
   def logResults(summary: ResultSummary, filePath: String) {
     summary.overallPass match {
@@ -17,8 +19,19 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
 
   def run(testClassName: String, fingerprint: Fingerprint, eventHandler: EventHandler, args: Array[String]) {
     info(" ")
-    for (filePath <- (new FileSystem) in "src" find ".*.html") { runSingle(filePath, eventHandler) }
+    processUserSettingsChanges(testClassName)
+    for (filePath <- finder.testFilePaths) { runSingle(filePath, eventHandler) }
     info(" ")
+  }
+
+  def processUserSettingsChanges(testClassName: String) {
+    try {
+      val clazz = Class.forName(testClassName)
+      val constructor = clazz.getDeclaredConstructors.head
+      constructor.newInstance()
+    } catch {
+      case e: Throwable => error("  *** Could not instantiate config class: " + testClassName + " *** " + e); e.printStackTrace()
+    }
   }
 
   // TODO - make summary match an overall result type, i.e. Pass, Fail, Skip
@@ -30,7 +43,7 @@ class Sbt(loader: ClassLoader, val loggers: Array[Logger], runner: RecycleableRu
       logResults(summary, filePath)
     }
     catch {
-      case e =>  eventHandler.handle(Error(filePath, e)); log(_.error("  *** Failed to read test *** " + e.getMessage + " ==> " + filePath)); log(_.trace(e))
+      case e: Throwable =>  eventHandler.handle(Error(filePath, e)); error("  *** Failed to read test *** " + e.getMessage + " ==> " + filePath)
     }
   }
 }
