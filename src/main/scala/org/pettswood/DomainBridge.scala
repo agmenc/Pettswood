@@ -13,7 +13,7 @@ class DomainBridge {
   def table(firstCellText: String): Result = tryElse("Failure reading table heading") { currentConcept = conceptFor(firstCellText); Setup() }
   def row() { currentConcept.row() }
   def cell(text: String): Result =  tryElse("Failure parsing cell") { registerResult(currentConcept.anyCell(text)) }
-  def tryElse(message: String)(f: => Result): Result = try {f} catch { case e => registerResult(Exception(e)) }
+  def tryElse(message: String)(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }
 
   def registerResult(result: Result): Result = {
     results = result :: results

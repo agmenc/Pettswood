@@ -55,3 +55,10 @@ object SingleRunner {
     summary
   }
 }
+
+object SingleRunnerApp extends App {
+  sys.props.get("input.path") match {
+    case Some(inputPath) => println(" " + DefaultRunner.run(inputPath) + " ==> " + inputPath)
+    case None => println("\nPlease set the system property \"input.path\' to run a test using the SingleRunnerApp\n")
+  }
+}
