@@ -49,16 +49,16 @@ object DefaultRunner extends RecycleableRunner {
 }
 
 object SingleRunner {
-  def apply(inputPath: String) = {
+  def apply(inputPath: String) = run(inputPath)
+
+  def fromSystemProperty() = sys.props.get("input.path") match {
+    case Some(inputPath) => run(inputPath)
+    case None => println("\nPlease set the system property \"input.path\'\n")
+  }
+
+  private def run(inputPath: String) = {
     val summary = DefaultRunner.run(inputPath)
     println(" " + summary.toString + " ==> " + inputPath)
-    summary
-  }
-}
-
-object SingleRunnerApp extends App {
-  sys.props.get("input.path") match {
-    case Some(inputPath) => println(" " + DefaultRunner.run(inputPath) + " ==> " + inputPath)
-    case None => println("\nPlease set the system property \"input.path\' to run a test using the SingleRunnerApp\n")
+    Some(summary)
   }
 }

@@ -8,5 +8,5 @@ class SingleRunnerSpec extends Specification {
   "I can haz test" in pettswood("src/test/resources/Pettswood.html")
   "I can haz test" in pettswood("src/test/resources/PoorlyFormedXml.html")
 
-  def pettswood(path: String): MatchResult[Boolean] = SingleRunner(path).overallPass must beTrue
+  def pettswood(path: String): MatchResult[Boolean] = SingleRunner(path).get.overallPass must beTrue
 }
