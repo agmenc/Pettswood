@@ -8,6 +8,8 @@ sbtVersion := "0.11.2"
 
 scalaVersion := "2.9.1"
 
+crossScalaVersions := Seq("2.9.1", "2.9.2")
+
 retrieveManaged := true
 
 scalacOptions ++= Seq("-unchecked")
@@ -18,16 +20,16 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 
 libraryDependencies ++= Seq(
   "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2" withSources(),
-  "org.specs2" %% "specs2" % "1.6.1" % "test" withSources(),
+  "org.specs2" %% "specs2" % "1.11" % "test" withSources(),
   "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test" withSources(),
   "junit" % "junit" % "4.8.1" % "test" withSources(),
   "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test" withSources(),
   "org.scala-tools.testing" % "test-interface" % "0.5"
 )
 
-resolvers ++= Seq("snapshots-repo" at "http://scala-tools.org/repo-snapshots",
-                    "releases-repo"  at "http://scala-tools.org/repo-releases",
-                    "mvn" at "http://mvnrepository.com/artifact/")
+resolvers ++= Seq("snapshots-repo" at "https://oss.sonatype.org/content/repositories/snapshots/",
+                   "releases-repo"  at "https://oss.sonatype.org/content/groups/scala-tools/",
+                   "mvn" at "http://mvnrepository.com/artifact/")
 
 // --------- Publishing -----------------------
 publishTo <<= version { v: String =>
