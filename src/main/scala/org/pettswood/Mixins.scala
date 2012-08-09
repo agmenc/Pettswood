@@ -1,5 +1,7 @@
 package org.pettswood
 
+import java.lang.reflect.InvocationTargetException
+
 class Mixins(domain: DomainBridge) extends Concept {
 
   def cell(className: String) = {
@@ -19,9 +21,12 @@ class Mixins(domain: DomainBridge) extends Concept {
     try {
       Some(instanceOf(possibleCanonicals.head))
     } catch {
-      case t: ClassNotFoundException => if(possibleCanonicals.size > 1) instantiate(possibleCanonicals.tail, className) else None
+      case c: ClassNotFoundException => if(possibleCanonicals.size > 1) instantiate(possibleCanonicals.tail, className) else None
+      case i: InvocationTargetException => throw unwrapped(i)
     }
   }
+
+  def unwrapped(i: InvocationTargetException) = if (i.getCause == null) i else i.getCause
 
   def instanceOf(classWithDefaultConstructor: String) = {
     val clazz = Class.forName(classWithDefaultConstructor)

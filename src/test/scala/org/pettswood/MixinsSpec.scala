@@ -53,15 +53,22 @@ class MixinsSpec extends Specification with Mockito {
     }
 
     "Supports concepts defined in PettswoodConfig" in {
-      PettswoodConfig.mixinPackages ++= Seq("org.pettswood.stubs")
-      println("PettswoodConfig.mixinPackages: " + PettswoodConfig.mixinPackages)
       val fixture = new Fixture()
+      PettswoodConfig.mixinPackages ++= Seq("org.pettswood.stubs")
 
       fixture.mixin.cell("ExpectedConcept")
 
       there was one(fixture.domain).learn(same("ExpectedConcept"), any[() => ExpectedConcept])
     }
 
+    "Throws underlying exception when Mixins fail to be instantiated properly" in {
+      val fixture = new Fixture()
 
+      fixture.mixin.cell("org.pettswood.BadMixin") must throwAn[IllegalArgumentException]
+    }
   }
+}
+
+class BadMixin(domainBridge: DomainBridge) extends Mixin(domainBridge) {
+  throw new IllegalArgumentException("Religion")
 }

@@ -7,4 +7,5 @@ The title hyperlink now works one-way, from source to target.
 
 Future Release Plan
 0.0.10
-
+Users can specify mixin packages, by overriding or adding to PettswoodConfig.mixinPackages
+Underlying exceptions that cause mixin invocation failures are displayed, rather than the (unhelpful) InvocationTargetException
