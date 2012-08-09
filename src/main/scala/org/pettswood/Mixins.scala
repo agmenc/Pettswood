@@ -3,13 +3,23 @@ package org.pettswood
 class Mixins(domain: DomainBridge) extends Concept {
 
   def cell(className: String) = {
+    val possibleCanonicals = PettswoodConfig.mixinPackages.map(packagePrefix(_) + className)
+    instantiate(possibleCanonicals, className) match {
+      case Some(c: Concept) => domain.learn(className, () => instanceOf(className).asInstanceOf[Concept])
+      case Some(m: Mixin) =>
+      case None => throw new MixinException(PettswoodConfig.mixinPackages, className)
+    }
+
+    Setup()
+  }
+
+  def packagePrefix(packidge: String) = if (packidge.trim() == "") "" else packidge.trim + "."
+
+  def instantiate(possibleCanonicals: Seq[String], className: String): Option[Any] = {
     try {
-      // TODO - collapse with a handleWith(handler) { ... }
-      val instance = instanceOf(className)
-      if (instance.isInstanceOf[Concept]) domain.learn(className, () => instanceOf(className).asInstanceOf[Concept])
-      Setup()
+      Some(instanceOf(possibleCanonicals.head))
     } catch {
-      case e => Exception(e)
+      case t: ClassNotFoundException => if(possibleCanonicals.size > 1) instantiate(possibleCanonicals.tail, className) else None
     }
   }
 
@@ -22,3 +32,5 @@ class Mixins(domain: DomainBridge) extends Concept {
       firstConstructor.newInstance()
   }
 }
+
+class MixinException(mixinPackages: Seq[String], className: String) extends RuntimeException("Could not find " + className + " in packages [" + mixinPackages.mkString(", ") + "]")
