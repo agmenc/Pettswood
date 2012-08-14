@@ -3,6 +3,8 @@ package org.pettswood
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
 import parsers.xml.scala.Parser
+import xml._
+import NodeSeqWrapper._
 
 class ParserSpec extends SpecificationWithJUnit with Mockito {
 
@@ -72,31 +74,24 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       // TODO - CAS - 20/05/2012 - failures really could be displayed better, like this:
 //        <td class="Fail"><span class="strikethrough">sausage</span>potato</td>
     }
-    "display exception results in cells" in {
+
+    "display exception stack traces in cells" in {
       val fixture = new Fixture()
       fixture.domain.cell("sausage") returns Exception(new NullPointerException("Your pointy things are all null"))
 
       // TODO - children of result are NodeSeq and children of expect are ArrayBuffer. WTF?!?
       val result = new Parser(fixture.domain).parse(<td>sausage</td>)
 
-      val expect = <td class="Exception"><span class="result">java.lang.NullPointerException: Your pointy things are all null<br></br>Expected:<br></br></span>sausage</td>
-      result.toString() must be equalTo expect.toString()
+      ((result \\ "span") \@ "class=result").text must startWith("java.lang.NullPointerException: Your pointy things are all null\n\tat org.pettswood.ParserSpec")
     }
-    "display exception results for unknown table headers" in {
-      val fixture = new Fixture()
-      fixture.domain.table("sausage") returns Exception(new RuntimeException("Unknown concept: \"sausage\". Known concepts: [mixins]"))
 
-      val result = new Parser(fixture.domain).parse(<table><tr><td>sausage</td></tr></table>)
-
-      val expect = <table class="Exception"><tr><td><span class="result">java.lang.RuntimeException: Unknown concept: "sausage". Known concepts: [mixins]<br></br>Expected:<br></br></span></td></tr><tr><td class="Pass">sausage</td></tr></table>
-      result.toString() must be equalTo expect.toString()
-    }
     "respect existing classes" in {
       val fixture = new Fixture()
       fixture.domain.cell("expected") returns Pass("actual")
 
       new Parser(fixture.domain).parse(<td class="displayElegantly">expected</td>) must be equalTo <td class="displayElegantly Pass">expected</td>
     }
+
     "recurse into nested tables, wrapping them in a div" in {
       val fixture = new Fixture()
       val nestlingDomain = mock[DomainBridge]
@@ -125,4 +120,17 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       actual must be equalTo <div><p/></div>
     }
   }
+}
+
+class NodeSeqWrapper(nodeSeq: NodeSeq) {
+  def \@(selector: String): NodeSeq = {
+    val bits = selector.split("=")
+    nodeSeq.filter(node => ((node \\ ("@" + bits(0))) text) contains bits(1))
+  }
+
+  def myFilter(elem: NodeSeq): Boolean = ((elem \\ "@class") text) contains "result"
+}
+
+object NodeSeqWrapper {
+  implicit def ToNodeSeqWrapper(someNodeSeq: NodeSeq): NodeSeqWrapper = new NodeSeqWrapper(someNodeSeq)
 }

@@ -2,6 +2,9 @@ package org.pettswood.parsers.xml.scala
 
 import scala.xml._
 import org.pettswood._
+import java.io._
+import org.pettswood.Exception
+import org.pettswood.Fail
 
 class Parser(domain: DomainBridge) {
 
@@ -33,9 +36,15 @@ class Parser(domain: DomainBridge) {
   def describeCellFailures(expectedText: String, result: Result) = {
     result match {
       case Fail(actual) => <span class="result">{actual}<br></br>but expected:<br></br></span>
-      case Exception(exceptionText) => <span class="result">{exceptionText}<br></br>Expected:<br></br></span>
+      case Exception(t: Throwable) => <span class="result">{exceptionTrace(t)}<br></br>Expected:<br></br></span>
       case _ => NodeSeq.Empty
     }
+  }
+
+  def exceptionTrace(t: Throwable) = {
+    val writer = new StringWriter()
+    t.printStackTrace(new PrintWriter(writer))
+    writer.toString
   }
 
   def describeTableFailures(expectedText: String, result: Result) = {
