@@ -6,7 +6,7 @@ class ConceptsAndDoers // Stop the IDE from whinging
 
 class StubbedConcept[T] extends Concept {
   def cell(text: String) = Pass(text)
-  override def equals(p1: Any) = p1.isInstanceOf[T]
+  override def equals(p1: Any) = true
 }
 
 class SomeMixin(domain: DomainBridge) extends Mixin(domain) {

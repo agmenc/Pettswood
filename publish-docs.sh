@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docs=../pettswood-docs
-rm -rf $docs/*
+rm -rf $docs/src
 cp -Rf index.html $docs
 mkdir -p $docs/src/test/resources
 cp -Rf src/test/resources $docs/src/test

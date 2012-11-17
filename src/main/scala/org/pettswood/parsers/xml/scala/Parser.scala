@@ -15,7 +15,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, cssAdder(result.name), describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
-        case "td" if((elem \\ "table").iterator.hasNext) => <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
+        case "td" if((elem \\ "table").iterator.hasNext) => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
         case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }

@@ -1,12 +1,12 @@
 package org.pettswood
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable._
 import org.specs2.mock._
 import org.mockito.Matchers._
 import org.pettswood.stubs._
 import org.pettswood.stubs.ExpectedConcept
 
-class MixinsSpec extends Specification with Mockito {
+class MixinsSpec extends SpecificationWithJUnit with Mockito {
 
   class Fixture {
     val domain = mock[DomainBridge]
