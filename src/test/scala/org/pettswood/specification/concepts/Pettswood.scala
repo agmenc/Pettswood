@@ -13,7 +13,7 @@ class Pettswood extends Concept with MultiRow {
   def columns = {
     case "Test File" => PettswoodRunner
     case "Output File" => FileExists
-    case "Results" => DoNothingProbe
+    case "Results" => DoNothing
   }
 
   override def nestedConcepts() = Map("Results" -> (() => new Results(nestedDomain.summary)))

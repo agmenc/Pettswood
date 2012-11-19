@@ -6,7 +6,7 @@ class NestedTablesDemo extends Concept with MultiRow {
   var number = "0"
 
   def columns = {
-    case "Addition" | "Mirroring" | "More Nesting" => DoNothingProbe
+    case "Addition" | "Mirroring" | "More Nesting" => DoNothing
     case "Read a number" => doThis(number = _)
     case "Expect double" => dig{(text) => (2 * number.toInt).toString}
   }
