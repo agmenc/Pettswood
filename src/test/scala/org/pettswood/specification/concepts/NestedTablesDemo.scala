@@ -7,10 +7,8 @@ class NestedTablesDemo extends Concept with MultiRow {
 
   def columns = {
     case "Addition" | "Mirroring" | "More Nesting" => DoNothingProbe
-    case "Read a number" => (text: String) => new Doer {number = text}
-    case "Expect double" => (text: String) => new Digger {
-      def actual = (2 * number.toInt).toString
-    }
+    case "Read a number" => doThis(number = _)
+    case "Expect double" => dig{(text) => (2 * number.toInt).toString}
   }
 
   override def nestedConcepts() = Map(
