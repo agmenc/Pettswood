@@ -193,13 +193,13 @@
 
         override def clearRow() {keyPresses = List.empty[String]}
 
-        def probeLibrary = { case "a" | "f" | "b" =&gt; CalculationAssembler case "=" =&gt; CalculationPerformer }
+        def columns = { case "a" | "f" | "b" =&gt; CalculationAssembler case "=" =&gt; CalculationPerformer }
 
         case class CalculationAssembler(text: String) extends Doer {keyPresses = text :: keyPresses} case class CalculationPerformer(text: String) extends Digger {def result = calculator.calculate(keyPresses)} }
     </div>
     <h3>Probes</h3>
 
-    <p>In <span class="calloutLink">Maths.scala</span>, we see a <em>probeLibrary</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support two types of Probe:</p>
+    <p>In <span class="calloutLink">Maths.scala</span>, we see a <em>columns</em> being defined. Probes know how to interpret each column in the table. Multi-row Concepts support two types of Probe:</p>
     <ul>
         <li>
             <em>Doers</em> - these "do stuff" with your system to set it up for making assertions. For example, they set fields on your domain objects or poke data into the database. Doers have no return value; they either work or they throw an exception.
@@ -208,7 +208,7 @@
             <em>Diggers</em> - these dig into your system and retrieve data to make assertions against. For example, they retrieve actual output values for comparision with the expected values. Diggers return a String representing the actual output from your system.
         </li>
     </ul>
-    <p>You don't have to exercise all the available Probes in any one table. The probeLibrary is there as a resource, and you draw on it as much or as little as you require.</p>
+    <p>You don't have to exercise all the available Probes in any one table. The recognised columns are a resource, and you draw on it as much or as little as you require.</p>
 
     <h3>Nested Tables</h3>
 
@@ -294,7 +294,7 @@
 
         class NestedTablesDemo extends Concept with MultiRow {
 
-        def probeLibrary = { case "Addition" | "Mirroring" | "More Nesting" =&gt; DoNothingProbe }
+        def columns = { case "Addition" | "Mirroring" | "More Nesting" =&gt; DoNothingProbe }
 
         override def nestedConcepts() = Map( "Nested Tables Demo" -&gt; (() =&gt; new NestedTablesDemo()), "Mirror" -&gt; (() =&gt; new Mirror()), "Maths" -&gt; (() =&gt; new Maths()) ) }
     </div>
