@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "."
+read -p "This will publish the current version to sonatype ==> CHECK THE VERSION NUMBER"
+echo "."
+
 ./sbt test && git push origin master && ./sbt "+ publish"
 
 echo "."
