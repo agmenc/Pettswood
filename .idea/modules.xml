@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea_modules/build.iml" filepath="$PROJECT_DIR$/.idea_modules/build.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../pettswood-docs//docs.iml" filepath="$PROJECT_DIR$/../pettswood-docs//docs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea_modules/main.iml" filepath="$PROJECT_DIR$/.idea_modules/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/pettswood.iml" filepath="$PROJECT_DIR$/.idea_modules/pettswood.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea_modules/pettswood-build.iml" filepath="$PROJECT_DIR$/.idea_modules/pettswood-build.iml" />
     </modules>
   </component>
 </project>

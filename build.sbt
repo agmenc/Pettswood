@@ -2,9 +2,9 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.13"
+version := "0.0.14"
 
-crossScalaVersions := Seq("2.9.1", "2.9.2", "2.10.0")
+crossScalaVersions := Seq("2.10.0")
 
 retrieveManaged := true
 
@@ -16,7 +16,7 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 
 libraryDependencies ++= Seq(
   "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2" withSources(),
-  "org.specs2" %% "specs2" % "1.11" % "test" withSources(),
+  "org.specs2" %% "specs2" % "1.13" % "test" withSources(),
   "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test" withSources(),
   "junit" % "junit" % "4.8.1" % "test" withSources(),
   "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test" withSources(),
