@@ -4,7 +4,7 @@ echo "."
 read -p "This will publish the current version to sonatype ==> CHECK THE VERSION NUMBER"
 echo "."
 
-./sbt test && git push origin master && ./sbt "+ publish"
+./sbt clean test && git push origin master && ./sbt "+ publish"
 
 echo "."
 echo "Now release via Nexus/Sonatype"
