@@ -16,7 +16,7 @@ class Pettswood extends Concept with MultiRow {
     case "Results" => DoNothing
   }
 
-  override def nestedConcepts() = Map("Results" -> (() => new Results(nestedDomain.summary)))
+  override def nestedConcepts() = Map("Results" -> (() => new TimedResults(nestedDomain.summary)))
 
   case class PettswoodRunner(filePath: String) extends Doer {
     nestedDomain = new DomainBridge

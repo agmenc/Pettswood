@@ -4,7 +4,7 @@ import org.pettswood.Result._
 
 trait MultiRow extends Concept {
   
-  def columns: String => String => Probe
+  def columns: PartialFunction[String, (String) => Probe]
   def initialiseRow() {}
 
   private var rowPointer = 0

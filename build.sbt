@@ -2,7 +2,7 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.15"
+version := "0.0.16"
 
 crossScalaVersions := Seq("2.10.0")
 
