@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "."
-read -p "This will commit and publish the current version to sonatype ==> UPDATE THE VERSION NUMBER AND COMMIT"
+read -p "This will commit and publish the current version to sonatype ==> UPDATE THE VERSION NUMBER"
 echo "."
 
-./sbt clean test && ./sbt "+ publish" && git push origin master
+./sbt clean test && git commit -m "Publishing" && ./sbt "+ publish" && git push origin master
 
 echo "."
 echo "Now release via Nexus/Sonatype"
