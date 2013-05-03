@@ -24,8 +24,9 @@ object ResultSummary {
   def apply(results: List[Result]): ResultSummary = ResultSummary(results, List.empty[ResultSummary])
 }
 
+// TODO - CAS - 22/04/2013 - Combine with ResultSummary
 case class Tally(pass: Int, fail: Int, setup: Int, exception: Int) {
-  override def toString = "Pass: " + pass + " Fail: " + fail + " Setup: " + setup + " Exception: " + exception
+  override def toString = "Pass: " + pass + " Setup: " + setup + " Fail: " + fail + " Exception: " + exception
   def overallPass = pass >= 0 && (fail + exception) == 0
   def plus(that: Tally): Tally = Tally(pass + that.pass, fail + that.fail, setup + that.setup, exception + that.exception)
 }
