@@ -36,5 +36,5 @@ lift_proto*
 .svn
 
 # IntelliJ
-workspace.xml
+.idea*
 
