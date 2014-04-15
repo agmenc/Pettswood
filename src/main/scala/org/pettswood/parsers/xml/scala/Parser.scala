@@ -15,7 +15,7 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, cssAdder(result.name), describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
-        case "td" if((elem \\ "table").iterator.hasNext) => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
+        case "td" if (elem \\ "table").nonEmpty => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
         case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }
@@ -36,6 +36,7 @@ class Parser(domain: DomainBridge) {
   def describeCellFailures(expectedText: String, result: Result) = {
     result match {
       case Fail(actual) => <span class="result">{actual}<br></br>but expected:<br></br></span>
+      // TODO - CAS - 15/04/2014 - Make this a link to a separate doc, to make files more readable and smaller
       case Exception(t: Throwable) => <span class="result">{exceptionTrace(t)}<br></br>Expected:<br></br></span>
       case _ => NodeSeq.Empty
     }

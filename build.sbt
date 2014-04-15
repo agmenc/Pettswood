@@ -2,9 +2,11 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.17"
+version := "0.0.18"
 
-crossScalaVersions := Seq("2.10.0", "2.10.1")
+scalaVersion := "2.10.3"
+
+crossScalaVersions := Seq("2.10.0", "2.10.1", "2.10")
 
 retrieveManaged := true
 

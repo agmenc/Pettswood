@@ -10,10 +10,10 @@ class DomainBridge {
   learn("mixins", () => new Mixins(this))
   learn("ignore", () => Ignore)
 
-  def table(firstCellText: String): Result = tryElse("Failure reading table heading") { currentConcept = conceptFor(firstCellText); Setup() }
+  def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Setup() }
   def row() { currentConcept.row() }
-  def cell(text: String): Result =  tryElse("Failure parsing cell") { registerResult(currentConcept.anyCell(text)) }
-  def tryElse(message: String)(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }
+  def cell(text: String): Result =  tryThis { registerResult(currentConcept.anyCell(text)) }
+  private def tryThis(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }
 
   def registerResult(result: Result): Result = {
     results = result :: results
@@ -31,7 +31,7 @@ class DomainBridge {
   def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
   def summary: ResultSummary = ResultSummary(results, nestlings.map(_.summary))
 
-  def conceptFor(conceptName: String): Concept = concepts.get((conceptName toLowerCase)) match {
+  def conceptFor(conceptName: String): Concept = concepts.get(conceptName toLowerCase) match {
     case Some(conceptoriser) => conceptoriser()
     case None => throw new RuntimeException("Unknown concept: \"" + conceptName + "\". Known concepts: [" + concepts.keys.mkString(", ") + "]")
   }
