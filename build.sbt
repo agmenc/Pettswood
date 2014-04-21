@@ -2,11 +2,11 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.18"
+version := "0.0.19"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.4"
 
-crossScalaVersions := Seq("2.10.0", "2.10.1", "2.10")
+crossScalaVersions := Seq("2.10.4")
 
 retrieveManaged := true
 
@@ -14,14 +14,15 @@ scalacOptions ++= Seq("-unchecked")
 
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
 
+scalacOptions in Test ++= Seq("-Yrangepos")
+
 // initialCommands in console := "println"
 
 libraryDependencies ++= Seq(
-  "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2" withSources(),
-  "org.specs2" %% "specs2" % "1.13" % "test" withSources(),
-  "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test" withSources(),
+  "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2",
+  "org.specs2" %% "specs2" % "2.3.11" % "test",
   "junit" % "junit" % "4.8.1" % "test" withSources(),
-  "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test" withSources(),
+  "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test",
   "org.scala-tools.testing" % "test-interface" % "0.5"
 )
 

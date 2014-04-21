@@ -7,8 +7,8 @@ class DomainBridge {
   var results: List[Result] = Nil
   var nestlings = List.empty[DomainBridge]
 
-  learn("mixins", () => new Mixins(this))
-  learn("ignore", () => Ignore)
+  learn("mixins", new Mixins(this))
+  learn("ignore", Ignore)
 
   def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Setup() }
   def row() { currentConcept.row() }
@@ -23,12 +23,12 @@ class DomainBridge {
   def nestedDomain() = {
     val nestling = new DomainBridge
     nestlings = nestling :: nestlings
-    currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, x._2) }
+    currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, x._2()) }
     nestling
   }
 
   // TODO - make learn() accept a varargs of (name, conceptoriser): _*
-  def learn(name: String, conceptoriser: () => Concept) =  {concepts += ((name toLowerCase) -> conceptoriser); this}
+  def learn(name: String, conceptoriser: => Concept) =  {concepts += ((name toLowerCase) -> (() => conceptoriser)); this}
   def summary: ResultSummary = ResultSummary(results, nestlings.map(_.summary))
 
   def conceptFor(conceptName: String): Concept = concepts.get(conceptName toLowerCase) match {

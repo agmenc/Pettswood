@@ -7,7 +7,7 @@ class Mixins(domain: DomainBridge) extends Concept {
   def cell(className: String) = {
     val possibleCanonicals = PettswoodConfig.mixinPackages.map(packagePrefix(_) + className)
     instantiate(possibleCanonicals, className) match {
-      case Some(c: Concept) => domain.learn(className, () => instanceOf(className).asInstanceOf[Concept])
+      case Some(c: Concept) => domain.learn(className, instanceOf(className).asInstanceOf[Concept])
       case Some(m: Mixin) =>
       case None => throw new MixinException(PettswoodConfig.mixinPackages, className)
     }

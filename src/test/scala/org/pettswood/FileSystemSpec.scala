@@ -1,6 +1,7 @@
 package org.pettswood
 
 import files._
+import Xml._
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
 import io.Source._
@@ -34,6 +35,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
   }
 
   "The FileSystem proxy" should {
+
     "write output files" in {
       val fileSystem = new FileSystem
 
@@ -41,6 +43,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fromFile(TARGET_DIR + "some.file").mkString must be equalTo "some data"
     }
+
     "make sure that the target folder exists when writing a file" in {
       val fileSystem = new FileSystem
 
@@ -48,11 +51,13 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fromFile(TARGET_DIR + "a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
+
     "finds absolutely no files in folders that don't exist" in {
       val fileSystem = new FileSystem
 
       fileSystem in TARGET_DIR + "some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
     }
+
     "know how to find files by name regex" in {
       val fileSystem = new FileSystem
 
@@ -67,14 +72,16 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
         BASE_PATH + "src/main/scala/org/pettswood/runners/DisposableRunner.scala"
       )
     }
+
     "Convert relative paths to absolute" in {
       val fileSystem = new FileSystem
 
       fileSystem in "src/test" must be equalTo Finder(BASE_PATH + "src/test")
 
-      fileSystem save ("some data") to TARGET_DIR + "a.file"
+      fileSystem save "some data" to TARGET_DIR + "a.file"
       fromFile(BASE_PATH + TARGET_DIR + "a.file").mkString must be equalTo "some data"
     }
+
     "Copy files" in {
       val fileSystem = new FileSystem
       fileSystem.save("some monkeys").to(TARGET_DIR + "tmp1/monkeys.file")
@@ -83,11 +90,13 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       
       fromFile(TARGET_DIR + "tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
     }
+
     "allow html with doctypes" in {
-      load("<!DOCTYPE HTML><html><body>monkeys</body></html>") must ==/ (<html><head></head><body>monkeys</body></html>)
+      load("<!DOCTYPE HTML><html><body>monkeys</body></html>") must =~=(<html><head></head> <body>monkeys</body></html>)
     }
+
     "allow HTML docs with no doctype" in {
-      load("<html><body>monkeys</body></html>") must ==/ (<html><head></head><body>monkeys</body></html>)
+      load("<html><body>monkeys</body></html>") must =~=(<html><head></head> <body>monkeys</body></html>)
     }
   }
 

@@ -2,6 +2,7 @@ package org.pettswood.parsers
 
 import org.specs2.mutable.Specification
 import scala.xml.NodeSeq
+import org.pettswood.Xml._
 
 class HtmlToXmlSpec extends Specification {
   "XML entities are converted to unicode, so that Scala can parse them" in {
@@ -9,7 +10,7 @@ class HtmlToXmlSpec extends Specification {
 
     val result = HtmlToXml(input)
 
-    result === wrap(<div>←→</div>)
+    result must =~= (wrap(<div>←→</div>))
   }
 
   "<br> tags are giving a closing /" in {
@@ -17,7 +18,7 @@ class HtmlToXmlSpec extends Specification {
 
     val result = HtmlToXml(input)
 
-    result === wrap(<br/>)
+    result must =~= (wrap(<br/>))
   }
 
   "Script tags retain their closing tag, so that browsers don't ignore them" in {
@@ -38,12 +39,8 @@ class HtmlToXmlSpec extends Specification {
         <body></body>
       </html>
 
-    result === expected
+    result must =~= (expected)
   }
 
   def wrap(ns: NodeSeq): NodeSeq = <html><head/><body>{ns}</body></html>
-
-  implicit class EquableNodeSeq(ns: NodeSeq) {
-    def ===(other: NodeSeq) = ns must be_==/(other)
-  }
 }

@@ -10,8 +10,8 @@ class StubbedConcept[T] extends Concept {
 }
 
 class SomeMixin(domain: DomainBridge) extends Mixin(domain) {
-  domain.learn("ExpectedConcept", () => new ExpectedConcept( /* dependencies */ ))
-  domain.learn("AnotherExpectedConcept", () => new AnotherExpectedConcept( /* dependencies */ ))
+  domain.learn("ExpectedConcept", new ExpectedConcept( /* dependencies */ ))
+  domain.learn("AnotherExpectedConcept", new AnotherExpectedConcept( /* dependencies */ ))
 }
 
 class ExpectedConcept extends StubbedConcept[ExpectedConcept]
