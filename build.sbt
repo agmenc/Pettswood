@@ -12,13 +12,9 @@ scalaVersion := "2.10.4"
 
 crossScalaVersions := Seq("2.10.4")
 
-retrieveManaged := true
-
-scalacOptions ++= Seq("-unchecked")
+scalacOptions ++= Seq("-unchecked", "-Yrangepos")
 
 testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramework")
-
-scalacOptions in Test ++= Seq("-Yrangepos")
 
 // initialCommands in console := "println"
 
