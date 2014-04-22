@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Publishes docs to http://agmenc.github.io/Pettswood/
+
 docs=../pettswood-docs
 rm -rf $docs/src
 cp -Rf index.html $docs

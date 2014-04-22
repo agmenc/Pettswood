@@ -4,7 +4,6 @@ import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
 import parsers.xml.scala.Parser
 import xml._
-import NodeSeqWrapper._
 
 class ParserSpec extends SpecificationWithJUnit with Mockito {
 
@@ -82,7 +81,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       // TODO - children of result are NodeSeq and children of expect are ArrayBuffer. WTF?!?
       val result = new Parser(fixture.domain).parse(<td>sausage</td>)
 
-      ((result \\ "span") \@ "class=result").text must startWith("java.lang.NullPointerException: Your pointy things are all null\n\tat org.pettswood.ParserSpec")
+      (result \\ "span").text must startWith("java.lang.NullPointerException: Your pointy things are all null\n\tat org.pettswood.ParserSpec")
     }
 
     "respect existing classes" in {
@@ -110,7 +109,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       val actual = new Parser(fixture.domain).decorate( <body><p/></body> )
 
-      actual must be equalTo ( <body><p/><table><tr><td class="Setup">Results:</td><td class="Fail">High Score: 472</td></tr></table></body> )
+      actual must be equalTo <body><p/><table><tr><td class="Setup">Results:</td><td class="Fail">High Score: 472</td></tr></table></body>
     }
     "not decorate output files that have no body" in {
       val fixture = new Fixture()
