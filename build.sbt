@@ -1,3 +1,7 @@
+import SonatypeKeys._
+
+sonatypeSettings
+
 name := "pettswood"
 
 organization := "com.github.agmenc"
@@ -31,19 +35,8 @@ resolvers ++= Seq("snapshots-repo" at "https://oss.sonatype.org/content/reposito
                    "mvn" at "http://mvnrepository.com/artifact/")
 
 // --------- Publishing -----------------------
-publishTo <<= version { v: String =>
-  val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
 
-publishMavenStyle := true
-
-publishArtifact in Test := false
-
-pomIncludeRepository := { x => false }
-
-pomExtra := (
+pomExtra := {
   <url>https://github.com/agmenc/Pettswood</url>
   <licenses>
     <license>
@@ -53,7 +46,8 @@ pomExtra := (
     </license>
   </licenses>
   <scm>
-    <url>https://github.com/agmenc/Pettswood</url>
+    <url>git@github.com:agmenc/Pettswood</url>
+    <developerConnection>scm:git:git@github.com:agmenc/Pettswood.git</developerConnection>
     <connection>scm:git:git@github.com:agmenc/Pettswood.git</connection>
   </scm>
   <developers>
@@ -63,4 +57,4 @@ pomExtra := (
       <url>https://github.com/agmenc/Pettswood</url>
     </developer>
   </developers>
-)
+}
