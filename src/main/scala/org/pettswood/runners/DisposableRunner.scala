@@ -20,17 +20,17 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
   def outputPath(path: String) = path replaceAll("src.*resources", "target/pettswood")
 
   def prepareDirectories() {
-    ifNotFound("src/test/resources/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to ("src/test/resources/css/pettswood.css") }
+    ifNotFound("src/test/resources/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to "src/test/resources/css/pettswood.css" }
     ifNotFound("src/test/resources/javascript", ".*.js") {
-      fileSystem.save(fileSystem.loadResource("javascript/pettswood.js")) to ("src/test/resources/javascript/pettswood.js")
-      fileSystem.save(fileSystem.loadResource("javascript/jquery-1.7.2.min.js")) to ("src/test/resources/javascript/jquery-1.7.2.min.js")
+      fileSystem.save(fileSystem.loadResource("javascript/pettswood.js")) to "src/test/resources/javascript/pettswood.js"
+      fileSystem.save(fileSystem.loadResource("javascript/jquery-1.7.2.min.js")) to "src/test/resources/javascript/jquery-1.7.2.min.js"
     }
-    fileSystem in ("src/test/resources/css") find (".*.css") foreach (path => fileSystem.copy(path, outputPath(path)))
-    fileSystem in ("src/test/resources/javascript") find (".*.js") foreach (path => fileSystem.copy(path, outputPath(path)))
+    fileSystem in "src/test/resources/css" find ".*.css" foreach (path => fileSystem.copy(path, outputPath(path)))
+    fileSystem in "src/test/resources/javascript" find ".*.js" foreach (path => fileSystem.copy(path, outputPath(path)))
   }
 
   def ifNotFound(path: String, filenamePattern: String)(f: => Unit) {
-    fileSystem in (path) find (filenamePattern) match {
+    fileSystem in path find filenamePattern match {
       case Nil => f
       case alreadyCopied =>
     }

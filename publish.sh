@@ -4,4 +4,4 @@ echo "."
 read -p "UPDATE THE VERSION NUMBER before you hit ENTER"
 echo "."
 
-./sbt "+ publishSigned" sonatypeReleaseAll
+./sbt "+ test" "+ publishSigned" sonatypeReleaseAll
