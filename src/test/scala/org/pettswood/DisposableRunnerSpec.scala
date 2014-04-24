@@ -138,5 +138,14 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/first.js", "a/b/c/target/pettswood/javascript/first.js")
       there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/second.js", "a/b/c/target/pettswood/javascript/second.js")
     }
+
+    "Copy bootstrap SYMLINK (if present) from the src/test directory to the target directory" in {
+      val fixture = new Fixture
+      fixture.finder.find("bootstrap") returns List("a/b/c/src/test/resources/bootstrap")
+
+      fixture.runner run "src/test/resources/category/some.file"
+
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/bootstrap", "a/b/c/target/pettswood/bootstrap")
+    }
   }
 }
