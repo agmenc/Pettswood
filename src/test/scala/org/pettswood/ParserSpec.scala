@@ -42,7 +42,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       new Parser(fixture.domain).parse(
         <table>
           <tr>
-            <td>Hello</td>
+            <th>Hello</th>
             <td>World</td>
           </tr>
         </table>

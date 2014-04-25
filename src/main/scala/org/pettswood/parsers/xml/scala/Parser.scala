@@ -16,7 +16,7 @@ class Parser(domain: DomainBridge) {
         case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, cssAdder(result.name), describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
         case "td" if (elem \\ "table").nonEmpty => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
-        case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
+        case "td" | "th" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }
       case any => any
@@ -53,7 +53,10 @@ class Parser(domain: DomainBridge) {
     if (failureMarker.isEmpty) failureMarker else <tr><td>{failureMarker}</td></tr>
   }
 
-  def firstCell(nodeSeq: NodeSeq): Elem = (nodeSeq \\ "td").head match { case elem: Elem => elem }
+  def firstCell(nodeSeq: NodeSeq): Elem = {
+    val tableCells = nodeSeq flatMap (_.descendant) filter (elem => elem.label == "th" || elem.label == "td")
+    tableCells.head.asInstanceOf[Elem]
+  }
 
   // TODO - replace overall with calls to summary
   def overall(summary: ResultSummary) = if(summary.overallPass) "Pass" else "Fail"
