@@ -17,17 +17,20 @@
 
 h1, h2, h3, h4, h5, h6, table { margin: 10px; }
 h1 { cursor: pointer; }
-td { border: thin solid #cbcbcb; padding: 1px 3px; }
+td, th { border: none; }
+tr { border: thin solid #DDD }
 
 table.table { width: auto }
 table.nested { margin: 0 }
 table.mixins { float: right; }
-th { background-color: #dddddd; }
+th { background-color: #DDD; }
 
 .fixture {
     font-weight: bold;
     font-size: medium;
 }
+
+.fixture td { border-right: thin solid #DDD }
 
 /*.result {*/
     /*display: block;*/
