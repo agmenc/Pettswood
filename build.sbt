@@ -19,7 +19,7 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 // initialCommands in console := "println"
 
 libraryDependencies ++= Seq(
-  "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.2",
+  "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.8",
   "org.specs2" %% "specs2" % "2.3.11" % "test",
   "junit" % "junit" % "4.8.1" % "test" withSources(),
   "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test",
