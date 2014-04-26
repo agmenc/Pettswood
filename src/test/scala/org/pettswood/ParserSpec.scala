@@ -70,7 +70,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       fixture.domain.cell("sausage") returns Fail("potato")
 
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
-        <td class="Fail"><span class="result">potato<br></br>but expected:<br></br></span>sausage</td>
+        <td class="Fail"><span>potato<br></br>but expected:<br></br></span>sausage</td>
       // TODO - CAS - 20/05/2012 - failures really could be displayed better, like this:
 //        <td class="Fail"><span class="strikethrough">sausage</span>potato</td>
     }
@@ -103,6 +103,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       
       there was one(nestlingDomain).table("Nested Table")
     }
+
     "decorate output files with a results summary at the end of the body" in {
       val fixture = new Fixture()
       fixture.summary.toString returns "High Score: 472"
@@ -110,8 +111,9 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       val actual = new Parser(fixture.domain).decorate( <body><p/></body> )
 
-      actual must be equalTo <body><p/><table><tr><td class="Setup">Results:</td><td class="Fail">High Score: 472</td></tr></table></body>
+      actual must be equalTo <body><p/><div class="container"><div class="row"><table class="table"><tr><th>Results:</th><td class="Fail">High Score: 472</td></tr></table></div></div></body>
     }
+
     "not decorate output files that have no body" in {
       val fixture = new Fixture()
 

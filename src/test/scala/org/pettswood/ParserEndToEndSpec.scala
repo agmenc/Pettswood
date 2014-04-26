@@ -53,8 +53,8 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           <td class="Setup">Mirror</td>
           <td class="Pass">Hello</td>
           <td class="Setup">becomes</td>
-          <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>Sausage</td>
-          <td class="Fail"><span class="result">olleH<br></br>but expected:<br></br></span>What about an extra cell?</td>
+          <td class="Fail"><span>olleH<br></br>but expected:<br></br></span>Sausage</td>
+          <td class="Fail"><span>olleH<br></br>but expected:<br></br></span>What about an extra cell?</td>
         </tr>
       </table>
     </html>

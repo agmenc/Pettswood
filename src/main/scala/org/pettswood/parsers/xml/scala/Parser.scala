@@ -35,9 +35,9 @@ class Parser(domain: DomainBridge) {
 
   def describeCellFailures(expectedText: String, result: Result) = {
     result match {
-      case Fail(actual) => <span class="result">{actual}<br></br>but expected:<br></br></span>
+      case Fail(actual) => <span>{actual}<br></br>but expected:<br></br></span>
       // TODO - CAS - 15/04/2014 - Make this a link to a separate doc, to make files more readable and smaller
-      case Exception(t: Throwable) => <span class="result">{exceptionTrace(t)}<br></br>Expected:<br></br></span>
+      case Exception(t: Throwable) => <span>{exceptionTrace(t)}<br></br>Expected:<br></br></span>
       case _ => NodeSeq.Empty
     }
   }
@@ -68,7 +68,7 @@ class Parser(domain: DomainBridge) {
     def traverse(node: Node) = node match {
       case elem: Elem => elem match {
         case <body>{contents@_*}</body> => parseCopy(elem, _.attributes,
-          <table><tr><td class="Setup">Results:</td><td class={overall(domain.summary)}>{domain.summary.toString}</td></tr></table>)
+          <div class="container"><div class="row"><table class="table"><tr><th>Results:</th><td class={overall(domain.summary)}>{domain.summary.toString}</td></tr></table></div></div>)
         case anyElem => parseCopy(elem)
       }
       case other => other

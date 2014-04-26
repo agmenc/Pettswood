@@ -17,17 +17,11 @@ th { background-color: #DDD; }
 
 .fixture td { border-right: thin solid #DDD }
 
-/*.result {*/
-    /*display: block;*/
-    /*margin-top: 5px;*/
-    /*line-height: 60%;*/
-/*}*/
-
 /*.exception .result { line-height: 100%; }*/
 
 /*.ignore { display: none; visibility: hidden; }*/
 
-/*.pass { background-color: #ADDF90; }*/
-/*.setup { background-color: #7EABBE; }*/
-/*.fail { background-color: #E594A7; }*/
-/*.exception { background-color: #ffcc66; }*/
+.pass { background-color: #ADDF90; }
+.setup { background-color: #7EABBE; }
+.fail { background-color: #E594A7; }
+.exception { background-color: #ffcc66; }
