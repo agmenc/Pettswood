@@ -92,11 +92,11 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     }
 
     "allow html with doctypes" in {
-      load("<!DOCTYPE HTML><html><body>monkeys</body></html>") must =~=(<html><head></head> <body>monkeys</body></html>)
+      load("<!DOCTYPE HTML><html><body>monkeys</body></html>") must equalStructurally(<html><head></head> <body>monkeys</body></html>)
     }
 
     "allow HTML docs with no doctype" in {
-      load("<html><body>monkeys</body></html>") must =~=(<html><head></head> <body>monkeys</body></html>)
+      load("<html><body>monkeys</body></html>") must equalStructurally(<html><head></head> <body>monkeys</body></html>)
     }
   }
 

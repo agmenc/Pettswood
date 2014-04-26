@@ -1,5 +1,6 @@
 package org.pettswood
 
+import org.pettswood.Xml._
 import org.specs2.mutable.SpecificationWithJUnit
 import org.specs2.mock._
 import parsers.xml.scala.Parser
@@ -117,6 +118,22 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       val actual = new Parser(fixture.domain).decorate( <div><p/></div> )
 
       actual must be equalTo <div><p/></div>
+    }
+
+    "Script tags retain their closing tag, so that browsers don't ignore them" in {
+      val fixture = new Fixture()
+
+      val before =
+        <html>
+          <head>
+            <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+          </head>
+          <body/>
+        </html>
+
+      val after = new Parser(fixture.domain).parse(before)
+
+      after must equalExactly (before)
     }
   }
 }

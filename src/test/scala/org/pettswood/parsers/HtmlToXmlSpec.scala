@@ -10,7 +10,7 @@ class HtmlToXmlSpec extends Specification {
 
     val result = HtmlToXml(input)
 
-    result must =~= (wrap(<div>←→</div>))
+    result must equalExactly (wrap(<div>←→</div>))
   }
 
   "<br> tags are giving a closing /" in {
@@ -18,28 +18,7 @@ class HtmlToXmlSpec extends Specification {
 
     val result = HtmlToXml(input)
 
-    result must =~= (wrap(<br/>))
-  }
-
-  "Script tags retain their closing tag, so that browsers don't ignore them" in {
-    val dodgyHtml = "" +
-      "<html>" +
-      "    <head>" +
-      "        <script type=\"text/javascript\" src=\"javascript/jquery-1.7.2.min.js\"></script>" +
-      "    </head>" +
-      "</html>"
-
-    val result = HtmlToXml(dodgyHtml)
-
-    val expected =
-      <html>
-        <head>
-          <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
-        </head>
-        <body></body>
-      </html>
-
-    result must =~= (expected)
+    result must equalExactly (wrap(<br/>))
   }
 
   def wrap(ns: NodeSeq): NodeSeq = <html><head/><body>{ns}</body></html>
