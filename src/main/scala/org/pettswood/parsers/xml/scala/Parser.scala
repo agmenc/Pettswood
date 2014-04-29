@@ -13,7 +13,7 @@ class Parser(domain: DomainBridge) {
   class TestParser extends TraverseCopy {
     def traverse(node: Node) = node match {
       case elem: Elem => elem.label match {
-        case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, cssAdder(result.name), describeTableFailures(elem.text, result))
+        case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
         case "td" if (elem \\ "table").nonEmpty => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
         case "td" | "th" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))

@@ -7,7 +7,7 @@ trait Concept {
   def nestedConcepts() = Map.empty[String, () => Concept]
 
   var firstCell = true
-  def anyCell(text: String): Result = if (firstCell) {firstCell = false; Setup()} else cell(text)
+  def anyCell(text: String): Result = if (firstCell) {firstCell = false; Uninteresting()} else cell(text)
 }
 
 object NoConceptDefined extends Concept {

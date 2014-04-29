@@ -10,7 +10,7 @@ class DomainBridge {
   learn("mixins", new Mixins(this))
   learn("ignore", Ignore)
 
-  def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Setup() }
+  def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Uninteresting() }
   def row() { currentConcept.row() }
   def cell(text: String): Result =  tryThis { registerResult(currentConcept.anyCell(text)) }
   private def tryThis(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }

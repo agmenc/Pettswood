@@ -12,7 +12,7 @@ class ConceptSpec extends SpecificationWithJUnit with Mockito {
     someConcept.anyCell("Two")
     someConcept.anyCell("Three")
 
-    firstResult must be equalTo Setup()
+    firstResult must be equalTo Uninteresting()
     results must be equalTo List("Three", "Two")
   }
 }

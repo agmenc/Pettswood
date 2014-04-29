@@ -2,7 +2,8 @@
 
 h1, h2, h3, h4, h5, h6, table { margin: 10px; }
 h1 { cursor: pointer; }
-td, th { border: none; }
+
+table.table>thead>tr>th, table.table>tbody>tr>td, table.table>tbody>tr>th { padding: 4px; }
 tr { border: thin solid #DDD }
 
 table.table { width: auto }
@@ -17,11 +18,7 @@ th { background-color: #DDD; }
 
 .fixture td { border-right: thin solid #DDD }
 
-/*.exception .result { line-height: 100%; }*/
-
-/*.ignore { display: none; visibility: hidden; }*/
-
 .pass { background-color: #ADDF90; }
 .setup { background-color: #7EABBE; }
 .fail { background-color: #E594A7; }
-.exception { background-color: #ffcc66; }
+.exception { background-color: #ffcc66; line-height: 100%; }

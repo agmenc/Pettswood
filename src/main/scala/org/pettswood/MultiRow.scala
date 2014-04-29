@@ -24,8 +24,8 @@ trait MultiRow extends Concept {
   }
 
   def cell(cellText: String) = rowPointer match {
-    case 1 => Setup()
-    case 2 => probeTemplate = probeFor(cellText) :: probeTemplate; Setup()
+    case 1 => Uninteresting()
+    case 2 => probeTemplate = probeFor(cellText) :: probeTemplate; Uninteresting()
     case x => determineResult(cellText)
   }
 

@@ -4,6 +4,7 @@ case class ResultSummary(results: List[Result], children: List[ResultSummary]) {
 
   val totalTally: Tally = (tally(results) /: children)((aggregator, nextChild) => aggregator.plus(nextChild.totalTally))
 
+  // TODO - CAS - 28/04/2014 - betterer
   def tally(someResults: List[Result]): Tally =  {
     var pass, fail, setup, exception = 0
     someResults foreach {
@@ -11,6 +12,7 @@ case class ResultSummary(results: List[Result], children: List[ResultSummary]) {
       case x: Fail => fail += 1
       case x: Setup => setup += 1
       case x: Exception => exception += 1
+      case _ =>
     }
     Tally(pass, fail, setup, exception)
   }
