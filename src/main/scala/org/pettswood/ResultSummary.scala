@@ -4,17 +4,10 @@ case class ResultSummary(results: List[Result], children: List[ResultSummary]) {
 
   val totalTally: Tally = (tally(results) /: children)((aggregator, nextChild) => aggregator.plus(nextChild.totalTally))
 
-  // TODO - CAS - 28/04/2014 - betterer
   def tally(someResults: List[Result]): Tally =  {
-    var pass, fail, setup, exception = 0
-    someResults foreach {
-      case x: Pass => pass += 1
-      case x: Fail => fail += 1
-      case x: Setup => setup += 1
-      case x: Exception => exception += 1
-      case _ =>
-    }
-    Tally(pass, fail, setup, exception)
+    val grouped = someResults.groupBy(r => r.getClass)
+    def count[T <:Result](c: Class[T]) = grouped.getOrElse(c, Nil).size
+    Tally(count(classOf[Pass]), count(classOf[Fail]), count(classOf[Setup]), count(classOf[Exception]))
   }
 
   def overallPass = totalTally.overallPass
