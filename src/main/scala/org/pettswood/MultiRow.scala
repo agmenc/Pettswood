@@ -29,14 +29,10 @@ trait MultiRow extends Concept {
     case x => determineResult(cellText)
   }
 
-  private def determineResult(cellText: String): Result = {
-    probeForCell(cellText) match {
+  private def determineResult(cellText: String): Result = probeForCell(cellText) match {
       case doer: Doer => Setup()
       case digger: Digger => given(cellText, digger.actual)
-      // TODO - CAS - 16/07/2012 - Solve with types
-      case _ => throw new IllegalStateException("Probe must be a Doer or a Digger")
     }
-  }
 
   private def probeForCell(cellText: String): Probe = try { currentProbes.head(cellText) } finally { currentProbes = currentProbes.tail }
 }

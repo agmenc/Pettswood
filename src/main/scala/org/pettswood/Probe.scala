@@ -1,6 +1,6 @@
 package org.pettswood
 
-trait Probe
+sealed trait Probe
 trait Doer extends Probe
 trait Digger extends Probe {
   def actual: String
