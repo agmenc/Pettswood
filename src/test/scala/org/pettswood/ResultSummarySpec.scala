@@ -6,13 +6,16 @@ import org.pettswood.stubs.Results._
 
 class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
   "The result summary" should {
+
     "be an overall pass if only Pass and Setup results were received" in {
       ResultSummary(List(PASS, SETUP)).overallPass must be equalTo true
     }
+
     "be an overall fail if any Fail or Exception results were received" in {
       ResultSummary(List(PASS, FAIL)).overallPass must be equalTo false
       ResultSummary(List(PASS, EXCEPTION)).overallPass must be equalTo false
     }
+
     "provide a summary of results" in {
       val tally = ResultSummary(List(PASS, PASS, PASS, FAIL, FAIL, SETUP, EXCEPTION, EXCEPTION)).totalTally
 
@@ -21,6 +24,7 @@ class ResultSummarySpec extends SpecificationWithJUnit with Mockito {
       tally.setup must be equalTo 1
       tally.exception must be equalTo 2
     }
+
     "swallow other ResultSummary objects and accumulate their results" in {
       val grandChild1 = ResultSummary(List(PASS))
       val child1 = ResultSummary(List(PASS, FAIL), List(grandChild1))

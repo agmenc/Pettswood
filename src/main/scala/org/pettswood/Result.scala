@@ -11,8 +11,6 @@ object Result {
 
 case class Fail(override val text: String) extends Result
 case class Pass(override val text: String) extends Result
-
-// TODO - CAS - 27/04/2014 - case objects
 case class Setup() extends Result { override val text = "" }
 case class Uninteresting() extends Result { override val text = "" }
 
