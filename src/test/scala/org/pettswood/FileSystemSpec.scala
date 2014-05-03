@@ -39,7 +39,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "write output files" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to (TARGET_DIR + "some.file")
+      fileSystem save "some data" to (TARGET_DIR + "some.file")
 
       fromFile(TARGET_DIR + "some.file").mkString must be equalTo "some data"
     }
@@ -47,7 +47,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "make sure that the target folder exists when writing a file" in {
       val fileSystem = new FileSystem
 
-      fileSystem save ("some data") to (TARGET_DIR + "a/very/nested/directory/structure/some.file")
+      fileSystem save "some data" to (TARGET_DIR + "a/very/nested/directory/structure/some.file")
 
       fromFile(TARGET_DIR + "a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
@@ -58,13 +58,13 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       fileSystem in TARGET_DIR + "some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
     }
 
-    "know how to find files by name regex" in {
+    "know how to find files by name and parent directory using regex" in {
       val fileSystem = new FileSystem
 
-      fileSystem in "src/test" find ".*.html" must contain (
-        BASE_PATH + "src/test/resources/WritingTestsAndFixture.html"
-      )
-      
+      fileSystem in "src/main/resources" find "bootstrap" must contain ( BASE_PATH + "src/main/resources/bootstrap/css/bootstrap.css" )
+
+      fileSystem in "src/test" find ".*.html" must contain ( BASE_PATH + "src/test/resources/WritingTestsAndFixture.html" )
+
       fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
         BASE_PATH + "src/main/scala/org/pettswood/MultiRow.scala",
         BASE_PATH + "src/main/scala/org/pettswood/Result.scala",

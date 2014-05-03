@@ -8,8 +8,8 @@ class PettswoodFilesSpec extends SpecificationWithJUnit {
   "We can specify multiple test HTML roots in the config" in {
     testSources ++= Seq("src/otherTests", "src/otherTests2")
 
-    testFilePaths.map(relativise(_)) must contain("src/otherTests/bananas/Monkeys.html")
-    testFilePaths.map(relativise(_)) must contain("src/otherTests2/burrito/Chargrilled.html")
+    testFilePaths map relativise must contain("src/otherTests/bananas/Monkeys.html")
+    testFilePaths map relativise must contain("src/otherTests2/burrito/Chargrilled.html")
   }
 
   def relativise(path: String) = path.replaceAll(".*src", "src")
