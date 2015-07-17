@@ -6,11 +6,11 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.20"
+version := "0.0.21"
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.7"
 
-crossScalaVersions := Seq("2.10.4", "2.11.0")
+crossScalaVersions := Seq("2.10.5", "2.11.7")
 
 scalacOptions ++= Seq("-unchecked", "-Yrangepos")
 
@@ -26,15 +26,11 @@ libraryDependencies ++= Seq(
   "org.scala-tools.testing" % "test-interface" % "0.5"
 )
 
-resolvers ++= Seq("snapshots-repo" at "https://oss.sonatype.org/content/repositories/snapshots/",
-                   "releases-repo"  at "https://oss.sonatype.org/content/groups/scala-tools/",
-                   "mvn" at "http://mvnrepository.com/artifact/")
-
 // add scala-xml dependency when needed (for Scala 2.11 and newer)
 // this mechanism supports cross-version publishing
 libraryDependencies := {
   CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((2, scalaMajor)) if scalaMajor >= 11 => libraryDependencies.value :+ "org.scala-lang.modules" %% "scala-xml" % "1.0.1"
+    case Some((2, scalaMajor)) if scalaMajor >= 11 => libraryDependencies.value :+ "org.scala-lang.modules" %% "scala-xml" % "1.0.4"
     case _ => libraryDependencies.value
   }
 }
