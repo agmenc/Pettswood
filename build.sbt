@@ -6,7 +6,7 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.21"
+version := "0.0.22"
 
 scalaVersion := "2.11.7"
 
