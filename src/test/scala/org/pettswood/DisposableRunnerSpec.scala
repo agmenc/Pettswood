@@ -98,9 +98,9 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       there was one(fixture.fileSystem).loadResource("css/pettswood.css")
       there was one(fixture.fileSystem).loadResource("javascript/jquery-1.7.2.min.js")
       there was one(fixture.fileSystem).loadResource("javascript/pettswood.js")
-      there was one(fixture.saver).to("src/test/resources/css/pettswood.css")
-      there was one(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
-      there was one(fixture.saver).to("src/test/resources/javascript/pettswood.js")
+      there was one(fixture.saver).to("src/test/resources/pettswood/css/pettswood.css")
+      there was one(fixture.saver).to("src/test/resources/pettswood/javascript/jquery-1.7.2.min.js")
+      there was one(fixture.saver).to("src/test/resources/pettswood/javascript/pettswood.js")
     }
 
     "Not extract CSS or javascript files if any are already there" in {
