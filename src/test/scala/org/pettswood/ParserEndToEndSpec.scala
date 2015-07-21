@@ -5,6 +5,7 @@ import org.specs2.mock._
 import parsers.xml.scala.Parser
 
 class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
+  val mixinPackages = Seq("")
 
   "html without tables" should {
     "pass through unscathed" in {
@@ -17,7 +18,7 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
           </list>
         </html>
 
-      new Parser(new DomainBridge).parse(inputXml) must be equalTo expectedXml
+      new Parser(new DomainBridge(mixinPackages)).parse(inputXml) must be equalTo expectedXml
     }
   }
 
@@ -59,10 +60,10 @@ class ParserEndToEndSpec extends SpecificationWithJUnit with Mockito {
       </table>
     </html>
 
-  "For HTML with tables, the parser should" should {
+  "For HTML with tables, the parser" should {
     "pump out suitably modified results" in {
       // TODO - again, children of the result are in a NodeSeq, while children of the expected are in an ArrayBuffer. Create a better equals? A better XML library?
-      new Parser(new DomainBridge).parse(UNPROCESSED_HTML).toString() must be equalTo (PROCESSED_HTML.toString())
+      new Parser(new DomainBridge(mixinPackages)).parse(UNPROCESSED_HTML).toString() must be equalTo (PROCESSED_HTML.toString())
     }
   }
 }

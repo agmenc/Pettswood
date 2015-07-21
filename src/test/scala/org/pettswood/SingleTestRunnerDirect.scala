@@ -3,9 +3,9 @@ package org.pettswood
 import runners.SingleRunner
 
 object SingleTestRunnerDirect extends App {
-  SingleRunner("src/test/resources/NestedTables.html")
-}
+  private val config = PettswoodConfig(
+    sourceRoot = "src/test/resources/pettswoodStuff",
+    mixinPackages = Seq(""))
 
-object SingleTestRunnerSysProp extends App {
-  SingleRunner.fromSystemProperty()
+  SingleRunner("src/test/resources/pettswoodStuff/Pettswood.html", config)
 }

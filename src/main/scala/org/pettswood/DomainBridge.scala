@@ -1,13 +1,13 @@
 package org.pettswood
 
-class DomainBridge {
+class DomainBridge(mixinPackages: Seq[String]) {
 
   var concepts = Map.empty[String, () => Concept]
   var currentConcept: Concept = NoConceptDefined
   var results: List[Result] = Nil
   var nestlings = List.empty[DomainBridge]
 
-  learn("mixins", new Mixins(this))
+  learn("mixins", new Mixins(this, mixinPackages))
   learn("ignore", Ignore)
 
   def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Uninteresting() }
@@ -21,7 +21,7 @@ class DomainBridge {
   }
 
   def nestedDomain() = {
-    val nestling = new DomainBridge
+    val nestling = new DomainBridge(mixinPackages)
     nestlings = nestling :: nestlings
     currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, x._2()) }
     nestling

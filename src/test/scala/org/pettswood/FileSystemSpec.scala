@@ -14,8 +14,8 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
   args(sequential = true)
 
-  val BASE_PATH = userDir + File.separator
-  val TARGET_DIR = "./target/pettswood/unitTests/"
+  val BASE_PATH = userDir
+  val TARGET_DIR = "./target/pettswood/unitTests"
 
   def after = {
     new FileSystem in TARGET_DIR find ".*" foreach (new File(_).delete())
@@ -39,56 +39,57 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "write output files" in {
       val fileSystem = new FileSystem
 
-      fileSystem save "some data" to (TARGET_DIR + "some.file")
+      fileSystem save "some data" to (s"$TARGET_DIR/some.file")
 
-      fromFile(TARGET_DIR + "some.file").mkString must be equalTo "some data"
+      fromFile(s"$TARGET_DIR/some.file").mkString must be equalTo "some data"
     }
 
     "make sure that the target folder exists when writing a file" in {
       val fileSystem = new FileSystem
 
-      fileSystem save "some data" to (TARGET_DIR + "a/very/nested/directory/structure/some.file")
+      fileSystem save "some data" to (s"$TARGET_DIR/a/very/nested/directory/structure/some.file")
 
-      fromFile(TARGET_DIR + "a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
+      fromFile(s"$TARGET_DIR/a/very/nested/directory/structure/some.file").mkString must be equalTo "some data"
     }
 
     "finds absolutely no files in folders that don't exist" in {
       val fileSystem = new FileSystem
 
-      fileSystem in TARGET_DIR + "some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
+      fileSystem in s"$TARGET_DIR/some/silly/folder" find "Monkeys.html" must be equalTo List.empty[String]
     }
 
     "know how to find files by name and parent directory using regex" in {
       val fileSystem = new FileSystem
+      val config = new PettswoodConfig(sourceRoot = "src/test/resources/pettswoodStuff")
 
-      fileSystem in "src/main/resources" find "bootstrap" must contain ( BASE_PATH + "src/main/resources/bootstrap/css/bootstrap.css" )
+      fileSystem in "src/main/resources" find "bootstrap" must contain ( s"$BASE_PATH/src/main/resources/bootstrap/css/bootstrap.css" )
 
-      fileSystem in "src/test" find ".*.html" must contain ( BASE_PATH + "src/test/resources/WritingTestsAndFixture.html" )
+      fileSystem in "src/test" find ".*.html" must contain ( s"${BASE_PATH}/${config.sourceRoot}/WritingTestsAndFixture.html" )
 
       fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
-        BASE_PATH + "src/main/scala/org/pettswood/MultiRow.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/Result.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/ResultSummary.scala",
-        BASE_PATH + "src/main/scala/org/pettswood/runners/DisposableRunner.scala"
+        s"$BASE_PATH/src/main/scala/org/pettswood/MultiRow.scala",
+        s"$BASE_PATH/src/main/scala/org/pettswood/Result.scala",
+        s"$BASE_PATH/src/main/scala/org/pettswood/ResultSummary.scala",
+        s"$BASE_PATH/src/main/scala/org/pettswood/runners/DisposableRunner.scala"
       )
     }
 
     "Convert relative paths to absolute" in {
       val fileSystem = new FileSystem
 
-      fileSystem in "src/test" must be equalTo Finder(BASE_PATH + "src/test")
+      fileSystem in "src/test" must be equalTo Finder(s"$BASE_PATH/src/test")
 
-      fileSystem save "some data" to TARGET_DIR + "a.file"
-      fromFile(BASE_PATH + TARGET_DIR + "a.file").mkString must be equalTo "some data"
+      fileSystem save "some data" to s"$TARGET_DIR/a.file"
+      fromFile(s"$BASE_PATH/$TARGET_DIR/a.file").mkString must be equalTo "some data"
     }
 
     "Copy files" in {
       val fileSystem = new FileSystem
-      fileSystem.save("some monkeys").to(TARGET_DIR + "tmp1/monkeys.file")
+      fileSystem.save("some monkeys").to(s"$TARGET_DIR/tmp1/monkeys.file")
 
-      fileSystem.copy(TARGET_DIR + "tmp1/monkeys.file", TARGET_DIR + "tmp2/moreMonkeys.file")
-      
-      fromFile(TARGET_DIR + "tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
+      fileSystem.copy(s"$TARGET_DIR/tmp1/monkeys.file", s"$TARGET_DIR/tmp2/moreMonkeys.file")
+
+      fromFile(s"$TARGET_DIR/tmp2/moreMonkeys.file").mkString must be equalTo "some monkeys"
     }
 
     "allow html with doctypes" in {
@@ -101,7 +102,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
   }
 
   def load(structure: String): NodeSeq = {
-    val someFile = TARGET_DIR + "whatever.xml"
+    val someFile = s"$TARGET_DIR/whatever.xml"
     val fileSystem = new FileSystem
     fileSystem.save(structure) to someFile
     fileSystem.loadXml(someFile)

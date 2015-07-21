@@ -3,10 +3,10 @@
 <head>
     <title>Advanced topics</title>
     <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
-    <link rel="stylesheet" type="text/css" href="css/pettswood-website.css"/>
+    <link rel="stylesheet" type="text/css" href="pettswoodStuff/css/pettswood-website.css"/>
     <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="javascript/pettswood.js"></script>
-    <script type="text/javascript" src="javascript/documentation.js"></script>
+    <script type="text/javascript" src="pettswoodStuff/javascript/documentation.js"></script>
 </head>
 <body>
 <div class="left index">
@@ -41,7 +41,7 @@
 
     <h3>Grouped Mixins - the Preferred Option</h3>
 
-    <table class="mixins">
+    <table class="table mixins">
         <tbody>
         <tr>
             <td class="names">mixins</td>
@@ -56,7 +56,7 @@
     <h3>Other Mixin Options</h3>
 
     <p>If you are prototyping a Concept, or just playing around, these options might also be helpful to you:</p>
-    <table class="mixins" style="float: left;">
+    <table class="table mixins" style="float: left;">
         <tbody>
         <tr>
             <td class="names">mixins</td>
@@ -66,7 +66,7 @@
     </table>
     <div class="aside left">&lt;-- We can mixin individual Concepts by (canonical) name</div>
     <div style="clear: both"></div>
-    <table class="mixins" style="float: left;">
+    <table class="table mixins" style="float: left;">
         <tbody>
         <tr>
             <td class="names">Mixins</td>
@@ -81,7 +81,7 @@
     </table>
     <div class="aside left">&lt;-- or many, in a row,</div>
     <div style="clear: both"></div>
-    <table class="mixins" style="float: left;">
+    <table class="table mixins" style="float: left;">
         <tbody>
         <tr>
             <td class="names">Mixins</td>
@@ -97,7 +97,7 @@
     <div class="aside left">&lt;-- or mixed with Mixins, (shown here in the popular "column" layout)</div>
     <div style="clear: both"></div>
     <p>The name we use in the mixin is the name we must use in our table. So canonical names look a bit ugly, both in the mixin (above) and in the table (below):</p>
-    <table>
+    <table class="table">
         <tbody>
         <tr>
             <td class="names">org.pettswood.specification.concepts.MirrorFixture</td>
@@ -108,7 +108,7 @@
         </tbody>
     </table>
     <p>That's why Mixins, such as Shoestrap.scala and <span class="calloutLink">Bootstrap.scala</span>, are my preferred option:</p>
-    <table>
+    <table class="table">
         <tbody>
         <tr>
             <td class="names">Mirror</td>
@@ -157,7 +157,7 @@
     <h3>Multi-row Concepts</h3>
 
     <p>The <span class="calloutLink">Maths.scala</span> Concept - with the trait MultiRow - links to a (trivially) simple Calculator, that knows how to interpret keypresses from the user. </p>
-    <table>
+    <table class="table">
         <tbody>
         <tr class="fixture">
             <td colspan="4">Maths</td>
@@ -213,7 +213,7 @@
     <h3>Nested Tables</h3>
 
     <p>To support nested tables, a concept should override nestedConcepts(). This tells Pettswood how to interpret the nested tables. In a MultiRow Concept, such as <span class="calloutLink">NestedTablesDemo.scala</span>, the column headings should resolve to DoNothingProbes.</p>
-    <table>
+    <table class="table">
         <tbody>
         <tr class="fixture">
             <td>Nested Tables Demo</td>
@@ -225,7 +225,7 @@
         </tr>
         <tr>
             <td>
-                <table class="left">
+                <table class="table left">
                     <tbody>
                     <tr class="fixture">
                         <td colspan="4">Maths</td>
@@ -246,7 +246,7 @@
                 </table>
             </td>
             <td>
-                <table class="left">
+                <table class="table left">
                     <tbody>
                     <tr>
                         <td class="names">Mirror</td>
@@ -258,7 +258,7 @@
                 </table>
             </td>
             <td>
-                <table>
+                <table class="table">
                     <tbody>
                     <tr class="fixture">
                         <td>Nested Tables Demo</td>
@@ -268,7 +268,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <table class="left">
+                            <table class="table left">
                                 <tbody>
                                 <tr>
                                     <td class="names">Mirror</td>

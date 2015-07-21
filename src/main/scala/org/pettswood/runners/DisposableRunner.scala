@@ -2,7 +2,7 @@ package org.pettswood.runners
 
 import scala.xml.Node
 import org.pettswood.parsers.xml.scala.Parser
-import org.pettswood.{ResultSummary, DomainBridge}
+import org.pettswood.{PettswoodConfig, ResultSummary, DomainBridge}
 import org.pettswood.files.FileSystem
 
 class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
@@ -42,27 +42,18 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
   }
 }
 
-trait RecycleableRunner {
-  def run(filePath: String): ResultSummary
-}
-
-object DefaultRunner extends RecycleableRunner {
+class RecycleableRunner(config: PettswoodConfig) {
   def run(filePath: String) = {
-    val domainBridge = new DomainBridge
+    val domainBridge = new DomainBridge(config.mixinPackages)
     new DisposableRunner(new Parser(domainBridge), new FileSystem).run(filePath)
   }
 }
 
 object SingleRunner {
-  def apply(inputPath: String) = run(inputPath)
+  def apply(inputPath: String, config: PettswoodConfig) = run(inputPath, config)
 
-  def fromSystemProperty() = sys.props.get("input.path") match {
-    case Some(inputPath) => run(inputPath)
-    case None => println("\nPlease set the system property \"input.path\'\n")
-  }
-
-  private def run(inputPath: String) = {
-    val summary = DefaultRunner.run(inputPath)
+  private def run(inputPath: String, config: PettswoodConfig) = {
+    val summary = new RecycleableRunner(config).run(inputPath)
     println(" " + summary.toString + " ==> " + inputPath)
     Some(summary)
   }

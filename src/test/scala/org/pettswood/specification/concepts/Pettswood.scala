@@ -19,7 +19,7 @@ class Pettswood extends Concept with MultiRow {
   override def nestedConcepts() = Map("Results" -> (() => new TimedResults(nestedDomain.summary)))
 
   case class PettswoodRunner(filePath: String) extends Doer {
-    nestedDomain = new DomainBridge
+    nestedDomain = new DomainBridge(Seq(""))
     new DisposableRunner(new Parser(nestedDomain), new FileSystem).run(filePath)
   }
 

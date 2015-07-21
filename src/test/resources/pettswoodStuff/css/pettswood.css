@@ -1,0 +1,24 @@
+/*@include("HTML5-boilerplate")*/
+
+h1, h2, h3, h4, h5, h6, table { margin: 10px; }
+h1 { cursor: pointer; }
+
+table.table>thead>tr>th, table.table>tbody>tr>td, table.table>tbody>tr>th { padding: 4px; }
+tr { border: thin solid #DDD }
+
+table.table { width: auto }
+table.nested { margin: 0 }
+table.mixins { float: right; }
+th { background-color: #DDD; }
+
+.fixture {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.fixture td { border-right: thin solid #DDD }
+
+.pass { background-color: #ADDF90; }
+.setup { background-color: #7EABBE; }
+.fail { background-color: #E594A7; }
+.exception { background-color: #ffcc66; line-height: 100%; }

@@ -2,14 +2,14 @@ package org.pettswood
 
 import java.lang.reflect.InvocationTargetException
 
-class Mixins(domain: DomainBridge) extends Concept {
+class Mixins(domain: DomainBridge, mixinPackages: Seq[String]) extends Concept {
 
-  def cell(className: String) = {
-    val possibleCanonicals = PettswoodConfig.mixinPackages.map(packagePrefix(_) + className)
-    instantiate(possibleCanonicals, className) match {
-      case Some(c: Concept) => domain.learn(className, instanceOf(className).asInstanceOf[Concept])
+  def cell(mixinClassName: String) = {
+    val possibleCanonicals = mixinPackages.map(packagePrefix(_) + mixinClassName)
+    instantiate(possibleCanonicals, mixinClassName) match {
+      case Some(c: Concept) => domain.learn(mixinClassName, instanceOf(mixinClassName).asInstanceOf[Concept])
       case Some(m: Mixin) =>
-      case _ => throw new MixinException(PettswoodConfig.mixinPackages, className)
+      case _ => throw new MixinException(PettswoodConfig.mixinPackages, mixinClassName)
     }
 
     Setup()

@@ -10,7 +10,8 @@ class MixinsSpec extends SpecificationWithJUnit with Mockito {
 
   class Fixture {
     val domain = mock[DomainBridge]
-    val mixin = new Mixins(domain)
+    val mixinPackages = new PettswoodConfig(mixinPackages = Seq("")).mixinPackages
+    val mixin = new Mixins(domain, mixinPackages)
   }
 
   "Mixins" should {
@@ -42,23 +43,23 @@ class MixinsSpec extends SpecificationWithJUnit with Mockito {
     }
 
     "allow use of multiple Mixins anywhere in the test" in {
-      val domain = mock[DomainBridge]
+      val fixture = new Fixture()
 
-      new Mixins(domain).cell("org.pettswood.stubs.SomeMixin")
-      new Mixins(domain).cell("org.pettswood.stubs.YetAnotherExpectedConcept")
+      fixture.mixin.cell("org.pettswood.stubs.SomeMixin")
+      fixture.mixin.cell("org.pettswood.stubs.YetAnotherExpectedConcept")
 
-      there was one(domain).learn(same("ExpectedConcept"), any[ExpectedConcept])
-      there was one(domain).learn(same("AnotherExpectedConcept"), any[AnotherExpectedConcept])
-      there was one(domain).learn(same("org.pettswood.stubs.YetAnotherExpectedConcept"), any[YetAnotherExpectedConcept])
+      there was one(fixture.domain).learn(same("ExpectedConcept"), any[ExpectedConcept])
+      there was one(fixture.domain).learn(same("AnotherExpectedConcept"), any[AnotherExpectedConcept])
+      there was one(fixture.domain).learn(same("org.pettswood.stubs.YetAnotherExpectedConcept"), any[YetAnotherExpectedConcept])
     }
 
     "Supports concepts defined in PettswoodConfig" in {
-      val fixture = new Fixture()
-      PettswoodConfig.mixinPackages ++= Seq("org.pettswood.stubs")
+      val domain = mock[DomainBridge]
+      val mixin = new Mixins(domain, Seq("org.pettswood.stubs"))
 
-      fixture.mixin.cell("ExpectedConcept")
+      mixin.cell("ExpectedConcept")
 
-      there was one(fixture.domain).learn(same("ExpectedConcept"), any[ExpectedConcept])
+      there was one(domain).learn(same("ExpectedConcept"), any[ExpectedConcept])
     }
 
     "Throws underlying exception when Mixins fail to be instantiated properly" in {

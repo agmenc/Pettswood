@@ -1,7 +1,7 @@
 package org.pettswood.runners.sbt
 
 import _root_.org.scalatools.testing._
-import org.pettswood.ResultSummary
+import org.pettswood.{PettswoodConfig, ResultSummary}
 import org.pettswood.runners.RecycleableRunner
 import org.pettswood.files._
 

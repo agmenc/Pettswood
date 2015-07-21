@@ -5,8 +5,12 @@ import runners.SingleRunner
 import org.specs2.matcher.MatchResult
 
 class SingleRunnerSpec extends Specification {
-  "I can haz test" in pettswood("src/test/resources/Pettswood.html")
-  "I can haz test" in pettswood("src/test/resources/PoorlyFormedXml.html")
+  private val config = new PettswoodConfig(
+    sourceRoot = "src/test/resources/pettswoodStuff",
+    mixinPackages = Seq(""))
 
-  def pettswood(path: String): MatchResult[Boolean] = SingleRunner(path).get.overallPass must beTrue
+  "I can haz test" in pettswood(s"${config.sourceRoot}/Pettswood.html")
+  "I can haz test" in pettswood(s"${config.sourceRoot}/PoorlyFormedXml.html")
+
+  def pettswood(path: String): MatchResult[Boolean] = SingleRunner(path, config).get.overallPass must beTrue
 }

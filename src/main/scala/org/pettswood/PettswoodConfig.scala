@@ -1,7 +1,7 @@
 package org.pettswood
 
-object PettswoodConfig {
-  var mixinPackages = Seq("")
-  var testSources = Seq("src/test/resources/pettswood")
-  var directoriesToCopy = Seq("src/test/resources/pettswood/css", "src/test/resources/pettswood/javascript")
-}
+case class PettswoodConfig(mixinPackages: Seq[String] = Seq("pettswood"),
+                           sourceRoot: String = "src/test/resources/pettswood",
+                           cssAndJsDirectoriesToCopy: Seq[String] = Seq("css", "javascript", "bootstrap"))
+
+object PettswoodConfig extends PettswoodConfig(Seq("pettswood"), "src/test/resources/pettswood", Seq("css", "javascript", "bootstrap"))
