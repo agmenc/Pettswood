@@ -9,7 +9,7 @@ class Mixins(domain: DomainBridge, mixinPackages: Seq[String]) extends Concept {
     instantiate(possibleCanonicals, mixinClassName) match {
       case Some(c: Concept) => domain.learn(mixinClassName, instanceOf(mixinClassName).asInstanceOf[Concept])
       case Some(m: Mixin) =>
-      case _ => throw new MixinException(PettswoodConfig.mixinPackages, mixinClassName)
+      case _ => throw new MixinException(mixinPackages, mixinClassName)
     }
 
     Setup()
