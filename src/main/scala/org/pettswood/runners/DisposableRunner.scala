@@ -5,7 +5,7 @@ import org.pettswood.parsers.xml.scala.Parser
 import org.pettswood.{PettswoodConfig, ResultSummary, DomainBridge}
 import org.pettswood.files.FileSystem
 
-class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
+class DisposableRunner(parser: Parser, fileSystem: FileSystem, config: PettswoodConfig) {
 
   def run(inputPath: String): ResultSummary =  {
     copyResourcesToTest()
@@ -45,7 +45,7 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem) {
 class RecycleableRunner(config: PettswoodConfig) {
   def run(filePath: String) = {
     val domainBridge = new DomainBridge(config.mixinPackages)
-    new DisposableRunner(new Parser(domainBridge), new FileSystem).run(filePath)
+    new DisposableRunner(new Parser(domainBridge), new FileSystem, config).run(filePath)
   }
 }
 

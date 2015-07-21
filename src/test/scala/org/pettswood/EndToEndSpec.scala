@@ -8,9 +8,10 @@ import runners.DisposableRunner
 
 class EndToEndSpec extends Specification with Mockito {
   "we can run a single test" in {
-    val domain = new DomainBridge(new PettswoodConfig(mixinPackages = Seq("")).mixinPackages)
+    val config = new PettswoodConfig(mixinPackages = Seq(""))
+    val domain = new DomainBridge(config.mixinPackages)
 
-    new DisposableRunner(new Parser(domain), new FileSystem).run("src/test/resources/pettswoodStuff/WritingTestsAndFixture.html")
+    new DisposableRunner(new Parser(domain), new FileSystem, config).run("src/test/resources/pettswoodStuff/WritingTestsAndFixture.html")
 
     domain.summary.overallPass must be equalTo true
   }

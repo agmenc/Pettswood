@@ -9,14 +9,14 @@ import scala.xml.Node
 import org.specs2.matcher.ThrownMessages
 
 class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with ThrownMessages {
-  
+
   class Fixture {
     val domain = mock[DomainBridge]
     val parser = mock[Parser]
     val fileSystem = mock[FileSystem]
     val saver = mock[Saver]
     val finder = mock[Finder]
-    val runner = new DisposableRunner(parser, fileSystem)
+    val runner = new DisposableRunner(parser, fileSystem, new PettswoodConfig())
     fileSystem.loadXml(any[String]) returns <input></input>
     fileSystem.save(any[String]) returns saver
     fileSystem.in(any[String]) returns finder
