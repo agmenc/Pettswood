@@ -3,6 +3,7 @@ package org.pettswood
 class DomainBridge(mixinPackages: Seq[String]) {
 
   var concepts = Map.empty[String, () => Concept]
+  val state = new State
   var currentConcept: Concept = NoConceptDefined
   var results: List[Result] = Nil
   var nestlings = List.empty[DomainBridge]

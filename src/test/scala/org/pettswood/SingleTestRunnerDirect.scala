@@ -7,5 +7,5 @@ object SingleTestRunnerDirect extends App {
     sourceRoot = "src/test/resources/pettswoodStuff",
     mixinPackages = Seq(""))
 
-  SingleRunner("src/test/resources/pettswoodStuff/Pettswood.html", config)
+  SingleRunner("src/test/resources/pettswoodStuff/StatePassedBetweenConcepts.html", config)
 }

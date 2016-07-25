@@ -1,0 +1,14 @@
+
+
+Allow some sort of shared state to propagate between tests in a single spec. Make this accessible to concepts in some clever way.
+
+Finish the feature to copy css & js from named locations to the target directory. This allows other modules, especially bootstrap, to have their own folders with css/js/font files inside. We should be able to:
+ - copy an entire tree, e.g.:
+    bootstrap
+        |
+        |--css
+        |--images
+        |--js
+ - specify more than one tree to copy
+
+Rename javascript folder to js

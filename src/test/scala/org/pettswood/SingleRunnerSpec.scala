@@ -11,6 +11,7 @@ class SingleRunnerSpec extends Specification {
 
   "I can haz test" in pettswood(s"${config.sourceRoot}/Pettswood.html")
   "I can haz test" in pettswood(s"${config.sourceRoot}/PoorlyFormedXml.html")
+  "I can haz test" in pettswood(s"${config.sourceRoot}/StatePassedBetweenConcepts.html")
 
   def pettswood(path: String): MatchResult[Boolean] = SingleRunner(path, config).get.overallPass must beTrue
 }
