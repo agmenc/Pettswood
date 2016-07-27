@@ -12,3 +12,5 @@ Finish the feature to copy css & js from named locations to the target directory
  - specify more than one tree to copy
 
 Rename javascript folder to js
+
+Make exceptions display more intelligently
