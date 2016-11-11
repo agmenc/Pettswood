@@ -24,7 +24,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
     "associate Concepts with tables, using the concept name in the first cell" in {
       val domain = new DomainBridge(mixinPackages)
-      domain.learn("I'm a concept", new ExpectedConcept())
+      domain.learn("I'm a concept", () => new ExpectedConcept())
       domain.currentConcept must be equalTo NoConceptDefined
 
       domain.table("I'm a concept")

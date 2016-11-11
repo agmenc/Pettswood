@@ -6,11 +6,11 @@ name := "pettswood"
 
 organization := "com.github.agmenc"
 
-version := "0.0.22"
+version := "0.0.24"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.0"
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+crossScalaVersions := Seq("2.11.7", "2.12.0")
 
 scalacOptions ++= Seq("-unchecked", "-Yrangepos")
 
@@ -20,20 +20,16 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 
 libraryDependencies ++= Seq(
   "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.8",
-  "org.specs2" %% "specs2" % "2.3.11" % "test",
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test",
+  "org.specs2" %% "specs2-mock" % "3.8.6" % "test",
+  "org.specs2" %% "specs2-junit" % "3.8.6" % "test",
+  "org.specs2" %% "specs2-matcher-extra" % "3.8.6" % "test",
   "junit" % "junit" % "4.8.1" % "test" withSources(),
-  "org.mockito" % "mockito-core" % "1.9.0-rc1" % "test",
+  "org.mockito" % "mockito-core" % "2.1.0" % "test",
   "org.scala-tools.testing" % "test-interface" % "0.5"
 )
 
-// add scala-xml dependency when needed (for Scala 2.11 and newer)
-// this mechanism supports cross-version publishing
-libraryDependencies := {
-  CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((2, scalaMajor)) if scalaMajor >= 11 => libraryDependencies.value :+ "org.scala-lang.modules" %% "scala-xml" % "1.0.4"
-    case _ => libraryDependencies.value
-  }
-}
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.5"
 
 // --------- Publishing -----------------------
 

@@ -7,7 +7,7 @@ class Mixins(domain: DomainBridge, mixinPackages: Seq[String]) extends Concept {
   def cell(mixinClassName: String) = {
     val possibleCanonicals = mixinPackages.map(packagePrefix(_) + mixinClassName)
     instantiate(possibleCanonicals, mixinClassName) match {
-      case Some(c: Concept) => domain.learn(mixinClassName, instanceOf(mixinClassName).asInstanceOf[Concept])
+      case Some(c: Concept) => domain.learn(mixinClassName, () => instanceOf(mixinClassName).asInstanceOf[Concept])
       case Some(m: Mixin) =>
       case _ => throw new MixinException(mixinPackages, mixinClassName)
     }

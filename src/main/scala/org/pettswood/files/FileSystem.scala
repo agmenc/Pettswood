@@ -29,9 +29,7 @@ object FileSystem {
 
 case class Finder(path: String) {
   def filterFor(fileNamePattern: String): FileFilter = {
-    new FileFilter {
-      def accept(file: File) = file.isDirectory || fileNamePattern.r.findAllIn(file.getName).hasNext
-    }
+    (file: File) => file.isDirectory || fileNamePattern.r.findAllIn(file.getName).hasNext
   }
 
   def find(fileNamePattern: String): List[String] = {
@@ -42,7 +40,7 @@ case class Finder(path: String) {
     val files = dir.listFiles(filter)
     val fileSeq = if (files == null) Seq.empty[File] else files.toSeq
     fileSeq.flatMap({
-      case file: File if (file.isDirectory) => find(file, filter)
+      case file: File if file.isDirectory => find(file, filter)
       case file: File => List(file)
     }).toList
   }

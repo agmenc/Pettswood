@@ -20,6 +20,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
     fileSystem.loadXml(any[String]) returns <input></input>
     fileSystem.save(any[String]) returns saver
     fileSystem.in(any[String]) returns finder
+    fileSystem.loadResource(any[String]) returns "Some File Contents"
     finder.find(any[String]) returns List.empty[String]
     parser.parse(any[Node]) returns <output></output>
     parser.decorate(any[Node]) returns <decorated></decorated>
@@ -30,7 +31,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
     "load the test file into the DomainBridge" in {
       val fixture = new Fixture
 
-      fixture.runner run ("src/test/resources/category/some.file")
+      fixture.runner run "src/test/resources/category/some.file"
 
       there was one(fixture.parser).parse(<input></input>)
     }
@@ -38,7 +39,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
     "Write the result of the test into the output file" in {
       val fixture = new Fixture
 
-      fixture.runner run ("src/test/resources/category/some.file")
+      fixture.runner run "src/test/resources/category/some.file"
 
       there was one(fixture.fileSystem).save(<decorated></decorated> toString())
     }
@@ -46,8 +47,8 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
     "Put the output file heirarchy in target/pettswood" in {
       val fixture = new Fixture
 
-      fixture.runner run ("src/test/resources/category/some.file")
-      fixture.runner run ("src/acceptance/resources/features/another.file")
+      fixture.runner run "src/test/resources/category/some.file"
+      fixture.runner run "src/acceptance/resources/features/another.file"
 
       there was one(fixture.saver).to("target/pettswood/category/some.file")
       there was one(fixture.saver).to("target/pettswood/features/another.file")
@@ -98,9 +99,9 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       there was one(fixture.fileSystem).loadResource("css/pettswood.css")
       there was one(fixture.fileSystem).loadResource("javascript/jquery-1.7.2.min.js")
       there was one(fixture.fileSystem).loadResource("javascript/pettswood.js")
-      there was one(fixture.saver).to("src/test/resources/pettswood/css/pettswood.css")
-      there was one(fixture.saver).to("src/test/resources/pettswood/javascript/jquery-1.7.2.min.js")
-      there was one(fixture.saver).to("src/test/resources/pettswood/javascript/pettswood.js")
+      there was one(fixture.saver).to("src/test/resources/css/pettswood.css")
+      there was one(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
+      there was one(fixture.saver).to("src/test/resources/javascript/pettswood.js")
     }
 
     "Not extract CSS or javascript files if any are already there" in {

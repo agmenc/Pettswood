@@ -22,17 +22,17 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
     "Why does this procedure have to return Any(thing)?"
   }
 
-  "My little css publishing fiddle" should {
-    "copy CSS and JavaScript from test/resources to main/resources" in {
-      val fileSystem = new FileSystem
-
-      fileSystem.copy("src/test/resources/css/pettswood.css", "src/main/resources/css/pettswood.css")
-      fileSystem.copy("src/test/resources/javascript/pettswood.js", "src/main/resources/javascript/pettswood.js")
-      fileSystem.copy("src/test/resources/javascript/jquery-1.7.2.min.js", "src/main/resources/javascript/jquery-1.7.2.min.js")
-
-      fromFile("src/main/resources/css/pettswood.css").mkString must be equalTo fromFile("src/test/resources/css/pettswood.css").mkString
-    }
-  }
+//  "My little css publishing fiddle" should {
+//    "copy CSS and JavaScript from test/resources to main/resources" in {
+//      val fileSystem = new FileSystem
+//
+//      fileSystem.copy("src/test/resources/css/pettswood.css", "src/main/resources/css/pettswood.css")
+//      fileSystem.copy("src/test/resources/javascript/pettswood.js", "src/main/resources/javascript/pettswood.js")
+//      fileSystem.copy("src/test/resources/javascript/jquery-1.7.2.min.js", "src/main/resources/javascript/jquery-1.7.2.min.js")
+//
+//      fromFile("src/main/resources/css/pettswood.css").mkString must be equalTo fromFile("src/test/resources/css/pettswood.css").mkString
+//    }
+//  }
 
   "The FileSystem proxy" should {
 
