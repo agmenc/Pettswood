@@ -25,7 +25,6 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-junit" % "3.8.6" % "test",
   "org.specs2" %% "specs2-matcher-extra" % "3.8.6" % "test",
   "junit" % "junit" % "4.8.1" % "test" withSources(),
-  "org.mockito" % "mockito-core" % "2.1.0" % "test",
   "org.scala-tools.testing" % "test-interface" % "0.5"
 )
 

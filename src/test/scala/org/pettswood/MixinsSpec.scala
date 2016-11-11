@@ -1,6 +1,6 @@
 package org.pettswood
 
-import org.mockito.ArgumentMatchers.same
+import org.mockito.Matchers.same
 import org.pettswood.stubs.{ExpectedConcept, _}
 import org.specs2.mock._
 import org.specs2.mutable._

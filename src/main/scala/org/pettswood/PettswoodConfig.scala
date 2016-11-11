@@ -6,7 +6,7 @@ package org.pettswood
   * @param sourceRoot The source directory for the HTML tests that are executed by PettsWood
   * @param cssAndJsDirectoriesToCopy
   */
-case class PettswoodConfig(mixinPackages: Seq[String] = Seq("pettswood"),
+case class PettswoodConfig(mixinPackages: Seq[String] = Seq("", "pettswood"),
                            sourceRoot: String = "src/test/resources",
                            cssAndJsDirectoriesToCopy: Seq[String] = Seq("css", "javascript", "bootstrap"))
 
