@@ -29,7 +29,10 @@ object FileSystem {
 
 case class Finder(path: String) {
   def filterFor(fileNamePattern: String): FileFilter = {
-    (file: File) => file.isDirectory || fileNamePattern.r.findAllIn(file.getName).hasNext
+    //noinspection ConvertExpressionToSAM => Scala 2.11 doesn't automatically implement @FunctionalInterface, but 2.12 does
+    new FileFilter {
+      def accept(file: File) = file.isDirectory || fileNamePattern.r.findAllIn(file.getName).hasNext
+    }
   }
 
   def find(fileNamePattern: String): List[String] = {
