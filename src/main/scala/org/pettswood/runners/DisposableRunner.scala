@@ -19,7 +19,7 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem, config: Pettswood
 
   def load(inputPath: String): Node = fileSystem loadXml inputPath
   def write(result: Node, path: String) { fileSystem save result.toString() to path}
-  def outputPath(path: String) = path replaceAll("src.*resources", "target/pettswood")
+  def outputPath(path: String) = path replaceAll("src.*resources", "target")
 
   def copyResourcesToTest() {
     ifNotFound(s"${config.sourceRoot}/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to s"${config.sourceRoot}/css/pettswood.css" }

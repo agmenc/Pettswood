@@ -12,8 +12,8 @@ function Toggler($toggleElement) {
 
     function swap(url) {
         var srcDir = new RegExp("src/[a-zA-Z]*/resources");
-        if (url.match(srcDir)) return url.replace(srcDir, "target/pettswood");
-        if (url.match(new RegExp("target/pettswood"))) return url.replace("target/pettswood", "src/test/resources");
+        if (url.match(srcDir)) return url.replace(srcDir, "target");
+        if (url.match(new RegExp("/target/"))) return url.replace("/target/", "/src/test/resources/");
         throw "This document appears to be neither the source nor the result of a Pettswood test"
     }
 }

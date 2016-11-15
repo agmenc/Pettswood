@@ -1,6 +1,15 @@
 
 
-Allow some sort of shared state to propagate between tests in a single spec. Make this accessible to concepts in some clever way.
+DONE - Allow some sort of shared state to propagate between tests in a single spec. Make this accessible to concepts in some clever way.
+
+Exceptions
+ - Hide exception traces, except for important bits
+ - Put some nicer hints in to get people started fixing the exceptions
+ - Show full stack traces on demand
+
+Index
+ - Drop index data (test name, success/failure, etc) into some JSON, ready for retrieval by an Elm app
+ - Alternatively, feed output to a standard sbt TestListener, and write something that reads the standard format. Seems a bit dull, though.
 
 Finish the feature to copy css & js from named locations to the target directory. This allows other modules, especially bootstrap, to have their own folders with css/js/font files inside. We should be able to:
  - copy an entire tree, e.g.:
@@ -12,5 +21,3 @@ Finish the feature to copy css & js from named locations to the target directory
  - specify more than one tree to copy
 
 Rename javascript folder to js
-
-Make exceptions display more intelligently
