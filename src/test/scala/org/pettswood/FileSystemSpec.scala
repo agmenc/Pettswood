@@ -62,7 +62,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
       val fileSystem = new FileSystem
       val config = new PettswoodConfig(sourceRoot = "src/test/resources/pettswoodStuff")
 
-      fileSystem in "src/main/resources" find "bootstrap" must contain ( s"$BASE_PATH/src/main/resources/bootstrap/css/bootstrap.css" )
+      fileSystem in "src/main/resources" find "bootstrap" must contain ( s"$BASE_PATH/src/main/resources/bootstrap/css/bootstrap-flex.min.css" )
 
       fileSystem in "src/test" find ".*.html" must contain ( s"${BASE_PATH}/${config.sourceRoot}/WritingTestsAndFixture.html" )
 

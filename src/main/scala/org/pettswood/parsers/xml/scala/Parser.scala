@@ -44,9 +44,18 @@ class Parser(domain: DomainBridge) {
 
   private def prettifyException(t: Throwable) = {
     <div class="pettswoodExceptions">
-      <p>{t.getClass.getCanonicalName} <a href="#">show</a></p>
+      <p>
+        {t.getClass.getCanonicalName}
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Link with href
+        </a>
+      </p>
       <p>{t.getMessage}</p>
-      <span class="invisible">{exceptionTrace(t)}</span>
+      <div class="collapse collapsar" id="collapseExample">
+        <div class="card card-block">
+          {exceptionTrace(t)}
+        </div>
+      </div>
     </div>
   }
 

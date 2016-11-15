@@ -21,7 +21,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
     fileSystem.save(any[String]) returns saver
     fileSystem.in(any[String]) returns finder
     fileSystem.loadResource(any[String]) returns "Some File Contents"
-    finder.find(any[String]) returns List.empty[String]
+    finder.find(any[String]) returns List("A.file") //List.empty[String]
     parser.parse(any[Node]) returns <output></output>
     parser.decorate(any[Node]) returns <decorated></decorated>
   }
@@ -44,14 +44,14 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       there was one(fixture.fileSystem).save(<decorated></decorated> toString())
     }
 
-    "Put the output file heirarchy in target/pettswood" in {
+    "Put the output file hierarchy in target" in {
       val fixture = new Fixture
 
       fixture.runner run "src/test/resources/category/some.file"
       fixture.runner run "src/acceptance/resources/features/another.file"
 
-      there was one(fixture.saver).to("target/pettswood/category/some.file")
-      there was one(fixture.saver).to("target/pettswood/features/another.file")
+      there was one(fixture.saver).to("target/category/some.file")
+      there was one(fixture.saver).to("target/features/another.file")
     }
 
     "Work out the output file in Windows" in {
@@ -59,7 +59,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
 
       fixture.runner run "src\\integration\\resources\\category\\some.file"
 
-      there was one(fixture.saver).to("target/pettswood\\category\\some.file")
+      there was one(fixture.saver).to("target\\category\\some.file")
     }
 
     "Write the result of the test into the output file" in {
@@ -70,14 +70,14 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       there was one(fixture.fileSystem).save(<decorated></decorated> toString())
     }
 
-    "Put the output file heirarchy in target/pettswood" in {
+    "Put the output file heirarchy in target" in {
       val fixture = new Fixture
 
       fixture.runner run "src/test/resources/category/some.file"
       fixture.runner run "src/acceptance/resources/features/another.file"
 
-      there was one(fixture.saver).to("target/pettswood/category/some.file")
-      there was one(fixture.saver).to("target/pettswood/features/another.file")
+      there was one(fixture.saver).to("target/category/some.file")
+      there was one(fixture.saver).to("target/features/another.file")
     }
 
     "Tell the parser to decorate the output results" in {
@@ -126,8 +126,8 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
 
       fixture.runner run "src/test/resources/category/some.file"
 
-      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/first.css", "a/b/c/target/pettswood/css/first.css")
-      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/second.css", "a/b/c/target/pettswood/css/second.css")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/first.css", "a/b/c/target/css/first.css")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/css/second.css", "a/b/c/target/css/second.css")
     }
 
     "Copy all Javascript files from the test src directory to the target directory" in {
@@ -136,8 +136,8 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
 
       fixture.runner run "src/test/resources/category/some.file"
 
-      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/first.js", "a/b/c/target/pettswood/javascript/first.js")
-      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/second.js", "a/b/c/target/pettswood/javascript/second.js")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/first.js", "a/b/c/target/javascript/first.js")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/javascript/second.js", "a/b/c/target/javascript/second.js")
     }
 
     "Copy bootstrap SYMLINK (if present) from the src/test directory to the target directory" in {
@@ -146,7 +146,7 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
 
       fixture.runner run "src/test/resources/category/some.file"
 
-      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/bootstrap", "a/b/c/target/pettswood/bootstrap")
+      there was one(fixture.fileSystem).copy("a/b/c/src/test/resources/bootstrap", "a/b/c/target/bootstrap")
     }
   }
 }
