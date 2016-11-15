@@ -37,20 +37,18 @@ class Parser(domain: DomainBridge) {
     result match {
       case Fail(actual) => <span>{actual}<br></br>but expected:<br></br></span>
       // TODO - CAS - 15/04/2014 - Make this a link to a separate doc, to make files more readable and smaller
-      case Exception(t: Throwable) => <span>{prettifyException(t)}<br></br>Expected:<br></br></span>
+      case Exception(t: Throwable) => prettifyException(t)
       case _ => NodeSeq.Empty
     }
   }
 
   private def prettifyException(t: Throwable) = {
     <div class="pettswoodExceptions">
-      <p>
-        {t.getClass.getCanonicalName}
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Link with href
-        </a>
-      </p>
+      <p>{t.getClass.getCanonicalName}</p>
       <p>{t.getMessage}</p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Show/Hide
+      </a>
       <div class="collapse collapsar" id="collapseExample">
         <div class="card card-block">
           {exceptionTrace(t)}

@@ -22,3 +22,5 @@ th { background-color: #DDD; }
 .setup { background-color: #7EABBE; }
 .fail { background-color: #E594A7; }
 .exception { background-color: #ffcc66; line-height: 100%; }
+
+body {font-size: small !important;}
