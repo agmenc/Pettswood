@@ -82,7 +82,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       // TODO - children of result are NodeSeq and children of expect are ArrayBuffer. WTF?!?
       val result = new Parser(fixture.domain).parse(<td>sausage</td>)
 
-      (result \\ "span").text must contain("java.lang.NullPointerException: Your pointy things are all null\n\tat org.pettswood.ParserSpec")
+      (result \\ "span").text must contain("Show/Hide")
     }
 
     "respect existing classes" in {

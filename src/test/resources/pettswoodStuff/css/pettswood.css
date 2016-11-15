@@ -1,6 +1,6 @@
 /*@include("HTML5-boilerplate")*/
 
-h1, h2, h3, h4, h5, h6, table { margin: 10px; }
+h1, h2, h3, h4, h5, h6, table { margin: 10px; font-size: small }
 h1 { cursor: pointer; }
 
 table.table>thead>tr>th, table.table>tbody>tr>td, table.table>tbody>tr>th { padding: 4px; }
