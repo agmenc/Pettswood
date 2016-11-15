@@ -3,9 +3,8 @@
 DONE - Allow some sort of shared state to propagate between tests in a single spec. Make this accessible to concepts in some clever way.
 
 Exceptions
- - Hide exception traces, except for important bits
- - Put some nicer hints in to get people started fixing the exceptions
- - Show full stack traces on demand
+ - Make clicking the thing show only the exception for that cell. Right now, all buttons show just the top exception cell.
+ - Merge the button with the title, so it is just a link
 
 Index
  - Drop index data (test name, success/failure, etc) into some JSON, ready for retrieval by an Elm app
