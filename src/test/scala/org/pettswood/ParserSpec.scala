@@ -128,7 +128,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       val before =
         <html>
           <head>
-            <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+            <script type="text/javascript" src="javascript/jquery-3.1.1.min.js"></script>
           </head>
           <body/>
         </html>

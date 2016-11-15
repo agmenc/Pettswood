@@ -97,10 +97,10 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
 
       // TODO - CAS - 14/04/2012 - just load all resources in one go
       there was one(fixture.fileSystem).loadResource("css/pettswood.css")
-      there was one(fixture.fileSystem).loadResource("javascript/jquery-1.7.2.min.js")
+      there was one(fixture.fileSystem).loadResource("javascript/jquery-3.1.1.min.js")
       there was one(fixture.fileSystem).loadResource("javascript/pettswood.js")
       there was one(fixture.saver).to("src/test/resources/css/pettswood.css")
-      there was one(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
+      there was one(fixture.saver).to("src/test/resources/javascript/jquery-3.1.1.min.js")
       there was one(fixture.saver).to("src/test/resources/javascript/pettswood.js")
     }
 
@@ -113,10 +113,10 @@ class DisposableRunnerSpec extends SpecificationWithJUnit with Mockito with Thro
       fixture.runner run "src/test/resources/category/some.file"
 
       there was no(fixture.fileSystem).loadResource("pettswood.css")
-      there was no(fixture.fileSystem).loadResource("jquery-1.7.2.min.js")
+      there was no(fixture.fileSystem).loadResource("jquery-3.1.1.min.js")
       there was no(fixture.fileSystem).loadResource("pettswood.js")
       there was no(fixture.saver).to("src/test/resources/css/pettswood.css")
-      there was no(fixture.saver).to("src/test/resources/javascript/jquery-1.7.2.min.js")
+      there was no(fixture.saver).to("src/test/resources/javascript/jquery-3.1.1.min.js")
       there was no(fixture.saver).to("src/test/resources/javascript/pettswood.js")
     }
 

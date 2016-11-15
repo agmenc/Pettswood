@@ -25,7 +25,7 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem, config: Pettswood
     ifNotFound(s"${config.sourceRoot}/css", ".*.css") { fileSystem.save(fileSystem.loadResource("css/pettswood.css")) to s"${config.sourceRoot}/css/pettswood.css" }
     ifNotFound(s"${config.sourceRoot}/javascript", ".*.js") {
       fileSystem.save(fileSystem.loadResource("javascript/pettswood.js")) to s"${config.sourceRoot}/javascript/pettswood.js"
-      fileSystem.save(fileSystem.loadResource("javascript/jquery-1.7.2.min.js")) to s"${config.sourceRoot}/javascript/jquery-1.7.2.min.js"
+      fileSystem.save(fileSystem.loadResource("javascript/jquery-3.1.1.min.js")) to s"${config.sourceRoot}/javascript/jquery-3.1.1.min.js"
     }
     ifNotFound(s"${config.sourceRoot}/bootstrap", ".*.css") {
       val bootstrapFiles = List("css/bootstrap.min.css", "css/bootstrap-flex.min.css", "js/bootstrap.js")
