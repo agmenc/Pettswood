@@ -8,10 +8,8 @@ import org.pettswood.runners.RecycleableRunner
 class PettswoodFramework extends Framework {
   def name() = "Pettswood"
   def tests = Array[Fingerprint](new PettswoodFingerprint)
-
-  private lazy val config = PettswoodConfig.current
-
-  def testRunner(classLoader: ClassLoader, loggers: Array[Logger]) = new Sbt(classLoader, loggers, new RecycleableRunner(config), new PettswoodFiles(config.sourceRoot))
+  def testRunner(classLoader: ClassLoader, loggers: Array[Logger]) =
+    new Sbt(classLoader, loggers, new RecycleableRunner(), new PettswoodFiles())
 }
 
 class PettswoodFingerprint extends SubclassFingerprint {

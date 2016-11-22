@@ -2,6 +2,8 @@
 
 DONE - Allow some sort of shared state to propagate between tests in a single spec. Make this accessible to concepts in some clever way.
 
+DONE - Make the command-line runner actually use the value in PettswoodConfig
+
 Exceptions
  - Make clicking the thing show only the exception for that cell. Right now, all buttons show just the top exception cell.
  - Merge the button with the title, so it is just a link

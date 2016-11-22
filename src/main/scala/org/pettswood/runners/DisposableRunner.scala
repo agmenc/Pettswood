@@ -49,7 +49,9 @@ class DisposableRunner(parser: Parser, fileSystem: FileSystem, config: Pettswood
   }
 }
 
-class RecycleableRunner(config: PettswoodConfig) {
+class RecycleableRunner(overrideConfig: Option[PettswoodConfig] = None) {
+  def config = overrideConfig.getOrElse(PettswoodConfig.current)
+
   def run(filePath: String) = {
     val domainBridge = new DomainBridge(config.mixinPackages)
     new DisposableRunner(new Parser(domainBridge), new FileSystem, config).run(filePath)
@@ -60,7 +62,7 @@ object SingleRunner {
   def apply(inputPath: String, config: PettswoodConfig) = run(inputPath, config)
 
   private def run(inputPath: String, config: PettswoodConfig) = {
-    val summary = new RecycleableRunner(config).run(inputPath)
+    val summary = new RecycleableRunner(Some(config)).run(inputPath)
     println(" " + summary.toString + " ==> " + inputPath)
     Some(summary)
   }
