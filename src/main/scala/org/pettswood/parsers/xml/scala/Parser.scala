@@ -3,6 +3,8 @@ package org.pettswood.parsers.xml.scala
 import scala.xml._
 import org.pettswood._
 import java.io._
+import java.util.UUID
+
 import org.pettswood.Exception
 import org.pettswood.Fail
 
@@ -36,22 +38,21 @@ class Parser(domain: DomainBridge) {
   def describeCellFailures(expectedText: String, result: Result) = {
     result match {
       case Fail(actual) => <span>{actual}<br></br>but expected:<br></br></span>
-      // TODO - CAS - 15/04/2014 - Make this a link to a separate doc, to make files more readable and smaller
-      case Exception(t: Throwable) => prettifyException(t)
+      case Exception(t: Throwable) => prettifyException(t, UUID.randomUUID())
       case _ => NodeSeq.Empty
     }
   }
 
-  private def prettifyException(t: Throwable) = {
+  private def prettifyException(t: Throwable, uuid: UUID) = {
     <div class="pettswoodExceptions">
       <span>
         <b>{t.getClass.getCanonicalName}</b>
-        <a class="btn btn-danger btn-sm" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn btn-danger btn-sm" data-toggle="collapse" href={s"#$uuid"} aria-expanded="false" aria-controls="collapseExample">
           Show/Hide
         </a>
       </span>
       <p>{t.getMessage}</p>
-      <div class="collapse collapsar" id="collapseExample">
+      <div class="collapse collapsar" id={s"#$uuid"}>
         <pre>{exceptionTrace(t)}</pre>
       </div>
     </div>

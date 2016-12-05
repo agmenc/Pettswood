@@ -53,6 +53,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       there was one(fixture.domain).row()
       there was one(fixture.domain).cell("World")
     }
+
     "jang pass/fail classes into the output" in {
       val fixture = new Fixture()
       fixture.domain.cell("pass") returns Pass("pass")
@@ -65,14 +66,13 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       (new Parser(fixture.domain).parse(<td>setup</td>) \ "@class" text) must be equalTo "Setup"
       (new Parser(fixture.domain).parse(<td>exception</td>) \ "@class" text) must be equalTo "Exception"
     }
+
     "display expected vs actual for failure results" in {
       val fixture = new Fixture()
       fixture.domain.cell("sausage") returns Fail("potato")
 
       new Parser(fixture.domain).parse(<td>sausage</td>) must be equalTo
         <td class="Fail"><span>potato<br></br>but expected:<br></br></span>sausage</td>
-      // TODO - CAS - 20/05/2012 - failures really could be displayed better, like this:
-//        <td class="Fail"><span class="strikethrough">sausage</span>potato</td>
     }
 
     "display exception stack traces in cells" in {
