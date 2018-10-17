@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Html In Tables</title>
+    <link rel="stylesheet" type="text/css" href="css/pettswood.css"/>
+    <link rel="stylesheet" type="text/css" href="pettswoodStuff/css/pettswood-website.css"/>
+    <script type="text/javascript" src="javascript/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="javascript/pettswood.js"></script>
+    <script type="text/javascript" src="pettswoodStuff/javascript/documentation.js"></script>
+</head>
+<body>
+<table class="table mixins">
+    <tbody>
+    <tr>
+        <td class="names">mixins</td>
+        <td>PettswoodFeatures</td>
+        <td>Cryptography</td>
+    </tr>
+    </tbody>
+</table>
+<h1>Html In Tables</h1>
+<h3>This one fails ...</h3>
+<table class="table">
+    <tbody>
+    <tr class="ignore">
+        <td>ignore</td>
+    </tr>
+    <tr class="fixture">
+        <td>Html In Tables Demo</td>
+    </tr>
+    <tr class="names">
+        <td>Given this</td>
+        <td>Then do that</td>
+    </tr>
+    <tr>
+        <td>Please show some HTML</td>
+        <td>
+            <section>
+                <h1>I am in a table cell</h1>
+                <table>
+                    <tr>
+                        <th>So am I</th>
+                    </tr>
+                    <tr>
+                        <td>This bit of data will come back wrong</td>
+                    </tr>
+                </table>
+                <h3>Look, a footer!</h3>
+            </section>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>... and this one passes</h3>
+<table class="table">
+    <tbody>
+    <tr class="fixture">
+        <td>Html In Tables Demo</td>
+    </tr>
+    <tr class="names">
+        <td>Given this</td>
+        <td>Then do that</td>
+    </tr>
+    <tr>
+        <td>Please show some HTML</td>
+        <td>
+            <section>
+                <h1>I am in a table cell</h1>
+                <table>
+                    <tr>
+                        <th>So am I</th>
+                    </tr>
+                    <tr>
+                        <td>I am not data</td>
+                    </tr>
+                </table>
+                <h3>Look, a footer!</h3>
+            </section>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

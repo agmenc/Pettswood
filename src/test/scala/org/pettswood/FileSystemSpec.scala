@@ -66,7 +66,7 @@ class FileSystemSpec extends SpecificationWithJUnit with Mockito with AfterExamp
 
       fileSystem in "src/test" find ".*.html" must contain ( s"${BASE_PATH}/${config.sourceRoot}/WritingTestsAndFixture.html" )
 
-      fileSystem in "src/main/scala/" find "R.*.scala" must be equalTo List(
+      (fileSystem in "src/main/scala/" find "R.*.scala").toSet must be equalTo Set(
         s"$BASE_PATH/src/main/scala/org/pettswood/MultiRow.scala",
         s"$BASE_PATH/src/main/scala/org/pettswood/Result.scala",
         s"$BASE_PATH/src/main/scala/org/pettswood/ResultSummary.scala",

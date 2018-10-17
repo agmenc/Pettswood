@@ -14,6 +14,7 @@ object NoConceptDefined extends Concept {
   def cell(text: String) = Exception(new RuntimeException("No Concept has been defined for " + text))
 }
 
+// TODO: Ignoration of whole tests
 object Ignore extends Concept {
   def cell(text: String) = Setup()
 }

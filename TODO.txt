@@ -4,6 +4,23 @@ DONE - Allow some sort of shared state to propagate between tests in a single sp
 
 DONE - Make the command-line runner actually use the value in PettswoodConfig
 
+ - Upgrade to latest SBT
+ - Find a way to make the incremental compiler reflect IntelliJ changes, so I don't have to run everything from the command line
+ - Allow us to show test failures but still pass the tests, so that we can demonstrate what failures look like (and test for them), e.g. <error></error>
+ - Just show all the exceptions (in a really little font)
+ - Pass: 12 Setup: 13 Fail: 0 Exception: 0  ==>  Pass: 12, Setup: 13, Fail: 0, Exception: 0
+ - Allow us to annotate tables that will fail, so that they don't fail the build.
+ - Make column header fonts the same size in the executed view as it is in the grey-only view
+ - Move assemble() into DSL
+ - Aggregate the DSL, so it all fits in one import
+ - Ignore (and show in report) whole tests
+ - Document the State example (ShowCount)
+ - Docs. Have a gallery, linking tables to implementation code for each example
+ - Turn file URLs in the console window into hyperlinks, so that they can be opened in a browser by clicking on them. See:
+    - https://intellij-support.jetbrains.com/hc/en-us/community/posts/207365665-Display-URL-as-hyperlink-in-Messages-panel
+    - https://plugins.jetbrains.com/plugin/7183-output-link-filter
+ - Change SBT's exit code when "sbt test:run" fails with a PW test failure. Right now, it says "success" and goes green.
+
 Exceptions
  - Make clicking the thing show only the exception for that cell. Right now, all buttons show just the top exception cell.
  - Merge the button with the title, so it is just a link

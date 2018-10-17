@@ -20,6 +20,8 @@ testFrameworks += new TestFramework("org.pettswood.runners.sbt.PettswoodFramewor
 
 libraryDependencies ++= Seq(
   "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.8",
+  "org.xmlunit" % "xmlunit-core" % "2.6.2",
+  "org.xmlunit" % "xmlunit-legacy" % "2.5.1",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test",
   "org.specs2" %% "specs2-mock" % "3.8.6" % "test",
   "org.specs2" %% "specs2-junit" % "3.8.6" % "test",

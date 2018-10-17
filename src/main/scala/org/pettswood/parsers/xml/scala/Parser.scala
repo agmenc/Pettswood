@@ -1,6 +1,8 @@
 package org.pettswood.parsers.xml.scala
 
+import org.custommonkey.xmlunit.{DetailedDiff, XMLUnit}
 import scala.xml._
+import scala.collection.JavaConverters._
 import org.pettswood._
 import java.io._
 import java.util.UUID
@@ -12,21 +14,34 @@ class Parser(domain: DomainBridge) {
 
   def parse(node: Node): Node = new TestParser().traverse(node)
 
+  // TODO - CAS - 14/10/2018 - Refactor HTML display logic
+  // - Create a peer for parseCopy that doesn't also parse the children. parseCopy -> decorate, adding: decorateAndStop
+  // - Extract the prettyPrinter
+  // - Use an HTML diff to show tree-level diffs inline (hint: a tree is also a sequence, if you assume an ordering rule)
   class TestParser extends TraverseCopy {
     def traverse(node: Node) = node match {
       case elem: Elem => elem.label match {
         case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
         case "tr" => domain.row(); parseCopy(elem)
+        case "td" if (elem \ "section").nonEmpty =>
+          val pp = new scala.xml.PrettyPrinter(0, 0)
+          val expected = pp.format((elem \ "section").head).trim
+          val result = domain.cell(expected)
+          elem.copy(elem.prefix, elem.label, cssAdder(result.name)(elem), TopScope, elem.label != "script", describeCellHtmlFailures(expected, result))
+        // parseCopy(elem, cssAdder(result.name), describeCellHtmlFailures(expected, result))
         case "td" if (elem \\ "table").nonEmpty => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
         case "td" | "th" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }
       case any => any
     }
+
+    val pp = new scala.xml.PrettyPrinter(0, 0)
+
   }
 
-  def cssAdder(className: String): (Elem) => MetaData = {
-    (elem: Elem) => {
+  def cssAdder(className: String): Elem => MetaData = {
+    elem: Elem => {
       val classes = (elem \ "@class").text match {
         case "" => className
         case x => x + " " + className
@@ -67,6 +82,30 @@ class Parser(domain: DomainBridge) {
   def describeTableFailures(expectedText: String, result: Result) = {
     val failureMarker = describeCellFailures(expectedText, result)
     if (failureMarker.isEmpty) failureMarker else <tr><td>{failureMarker}</td></tr>
+  }
+
+  def describeCellHtmlFailures(expected: String, result: Result): NodeSeq = {
+    result match {
+      case Fail(actual) =>
+        <div style="border-style: solid; border-color: red;">
+          <ul>
+            {val diff: DetailedDiff = new DetailedDiff(XMLUnit.compareXML(expected, actual))
+          diff.getAllDifferences.asScala.map { d =>
+            <li>
+              {d.toString}
+            </li>
+          }}
+          </ul>
+          <span>in</span>
+          <xmp>{XML.loadString(actual)}</xmp>
+          <span>vs</span>
+          <xmp>{XML.loadString(expected)}</xmp>
+        </div>
+      case Exception(t: Throwable) => <span>
+        {t.getMessage}
+      </span> //TODO: prettifyException(t, UUID.randomUUID())
+      case _ => XML.loadString(expected)
+    }
   }
 
   def firstCell(nodeSeq: NodeSeq): Elem = {
