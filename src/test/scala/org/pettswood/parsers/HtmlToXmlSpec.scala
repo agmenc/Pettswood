@@ -21,5 +21,13 @@ class HtmlToXmlSpec extends Specification {
     result must equalExactly (wrap(<br/>))
   }
 
+  "captions are allowed /" in {
+    val input = "<table><caption>head</caption><tr><td>hi</td></tr></table>"
+
+    val result = HtmlToXml(input)
+
+    result must equalExactly (wrap(<table><caption>head</caption><tbody><tr><td>hi</td></tr></tbody></table>))
+  }
+
   def wrap(ns: NodeSeq): NodeSeq = <html><head/><body>{ns}</body></html>
 }

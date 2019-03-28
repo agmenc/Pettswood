@@ -2,12 +2,11 @@ package org.pettswood
 
 
 trait Concept {
-  def row() {}
-  protected def cell(text: String): Result
-  def nestedConcepts() = Map.empty[String, () => Concept]
 
-  var firstCell = true
-  def anyCell(text: String): Result = if (firstCell) {firstCell = false; Uninteresting()} else cell(text)
+  def initRow() {}
+  def initHeader(header: String) : Result = Uninteresting()
+  def cell(text: String): Result
+  def nestedConcepts() = Map.empty[String, () => Concept]
 }
 
 object NoConceptDefined extends Concept {

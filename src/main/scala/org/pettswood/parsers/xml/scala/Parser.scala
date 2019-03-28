@@ -19,18 +19,19 @@ class Parser(domain: DomainBridge) {
   // - Extract the prettyPrinter
   // - Use an HTML diff to show tree-level diffs inline (hint: a tree is also a sequence, if you assume an ordering rule)
   class TestParser extends TraverseCopy {
-    def traverse(node: Node) = node match {
+    def traverse(node: Node): Node = node match {
       case elem: Elem => elem.label match {
-        case "table" => val result = domain.table(firstCell(elem).text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+        case "caption" =>
+          val result = domain.table(elem.text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+        case "th" => domain.header(elem.text); parseCopy(elem)
         case "tr" => domain.row(); parseCopy(elem)
         case "td" if (elem \ "section").nonEmpty =>
           val pp = new scala.xml.PrettyPrinter(0, 0)
           val expected = pp.format((elem \ "section").head).trim
           val result = domain.cell(expected)
           elem.copy(elem.prefix, elem.label, cssAdder(result.name)(elem), TopScope, elem.label != "script", describeCellHtmlFailures(expected, result))
-        // parseCopy(elem, cssAdder(result.name), describeCellHtmlFailures(expected, result))
         case "td" if (elem \\ "table").nonEmpty => domain.cell("Nested Table"); <td>{new Parser(domain.nestedDomain()).parse(<div>{NodeSeq.fromSeq(elem.child)}</div>)}</td>
-        case "td" | "th" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
+        case "td" => val result = domain.cell(elem.text); parseCopy(elem, cssAdder(result.name), describeCellFailures(elem.text, result))
         case _ => parseCopy(elem)
       }
       case any => any
@@ -109,7 +110,7 @@ class Parser(domain: DomainBridge) {
   }
 
   def firstCell(nodeSeq: NodeSeq): Elem = {
-    val tableCells = nodeSeq flatMap (_.descendant) filter (elem => elem.label == "th" || elem.label == "td")
+    val tableCells = nodeSeq flatMap (_.descendant) filter (elem => elem.label == "th" || elem.label == "td" || elem.label == "caption")
     tableCells.head.asInstanceOf[Elem]
   }
 

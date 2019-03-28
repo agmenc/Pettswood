@@ -10,9 +10,9 @@
 </head>
 <body>
 <table class="table mixins">
+    <caption>mixins</caption>
     <tbody>
     <tr>
-        <td class="names">mixins</td>
         <td>PettswoodFeatures</td>
         <td>Cryptography</td>
     </tr>
@@ -21,16 +21,11 @@
 <h1>Html In Tables</h1>
 <h3>This one fails ...</h3>
 <table class="table">
+    <caption>ignore</caption>
     <tbody>
-    <tr class="ignore">
-        <td>ignore</td>
-    </tr>
-    <tr class="fixture">
-        <td>Html In Tables Demo</td>
-    </tr>
     <tr class="names">
-        <td>Given this</td>
-        <td>Then do that</td>
+        <th>Given this</th>
+        <th>Then do that</th>
     </tr>
     <tr>
         <td>Please show some HTML</td>
@@ -54,13 +49,11 @@
 
 <h3>... and this one passes</h3>
 <table class="table">
+    <caption>Html In Tables Demo</caption>
     <tbody>
-    <tr class="fixture">
-        <td>Html In Tables Demo</td>
-    </tr>
     <tr class="names">
-        <td>Given this</td>
-        <td>Then do that</td>
+        <th>Given this</th>
+        <th>Then do that</th>
     </tr>
     <tr>
         <td>Please show some HTML</td>

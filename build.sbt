@@ -1,6 +1,4 @@
-import SonatypeKeys._
-
-sonatypeSettings
+import xerial.sbt.Sonatype.SonatypeKeys._
 
 name := "pettswood"
 

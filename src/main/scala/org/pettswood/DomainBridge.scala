@@ -11,9 +11,11 @@ class DomainBridge(mixinPackages: Seq[String]) {
   learn("mixins", () => new Mixins(this, mixinPackages))
   learn("ignore", () => Ignore)
 
-  def table(firstCellText: String): Result = tryThis { currentConcept = conceptFor(firstCellText); Uninteresting() }
-  def row() { currentConcept.row() }
-  def cell(text: String): Result =  tryThis { registerResult(currentConcept.anyCell(text)) }
+  def table(captionText: String): Result = tryThis { currentConcept = conceptFor(captionText); Uninteresting() }
+  def header(header: String) { currentConcept.initHeader(header) }
+  def row() { currentConcept.initRow() }
+  def cell(text: String): Result =  tryThis { registerResult(currentConcept.cell(text)) }
+
   private def tryThis(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }
 
   def registerResult(result: Result): Result = {
@@ -21,15 +23,15 @@ class DomainBridge(mixinPackages: Seq[String]) {
     result
   }
 
-  def nestedDomain() = {
+  def nestedDomain(): DomainBridge = {
     val nestling = new DomainBridge(mixinPackages)
     nestlings = nestling :: nestlings
-    currentConcept.nestedConcepts().foreach { x => nestling.learn(x._1, () => x._2()) }
+    currentConcept.nestedConcepts().foreach { case (k, v) => nestling.learn(k, () => v()) }
     nestling
   }
 
   // TODO - make learn() accept a varargs of (name, conceptoriser): _*
-  def learn(name: String, conceptoriser: () => Concept) = {concepts += ((name toLowerCase) -> conceptoriser); this}
+  def learn(name: String, conceptoriser: () => Concept): DomainBridge = {concepts += ((name toLowerCase) -> conceptoriser); this}
   def summary: ResultSummary = ResultSummary(results, nestlings.map(_.summary))
 
   def conceptFor(conceptName: String): Concept = concepts.get(conceptName toLowerCase) match {

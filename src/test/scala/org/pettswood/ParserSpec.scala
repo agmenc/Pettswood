@@ -37,21 +37,25 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
   }
 
   "when html contains tables, the parser" should {
-    "delegate table, row and cell handling to the domain" in {
+
+    "use caption for first cell text" in {
       val fixture = new Fixture()
 
       new Parser(fixture.domain).parse(
         <table>
-          <tr>
-            <th>Hello</th>
-            <td>World</td>
-          </tr>
+          <caption>Peter</caption>
+          <tbody>
+            <tr>
+              <td>World</td>
+            </tr>
+          </tbody>
         </table>
       )
 
-      there was one(fixture.domain).table("Hello")
+      there was one(fixture.domain).table("Peter")
       there was one(fixture.domain).row()
       there was one(fixture.domain).cell("World")
+
     }
 
     "jang pass/fail classes into the output" in {
@@ -99,7 +103,8 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       nestlingDomain.table(any[String]) returns Setup()
       fixture.domain.nestedDomain() returns nestlingDomain
 
-      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
+      //      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
+      new Parser(fixture.domain).parse(<td><table><caption>Nested Table</caption></table></td>) must be equalTo <td><div><table><caption>Nested Table</caption></table></div></td>
       
       there was one(nestlingDomain).table("Nested Table")
     }
@@ -135,7 +140,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
       val after = new Parser(fixture.domain).parse(before)
 
-      after must equalExactly (before)
+      after must equalExactly(before)
     }
   }
 }

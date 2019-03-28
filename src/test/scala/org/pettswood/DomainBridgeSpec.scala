@@ -45,7 +45,7 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.cell("I'm a value")
 
-      there was one(expectedConcept).anyCell("I'm a value")
+      there was one(expectedConcept).cell("I'm a value")
     }
 
     "delegate further row notification to the current concept" in {
@@ -55,14 +55,14 @@ class DomainBridgeSpec extends Specification with Mockito {
 
       domain.row()
 
-      there was one(expectedConcept).row()
+      there was one(expectedConcept).initRow()
     }
 
     "pass failure results up to the parser" in {
       val domain = new DomainBridge(mixinPackages)
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.anyCell(any[String]) returns Fail("Elephants")
+      expectedConcept.cell(any[String]) returns Fail("Elephants")
 
       domain.cell("Monkeys") must be equalTo Fail("Elephants")
     }
@@ -71,7 +71,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge(mixinPackages)
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.anyCell(any[String]) throws new RuntimeException("Stuff went wrong")
+      expectedConcept.cell(any[String]) throws new RuntimeException("Stuff went wrong")
 
       domain.cell("monkeys") must be equalTo Exception(new RuntimeException("Stuff went wrong"))
     }
@@ -80,7 +80,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val domain = new DomainBridge(mixinPackages)
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
-      expectedConcept.anyCell(any[String]) returns PASS thenReturns FAIL thenReturns FAIL thenReturns SETUP thenReturns EXCEPTION
+      expectedConcept.cell(any[String]) returns PASS thenReturns FAIL thenReturns FAIL thenReturns SETUP thenReturns EXCEPTION
 
       domain.cell("1")
       domain.cell("2")

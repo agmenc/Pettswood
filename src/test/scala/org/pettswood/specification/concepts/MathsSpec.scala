@@ -7,21 +7,16 @@ import org.pettswood.Pass
 
 class MathsSpec extends SpecificationWithJUnit with Mockito {
 
-  // TODO - push into a MultiRowTesting trait
   def givenColumns(concept: Concept, headings: String*) {
-    concept.row()
-    concept.anyCell("title cell")
-    givenDataRow(concept, headings: _*)
+    headings.foreach(h => concept.initHeader(h))
   }
 
-  // TODO - push into a ConceptTesting trait
   def givenDataRow(concept: Concept, data: String*) {
-    concept.row()
-    data foreach {element => concept.anyCell(element)}
+    concept.initRow()
+    data foreach {element => concept.cell(element)}
   }
 
-  // TODO - CAS - 14/07/2012 - Push into a MultiRowSpec
-  val genericMultiRow = new MultiRow {
+  val genericMultiRow: MultiRow = new MultiRow {
     def columns = {
       case "a" => dummyProbe
       case "b" => blowUpProbe
@@ -33,7 +28,7 @@ class MathsSpec extends SpecificationWithJUnit with Mockito {
 
   "The probe for the current column is always removed from the list, even when exceptions are thrown" in {
     givenColumns(genericMultiRow, "a", "b")
-    genericMultiRow.row()
+    genericMultiRow.initRow()
     genericMultiRow.currentProbes.size must be equalTo 2
 
     givenDataRow(genericMultiRow, "value for column a")
