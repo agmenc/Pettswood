@@ -13,7 +13,7 @@ class DomainBridge(mixinPackages: Seq[String]) {
   def table(captionText: String): Result = tryThis { currentConcept = conceptFor(captionText); Uninteresting() }
   def header(header: String) { currentConcept.initHeader(header) }
   def newRow() { currentConcept.initRow() }
-  def rowEnd(): Unit = { currentConcept.initRow() }
+  def rowEnd(): Unit = { currentConcept.endRow() }
   def cell(text: String): Result =  tryThis { registerResult(currentConcept.cell(text)) }
 
   private def tryThis(f: => Result): Result = try {f} catch { case e: Throwable => registerResult(Exception(e)) }
