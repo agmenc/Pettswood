@@ -6,6 +6,7 @@ trait MultiRow extends Concept {
   
   def columns: PartialFunction[String, String => Probe]
   def initialiseRow() {}
+  def rowComplete() {}
 
   override def initHeader(headerText: String): Result = {
     probeTemplate = probeFor(headerText) :: probeTemplate; Uninteresting()
@@ -13,9 +14,13 @@ trait MultiRow extends Concept {
 
   var currentProbes, probeTemplate = List.empty[String => Probe]
 
-  override def initRow() {
+  override final def initRow() {
     currentProbes = probeTemplate.reverse
     initialiseRow()
+  }
+
+  override final  def endRow() {
+    rowComplete()
   }
 
   def cell(cellText: String): Result = probeForCell(cellText) match {

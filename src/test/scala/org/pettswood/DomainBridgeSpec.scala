@@ -53,7 +53,7 @@ class DomainBridgeSpec extends Specification with Mockito {
       val expectedConcept = mock[Concept]
       domain.currentConcept = expectedConcept
 
-      domain.row()
+      domain.newRow()
 
       there was one(expectedConcept).initRow()
     }

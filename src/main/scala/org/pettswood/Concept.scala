@@ -4,6 +4,7 @@ package org.pettswood
 trait Concept {
 
   def initRow() {}
+  def endRow() {}
   def initHeader(header: String) : Result = Uninteresting()
   def cell(text: String): Result
   def nestedConcepts() = Map.empty[String, () => Concept]

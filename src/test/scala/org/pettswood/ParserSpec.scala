@@ -31,7 +31,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       )
 
       there was no(fixture.domain).table(any[String])
-      there was no(fixture.domain).row()
+      there was no(fixture.domain).newRow()
       there was no(fixture.domain).cell(any[String])
     }
   }
@@ -46,6 +46,9 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
           <caption>Peter</caption>
           <tbody>
             <tr>
+              <td>Hello</td>
+            </tr>
+            <tr>
               <td>World</td>
             </tr>
           </tbody>
@@ -53,7 +56,10 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       )
 
       there was one(fixture.domain).table("Peter")
-      there was one(fixture.domain).row()
+      there was one(fixture.domain).newRow()
+      there was one(fixture.domain).cell("Hello")
+      there was one(fixture.domain).rowEnd()
+
       there was one(fixture.domain).cell("World")
 
     }
@@ -103,7 +109,6 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       nestlingDomain.table(any[String]) returns Setup()
       fixture.domain.nestedDomain() returns nestlingDomain
 
-      //      new Parser(fixture.domain).parse(<td><table><td>Nested Table</td></table></td>) must be equalTo <td><div><table><td class="Pass">Nested Table</td></table></div></td>
       new Parser(fixture.domain).parse(<td><table><caption>Nested Table</caption></table></td>) must be equalTo <td><div><table><caption>Nested Table</caption></table></div></td>
       
       there was one(nestlingDomain).table("Nested Table")

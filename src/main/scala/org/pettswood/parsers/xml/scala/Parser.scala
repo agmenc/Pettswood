@@ -23,8 +23,10 @@ class Parser(domain: DomainBridge) {
       case elem: Elem => elem.label match {
         case "caption" =>
           val result = domain.table(elem.text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+
         case "th" => domain.header(elem.text); parseCopy(elem)
-        case "tr" => domain.row(); parseCopy(elem)
+        case "tr" => domain.newRow(); try {parseCopy(elem)} finally {domain.rowEnd()}
+
         case "td" if (elem \ "section").nonEmpty =>
           val pp = new scala.xml.PrettyPrinter(0, 0)
           val expected = pp.format((elem \ "section").head).trim
