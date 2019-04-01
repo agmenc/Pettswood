@@ -46,7 +46,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
           <caption>Peter</caption>
           <tbody>
             <tr>
-              <td>Hello</td>
+              <th>Hello</th>
             </tr>
             <tr>
               <td>World</td>
@@ -56,11 +56,11 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       )
 
       there was one(fixture.domain).table("Peter")
-      there was one(fixture.domain).newRow()
-      there was one(fixture.domain).cell("Hello")
-      there was one(fixture.domain).rowEnd()
+      there was one(fixture.domain).header("Hello")
 
+      there was one(fixture.domain).newRow()
       there was one(fixture.domain).cell("World")
+      there was one(fixture.domain).rowEnd()
 
     }
 

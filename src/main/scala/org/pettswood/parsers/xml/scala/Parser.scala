@@ -25,7 +25,7 @@ class Parser(domain: DomainBridge) {
           val result = domain.table(elem.text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
 
         case "th" => domain.header(elem.text); parseCopy(elem)
-        case "tr" => domain.newRow(); try {parseCopy(elem)} finally {domain.rowEnd()}
+        case "tr" if (elem \ "th").isEmpty => domain.newRow(); try {parseCopy(elem)} finally {domain.rowEnd()}
 
         case "td" if (elem \ "section").nonEmpty =>
           val pp = new scala.xml.PrettyPrinter(0, 0)
