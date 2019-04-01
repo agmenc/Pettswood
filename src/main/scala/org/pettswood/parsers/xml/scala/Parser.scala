@@ -25,7 +25,14 @@ class Parser(domain: DomainBridge) {
           val result = domain.table(elem.text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
 
         case "th" => domain.header(elem.text); parseCopy(elem)
-        case "tr" if (elem \ "th").isEmpty => domain.newRow(); try {parseCopy(elem)} finally {domain.rowEnd()}
+        case "tr" =>
+          val headerRow = (elem \ "th").nonEmpty
+          if (!headerRow) domain.newRow()
+          try {
+            parseCopy(elem)
+          } finally {
+            if (!headerRow) domain.rowEnd()
+          }
 
         case "td" if (elem \ "section").nonEmpty =>
           val pp = new scala.xml.PrettyPrinter(0, 0)
@@ -117,7 +124,7 @@ class Parser(domain: DomainBridge) {
   }
 
   // TODO - replace overall with calls to summary
-  def overall(summary: ResultSummary) = if(summary.overallPass) "Pass" else "Fail"
+  def overall(summary: ResultSummary) = if (summary.overallPass) "Pass" else "Fail"
   def summary = domain.summary
 
   def decorate(node: Node): Node = new TestDecorator().traverse(node)
