@@ -64,6 +64,27 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
 
     }
 
+    "ignore table with class ignore" in {
+      val fixture = new Fixture()
+
+      new Parser(fixture.domain).parse(
+        <table>
+          <caption  class="ignore">Peter</caption>
+          <tbody>
+            <tr>
+              <th>Hello</th>
+            </tr>
+            <tr>
+              <td>World</td>
+            </tr>
+          </tbody>
+        </table>
+      )
+
+      there was one(fixture.domain).ignoreTable()
+
+    }
+
     "jang pass/fail classes into the output" in {
       val fixture = new Fixture()
       fixture.domain.cell("pass") returns Pass("pass")

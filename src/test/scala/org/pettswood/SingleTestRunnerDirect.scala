@@ -7,5 +7,6 @@ object SingleTestRunnerDirect extends App {
     sourceRoot = "src/test/resources/pettswoodStuff",
     mixinPackages = Seq(""))
 
-  SingleRunner("src/test/resources/pettswoodStuff/HtmlInTables.html", config)
+  SingleRunner("src/test/resources/pettswoodStuff/" +
+    "IgnoreTables.html", config)
 }

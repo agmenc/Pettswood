@@ -22,7 +22,9 @@ class Parser(domain: DomainBridge) {
     def traverse(node: Node): Node = node match {
       case elem: Elem => elem.label match {
         case "caption" =>
-          val result = domain.table(elem.text); parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+          val result = if ((elem \@ "class") contains "ignore") domain.ignoreTable() else domain.table(elem.text)
+
+          parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
 
         case "th" => domain.header(elem.text); parseCopy(elem)
         case "tr" =>
