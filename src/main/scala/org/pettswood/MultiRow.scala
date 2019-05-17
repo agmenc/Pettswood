@@ -24,6 +24,7 @@ trait MultiRow extends Concept {
   }
 
   def cell(cellText: String): Result = probeForCell(cellText) match {
+    case descriptor: Descriptor => Description()
     case doer: Doer => Setup()
     case digger: Digger => given(cellText, digger.actual)
   }

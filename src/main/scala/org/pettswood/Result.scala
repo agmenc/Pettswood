@@ -12,6 +12,7 @@ object Result {
 case class Fail(override val text: String) extends Result
 case class Pass(override val text: String) extends Result
 case class Setup() extends Result { override val text = "" }
+case class Description() extends Result { override val text = "" }
 case class Uninteresting() extends Result { override val text = "" }
 
 case class Exception(exception: Throwable) extends Result {

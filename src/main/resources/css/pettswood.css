@@ -21,6 +21,7 @@ th { background-color: #DDD; }
 .pass { background-color: #ADDF90; }
 .setup { background-color: #7EABBE; }
 .fail { background-color: #E594A7; }
+.description { background-color: #ddffdd; }
 .exception { background-color: #ffcc66; line-height: 100%; }
 
 body {font-size: small}

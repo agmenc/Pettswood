@@ -11,6 +11,7 @@ class Maths extends Concept with MultiRow {
 
   def columns = {
     case "a" | "f" | "b" => CalculationAssembler
+    case "Description" => Describe
     case "=" => CalculationPerformer
   }
 
