@@ -33,6 +33,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       there was no(fixture.domain).table(any[String])
       there was no(fixture.domain).newRow()
       there was no(fixture.domain).cell(any[String])
+      there was no(fixture.domain).tableEnd()
     }
   }
 
@@ -61,6 +62,8 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       there was one(fixture.domain).newRow()
       there was one(fixture.domain).cell("World")
       there was one(fixture.domain).rowEnd()
+      there was one(fixture.domain).tableEnd()
+
 
     }
 
@@ -82,7 +85,7 @@ class ParserSpec extends SpecificationWithJUnit with Mockito {
       )
 
       there was one(fixture.domain).ignoreTable()
-
+      there was one(fixture.domain).tableEnd()
     }
 
     "jang pass/fail classes into the output" in {

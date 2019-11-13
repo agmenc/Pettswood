@@ -11,6 +11,7 @@ class DomainBridge(mixinPackages: Seq[String]) {
   learn("ignore", () => Ignore)
 
   def table(captionText: String): Result = tryThis { currentConcept = conceptFor(captionText); Uninteresting() }
+  def tableEnd(): Unit = { currentConcept.endTable() }
   def ignoreTable(): Result = tryThis { currentConcept = Ignore; Uninteresting() }
   def header(header: String): Result = tryThis { currentConcept.initHeader(header) }
   def newRow() :Unit = { currentConcept.initRow() }

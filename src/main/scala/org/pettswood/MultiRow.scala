@@ -7,6 +7,7 @@ trait MultiRow extends Concept {
   def columns: PartialFunction[String, String => Probe]
   def initialiseRow() {}
   def rowComplete() {}
+  def tableComplete() {}
 
   override def initHeader(headerText: String): Result = {
     probeTemplate = probeFor(headerText) :: probeTemplate; Uninteresting()
@@ -21,6 +22,10 @@ trait MultiRow extends Concept {
 
   override final  def endRow() {
     rowComplete()
+  }
+
+  override final  def endTable() {
+    tableComplete()
   }
 
   def cell(cellText: String): Result = probeForCell(cellText) match {

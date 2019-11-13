@@ -5,6 +5,7 @@ trait Concept {
 
   def initRow() {}
   def endRow() {}
+  def endTable() {}
   def initHeader(header: String) : Result = Uninteresting()
   def cell(text: String): Result
   def nestedConcepts() = Map.empty[String, () => Concept]

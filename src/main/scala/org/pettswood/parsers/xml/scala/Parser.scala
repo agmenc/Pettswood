@@ -24,7 +24,11 @@ class Parser(domain: DomainBridge) {
         case "caption" =>
           val result = if ((elem \@ "class") contains "ignore") domain.ignoreTable() else domain.table(elem.text)
 
-          parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+          try {
+            parseCopy(elem, extraContent = describeTableFailures(elem.text, result))
+          } finally {
+            domain.tableEnd()
+          }
 
         case "th" => domain.header(elem.text); parseCopy(elem)
         case "tr" =>
