@@ -10,7 +10,7 @@ version := "0.2.1"
 
 scalaVersion := "2.12.0"
 
-crossScalaVersions := Seq("2.11.7", "2.12.0")
+crossScalaVersions := Seq("2.11.7", "2.12.10", "2.13.1")
 
 scalacOptions ++= Seq("-unchecked", "-Yrangepos")
 
